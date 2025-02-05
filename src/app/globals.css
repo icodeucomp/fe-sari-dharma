@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  color: #eaeaea;
-  background: #222;
-}
-
 /* loading styles */
 .loader,
 .loader:before,
