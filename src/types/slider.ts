@@ -1,10 +1,12 @@
 export interface SliderProps {
   title: string;
+  description: string;
   loading: boolean | undefined;
   totalPage: number;
   className: string;
   parentClassName: string;
-  children: JSX.Element | JSX.Element[];
+  children: React.ReactNode;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   page: number;
+  linkButton?: string;
 }

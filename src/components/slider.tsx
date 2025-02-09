@@ -2,21 +2,32 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 
-import { Container } from "./container";
-import { Motion } from "./motion";
-import { Pagination } from "./pagination";
+import { Container, Pagination, Motion, Button } from "@/components";
 
 import { SliderProps } from "@/types";
+import { useRouter } from "next/navigation";
 
-export const Slider = ({ title, loading, children, totalPage, className, parentClassName, page, setPage }: SliderProps) => {
+export const Slider = ({ title, description, loading, children, totalPage, className, parentClassName, linkButton = "", page, setPage }: SliderProps) => {
+  const router = useRouter();
   return (
     <Container className={parentClassName ?? ""}>
       <div className="flex items-center justify-between">
-        <Motion tag="h3" initialX={-50} animateX={0} duration={0.4} className="heading">
-          {title}
-        </Motion>
-        <Motion tag="div" initialX={50} animateX={0} duration={0.8} delay={0.4}>
-          <Pagination page={page} totalPage={totalPage} setPage={setPage} color="primary" />
+        <div className="space-y-2">
+          <Motion tag="h4" initialX={-50} animateX={0} duration={0.3} className="heading">
+            {title}
+          </Motion>
+          <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="subheading">
+            {description}
+          </Motion>
+        </div>
+
+        <Motion tag="div" initialX={50} animateX={0} duration={0.8} delay={0.4} className="flex gap-4">
+          {linkButton && (
+            <Button className="btn-outline" onClick={() => router.push(linkButton)}>
+              Lihat Semua
+            </Button>
+          )}
+          <Pagination page={page} totalPage={totalPage} setPage={setPage} />
         </Motion>
       </div>
 

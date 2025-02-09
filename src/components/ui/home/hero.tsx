@@ -2,10 +2,6 @@
 
 import * as React from "react";
 
-import Link from "next/link";
-
-import { motion } from "framer-motion";
-
 import { Background, Img, Motion } from "@/components";
 
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
@@ -23,30 +19,45 @@ export const Hero = () => {
   };
 
   return (
-    <motion.div key={currentSlide} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1 }}>
+    <>
       <Background src={images[currentSlide]} alt="hero background" imgClassName="object-cover object-center" className="flex items-center justify-center min-h-500">
         <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-primary/40 to-secondary/40"></div>
-        <div className="relative w-full max-w-screen-xl px-4 mx-auto space-y-6 text-center sm:px-8">
+        <div className="relative w-full max-w-screen-xl px-4 mx-auto text-center sm:px-8">
           <Motion tag="h1" initialX={-50} animateX={0} duration={0.3} className="max-w-xl mx-auto text-3xl font-semibold leading-snug md:text-4xl lg:text-5xl">
             Feel Better About Finding HealthCare
           </Motion>
-          <Motion tag="h1" initialX={-50} animateX={0} duration={0.5} delay={0.3} className="text-base sm:text-lg md:text-xl">
+          <Motion tag="p" initialX={-50} animateX={0} duration={0.5} delay={0.3} className="mt-4 text-base sm:text-lg md:text-xl">
             Klinik Utama Rawat Inap Sari Dharma
           </Motion>
-          <Motion tag="h1" initialX={-50} animateX={0} duration={0.8} delay={0.5} className="flex items-center justify-center gap-4">
-            <Link href="/" className="flex items-center h-full gap-1 px-6 py-2 border rounded-2xl">
-              Explore Now
-              <Img src="/icons/arrow-up-white.svg" alt="arrow up light" className="size-5 sm:size-6 lg:size-7" />
-            </Link>
-          </Motion>
-          <button onClick={prevSlide} className="absolute z-10 -translate-y-1/2 top-8 left-8 text-dark">
+          <div className="flex justify-center gap-1 mt-12">
+            {images.map((_, index) => (
+              <button key={index} className={`duration-300 min-w-3 min-h-3 rounded-full hover:bg-secondary ${currentSlide === index ? "bg-secondary" : "bg-light"}`} />
+            ))}
+          </div>
+          <button onClick={prevSlide} className="absolute z-10 -translate-y-1/2 top-20 left-8 text-dark">
             <SlArrowLeft size={50} className="fill-light" />
           </button>
-          <button onClick={nextSlide} className="absolute z-10 -translate-y-1/2 top-8 right-8 text-dark">
+          <button onClick={nextSlide} className="absolute z-10 -translate-y-1/2 top-20 right-8 text-dark">
             <SlArrowRight size={50} className="fill-light" />
           </button>
         </div>
       </Background>
-    </motion.div>
+      <div className="w-full bg-secondary text-light">
+        <div className="flex justify-center w-full max-w-screen-lg mx-auto">
+          <div className="flex items-center justify-between w-full gap-4 p-4 bg-primary">
+            <p className="text-lg font-semibold">Temukan Dokter</p>
+            <Img src="/icons/doctor.svg" alt="icon doctor" className="size-8" cover />
+          </div>
+          <div className="flex items-center justify-between w-full gap-4 p-4 bg-secondary">
+            <p className="text-lg font-semibold">Buat Janji Temu</p>
+            <Img src="/icons/appointment.svg" alt="icon appointment" className="size-8" cover />
+          </div>
+          <div className="flex items-center justify-between w-full gap-4 p-4 bg-primary">
+            <p className="text-lg font-semibold">Hubungi Kami</p>
+            <Img src="/icons/customer-service.svg" alt="icon customer-service" className="size-8" cover />
+          </div>
+        </div>
+      </div>
+    </>
   );
 };

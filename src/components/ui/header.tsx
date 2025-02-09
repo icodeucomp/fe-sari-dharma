@@ -4,7 +4,7 @@ import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 export const Header = () => {
   return (
-    <header>
+    <header className="border-b shadow-sm border-gray/20">
       <div className="bg-primary text-light">
         <Container className="flex items-center justify-end h-12 gap-6 divide-x-2">
           <menu className="flex items-center gap-4">

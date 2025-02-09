@@ -1,12 +1,16 @@
-import { Header } from "@/components/ui";
-import { Hero, Overview } from "@/components/ui/home";
+import { Article, Healthy, Hero, Overview, Review, Service, SocialMedia, Specialize } from "@/components/ui/home";
 
 export default function Home() {
   return (
     <main>
-      <Header />
       <Hero />
       <Overview />
+      <Service />
+      <Specialize />
+      <Healthy />
+      <Review />
+      <Article />
+      <SocialMedia />
     </main>
   );
 }

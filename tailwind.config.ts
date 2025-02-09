@@ -5,7 +5,6 @@ const config: Config = {
   theme: {
     extend: {
       minHeight: {
-        "custom-height": "calc(100vh - 80px)",
         200: "200px",
         300: "300px",
         400: "400px",
@@ -16,9 +15,8 @@ const config: Config = {
         900: "800px",
         1000: "1000px",
       },
-      maxHeight: {
-        "custom-height": "calc(100vh - 80px)",
-        "custom-modal": "calc(100% - 16px)",
+      maxWidth: {
+        container: "1380px",
       },
       zIndex: {
         1: "1",
@@ -35,9 +33,10 @@ const config: Config = {
         xxs: "0.625rem",
       },
       colors: {
-        primary: "#8D3401",
+        primary: "#C75000",
         secondary: "#FB8B24",
         gray: "#6B7280",
+        "light-brown": "#FFF6EE",
         light: "#FFFFFF",
         dark: "#1E1F20",
       },

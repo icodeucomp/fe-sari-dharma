@@ -7,3 +7,6 @@ export * from "./pagination";
 export * from "./dropdown";
 export * from "./motion";
 export * from "./navbar";
+export * from "./slider";
+export * from "./breadcrumb";
+export * from "./tab";
