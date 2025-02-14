@@ -1,7 +1,6 @@
 import { Container, Img } from "@/components";
 import Link from "next/link";
 
-import { FaAngleDown } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 
 const navbarList: string[] = ["Profil Klinik", "Layanan Unggulan", "Cari Dokter", "Media & Informasi"];
@@ -15,9 +14,8 @@ export const Navbar = () => {
         </Link>
         <menu className="flex items-center gap-6">
           {navbarList.map((item, index) => (
-            <li key={index} className="flex items-center gap-2 cursor-pointer group">
+            <li key={index} className="flex items-center gap-2 cursor-pointer font-semibold">
               {item}
-              <FaAngleDown className="duration-300 group-hover:rotate-180" />
             </li>
           ))}
         </menu>

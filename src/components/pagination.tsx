@@ -3,7 +3,7 @@ import { PiCaretLeftThin, PiCaretRightThin } from "react-icons/pi";
 import { PaginationProps } from "@/types";
 
 export const Pagination = ({ setPage, page, totalPage, isNumber = false }: PaginationProps) => {
-  const maxVisiblePages = 5;
+  const maxVisiblePages = 3;
 
   const handleNextPage = () => {
     setPage((prevPage) => Math.min(prevPage + 1, totalPage));
@@ -52,7 +52,12 @@ export const Pagination = ({ setPage, page, totalPage, isNumber = false }: Pagin
       {isNumber &&
         getPageNumbers().map((numberPage, index) =>
           typeof numberPage === "number" ? (
-            <button key={index} type="button" onClick={() => setPage(numberPage)} className={`pagination-number ${numberPage === page ? `bg-secondary text-light` : "bg-light text-dark"}`}>
+            <button
+              key={index}
+              type="button"
+              onClick={() => setPage(numberPage)}
+              className={`pagination-number ${numberPage === page ? `bg-primary text-light border-secondary` : "bg-light text-dark border-gray/50"}`}
+            >
               {numberPage}
             </button>
           ) : (

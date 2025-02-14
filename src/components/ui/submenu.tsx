@@ -4,8 +4,8 @@ import { MdArrowForward } from "react-icons/md";
 
 export const Submenu = ({ menu, title, items }: { menu: string; title: string; items: { title: string; link: string }[] }) => {
   return (
-    <div className="w-full max-w-xs">
-      <div className="p-4 bg-primary text-light">
+    <div className="w-full max-w-xs min-w-72 xl:min-w-80">
+      <div className="px-4 py-3 bg-primary text-light">
         <h4>{menu}</h4>
         <h4 className="text-xl font-bold">{title}</h4>
       </div>

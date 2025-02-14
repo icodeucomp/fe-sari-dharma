@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth !important;
+}
+
 .card-shadow {
   box-shadow: 0px 6px 15px #181c143b;
 }
@@ -95,7 +99,7 @@
     @apply relative flex items-center gap-2 p-2 text-sm text-gray font-semibold rounded-lg cursor-pointer sm:px-4 sm:gap-8 border;
   }
   .pagination-number {
-    @apply size-10 sm:size-12 flex items-center justify-center text-center transition-all border rounded-lg shadow-sm border-gray/50 text-dark;
+    @apply size-10 sm:size-12 flex items-center justify-center text-center transition-all border rounded-lg shadow-sm text-dark;
   }
   .pagination-button {
     @apply size-10 sm:size-12 flex items-center justify-center border rounded-lg bg-light duration-300;
