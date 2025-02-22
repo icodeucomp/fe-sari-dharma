@@ -10,3 +10,4 @@ export * from "./navbar";
 export * from "./slider";
 export * from "./breadcrumb";
 export * from "./tab";
+export * from "./submenu";

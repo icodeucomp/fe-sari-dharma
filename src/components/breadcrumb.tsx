@@ -4,7 +4,7 @@ import { BreadcrumbProps } from "@/types";
 
 export const Breadcrumbs = ({ items }: BreadcrumbProps) => {
   return (
-    <ol className="flex gap-x-1" aria-label="breadcrumbs">
+    <ol className="flex gap-1 py-1 px-4 border rounded-md border-gray/50 my-8" aria-label="breadcrumbs">
       {items.map((item, index) => (
         <li key={index} className="flex items-center">
           {index !== 0 && <span className="mr-1 font-semibold text-gray">/</span>}

@@ -1,9 +1,10 @@
-import * as React from "react";
+"use client";
 
-import { Motion, Slider } from "@/components";
+import * as React from "react";
+import { Motion, Slider, Container } from "@/components";
 import { useMediaQuery } from "@/hooks";
 
-export const TabsField = () => {
+export const MediaContent = () => {
   const [page, setPage] = React.useState<number>(10);
   const [limit, setLimit] = React.useState<number>(3);
   const [totalPage, setTotalPage] = React.useState<number>(0);
@@ -40,5 +41,36 @@ export const TabsField = () => {
         </Motion>
       ))}
     </Slider>
+  );
+};
+
+export const SocialMedia = () => {
+  const [activeTab, setActiveTab] = React.useState<"youtube" | "instagram">("youtube");
+
+  return (
+    <div className="bg-primary/10 pb-20">
+      <Container className="py-8 space-y-8">
+        <div className="flex py-4 overflow-hidden rounded-md">
+          <button
+            className={`border w-full relative font-semibold rounded-s-md py-2 ${activeTab === "youtube" ? "bg-primary text-light border-primary" : "text-gray bg-light border-gray/50"}`}
+            onClick={() => setActiveTab("youtube")}
+          >
+            YouTube
+            <i className={`absolute rotate-45 -translate-x-1/2 -bottom-2 size-4 bg-primary left-1/2 ${activeTab === "youtube" ? "block" : "hidden"}`}></i>
+          </button>
+          <button
+            className={`border w-full relative font-semibold rounded-e-md py-2 ${activeTab === "instagram" ? "bg-primary text-light border-primary" : "text-gray bg-light border-gray/50"}`}
+            onClick={() => setActiveTab("instagram")}
+          >
+            Instagram
+            <i className={`absolute rotate-45 -translate-x-1/2 -bottom-2 size-4 bg-primary left-1/2 ${activeTab === "instagram" ? "block" : "hidden"}`}></i>
+          </button>
+        </div>
+      </Container>
+
+      {activeTab === "youtube" && <MediaContent />}
+
+      {activeTab === "instagram" && <MediaContent />}
+    </div>
   );
 };

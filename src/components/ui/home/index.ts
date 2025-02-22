@@ -5,4 +5,3 @@ export * from "./specialize";
 export * from "./healthy";
 export * from "./review";
 export * from "./article";
-export * from "./social-media";

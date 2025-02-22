@@ -1,10 +1,10 @@
 import { Certification, HistoricalTimeline, Message, VisionMission } from "@/components/ui/about-us";
 
-import { Hero, Submenu } from "@/components/ui";
+import { Hero } from "@/components/ui";
 
-import { Breadcrumbs, Container, Motion } from "@/components";
+import { Breadcrumbs, Container, Submenu } from "@/components";
 
-export default function Overview() {
+export default function Overviews() {
   return (
     <main>
       <Hero src="/images/introduction.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Klinik introduction" />
@@ -34,30 +34,26 @@ export default function Overview() {
         </div>
 
         <div className="sticky self-start space-y-8 top-4">
-          <Motion tag="div" initialY={50} animateY={0} duration={0.3}>
-            <Submenu
-              menu="Akses Cepat"
-              title="Klinik Introduction"
-              items={[
-                { title: "Overview", link: "/tentang-kami/ikhtisar#pesan" },
-                { title: "Mission & Vision", link: "/tentang-kami/ikhtisar#visi-misi" },
-                { title: "Sertifikasi & Penghargaan", link: "/tentang-kami/ikhtisar#sertifikasi-penghargaan" },
-                { title: "Linimasa Historikal", link: "/tentang-kami/ikhtisar#histori" },
-              ]}
-            />
-          </Motion>
+          <Submenu
+            menu="Akses Cepat"
+            title="Klinik Introduction"
+            items={[
+              { title: "Overview", link: "/tentang-kami/ikhtisar#pesan" },
+              { title: "Mission & Vision", link: "/tentang-kami/ikhtisar#visi-misi" },
+              { title: "Sertifikasi & Penghargaan", link: "/tentang-kami/ikhtisar#sertifikasi-penghargaan" },
+              { title: "Linimasa Historikal", link: "/tentang-kami/ikhtisar#histori" },
+            ]}
+          />
 
-          <Motion tag="div" initialY={50} animateY={0} duration={0.3}>
-            <Submenu
-              menu="Akses"
-              title="Tentang Kami"
-              items={[
-                { title: "Klinik Introduction", link: "/tentang-kami/ikhtisar" },
-                { title: "Layanan & Fasilitas", link: "/tentang-kami/layanan-fasilitas" },
-                { title: "Ambulance & Emergency", link: "/tentang-kami/ambulans" },
-              ]}
-            />
-          </Motion>
+          <Submenu
+            menu="Akses Menu"
+            title="Tentang Kami"
+            items={[
+              { title: "Klinik Introduction", link: "/tentang-kami/ikhtisar" },
+              { title: "Layanan & Fasilitas", link: "/tentang-kami/layanan-fasilitas" },
+              { title: "Ambulance & Emergency", link: "/tentang-kami/ambulans" },
+            ]}
+          />
         </div>
       </Container>
     </main>

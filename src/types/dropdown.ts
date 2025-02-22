@@ -2,9 +2,9 @@ export interface DropdownProps {
   parentClassName: string;
   className: string;
   data: {
-    display: string;
+    label: string;
     value: string;
   }[];
-  selectedValue: string;
+  defaultValue: string;
   handleFiltered: (value: string) => void;
 }

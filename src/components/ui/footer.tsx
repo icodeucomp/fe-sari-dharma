@@ -9,7 +9,7 @@ import { IoLogoWhatsapp } from "react-icons/io5";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray/10">
+    <footer className="bg-gray/10 mt-auto">
       <Container className="flex justify-between gap-8 py-8">
         <div className="max-w-sm space-y-4">
           <Img src="/images/logo.png" alt="logo clinic sari dharma" className="size-14" cover />

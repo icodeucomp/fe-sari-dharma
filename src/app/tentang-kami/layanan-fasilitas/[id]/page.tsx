@@ -1,12 +1,12 @@
 import { DetailServiceFacility } from "@/components/ui/about-us";
 
-import { Hero, Submenu } from "@/components/ui";
+import { Hero } from "@/components/ui";
 
-import { Breadcrumbs, Container, Motion } from "@/components";
+import { Breadcrumbs, Container, Submenu } from "@/components";
 
 import { formatTitleCase } from "@/utils";
 
-export default function ServicesAndFacilities({ params }: { params: { id: string } }) {
+export default function ServiceFacility({ params }: { params: { id: string } }) {
   return (
     <main>
       <Hero src="/images/ambulance.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
@@ -20,7 +20,7 @@ export default function ServicesAndFacilities({ params }: { params: { id: string
           ]}
         />
       </Container>
-      <Container className="relative flex min-h-screen gap-16 py-16">
+      <Container className="relative flex min-h-screen gap-16 pb-16">
         <div className="w-full">
           <section id="daftar">
             <DetailServiceFacility />
@@ -28,20 +28,17 @@ export default function ServicesAndFacilities({ params }: { params: { id: string
         </div>
 
         <div className="sticky self-start space-y-8 top-4">
-          <Motion tag="div" initialY={50} animateY={0} duration={0.3}>
-            <Submenu menu="Akses Cepat" title="Ambulance & Emergency" items={[{ title: `${formatTitleCase(params.id)}`, link: `/tentang-kami/layanan-fasilitas/${params.id}#daftar` }]} />
-          </Motion>
-          <Motion tag="div" initialY={50} animateY={0} duration={0.3}>
-            <Submenu
-              menu="Akses"
-              title="Tentang Kami"
-              items={[
-                { title: "Klinik Introduction", link: "/tentang-kami/ikhtisar" },
-                { title: "Layanan & Fasilitas", link: "/tentang-kami/layanan-fasilitas" },
-                { title: "Ambulance & Emergency", link: "/tentang-kami/ambulans" },
-              ]}
-            />
-          </Motion>
+          <Submenu menu="Akses Cepat" title="Ambulance & Emergency" items={[{ title: `${formatTitleCase(params.id)}`, link: `/tentang-kami/layanan-fasilitas/${params.id}#daftar` }]} />
+
+          <Submenu
+            menu="Akses Menu"
+            title="Tentang Kami"
+            items={[
+              { title: "Klinik Introduction", link: "/tentang-kami/ikhtisar" },
+              { title: "Layanan & Fasilitas", link: "/tentang-kami/layanan-fasilitas" },
+              { title: "Ambulance & Emergency", link: "/tentang-kami/ambulans" },
+            ]}
+          />
         </div>
       </Container>
     </main>

@@ -1,6 +1,9 @@
-import { Img, Container, Navbar } from "@/components";
+import Link from "next/link";
+
+import { Img, Container, Navbar, Button } from "@/components";
 
 import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { IoSearch } from "react-icons/io5";
 
 export const Header = () => {
   return (
@@ -31,7 +34,21 @@ export const Header = () => {
           </menu>
         </Container>
       </div>
-      <Navbar />
+      <div className="bg-light text-dark">
+        <div className="flex items-center justify-between w-full h-20 px-4 mx-auto max-w-container sm:px-8">
+          <Link href="/">
+            <Img src="/images/logo.png" alt="logo clinic sari dharma" className="size-14" cover />
+          </Link>
+
+          <Navbar />
+          <div className="">
+            <Button type="button" className="btn-primary">
+              <IoSearch size={24} className="fill-white" />
+              <span className="sr-only">Search</span>
+            </Button>
+          </div>
+        </div>
+      </div>
     </header>
   );
 };

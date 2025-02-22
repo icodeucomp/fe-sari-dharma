@@ -17,6 +17,7 @@ const config: Config = {
       },
       maxWidth: {
         container: "1380px",
+        navbar: "900px",
       },
       zIndex: {
         1: "1",

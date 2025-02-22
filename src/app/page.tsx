@@ -1,6 +1,8 @@
-import { Article, Healthy, Hero, Overview, Review, Service, SocialMedia, Specialize } from "@/components/ui/home";
+import { Article, Healthy, Hero, Overview, Review, Service, Specialize } from "@/components/ui/home";
 
-export default function Home() {
+import { SocialMedia } from "@/components/ui";
+
+export default function Homes() {
   return (
     <main>
       <Hero />

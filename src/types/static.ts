@@ -5,3 +5,9 @@ export interface footerListType {
     link: string;
   }[];
 }
+
+export interface navbarListType {
+  title: string;
+  link?: string;
+  content?: { title: string; link: string }[];
+}
