@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { Img, Container, Navbar, Button } from "@/components";
