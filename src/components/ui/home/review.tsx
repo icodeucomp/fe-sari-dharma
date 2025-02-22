@@ -12,6 +12,12 @@ export const Review = () => {
   const [limit, setLimit] = React.useState<number>(3);
   const [totalPage, setTotalPage] = React.useState<number>(0);
 
+  React.useEffect(() => {
+    if (page && limit) {
+      setTotalPage(page);
+    }
+  }, [page, limit]);
+
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
   const isMobile = useMediaQuery("(min-width: 0px) and (max-width: 639px)");

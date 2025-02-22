@@ -24,6 +24,12 @@ export const Schedule = () => {
     console.log(value);
   };
 
+  React.useEffect(() => {
+    if (page) {
+      setTotalPage(page);
+    }
+  }, [page]);
+
   return (
     <>
       <div className="pb-8 space-y-4 border-b border-gray/50">

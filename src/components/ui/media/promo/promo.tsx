@@ -33,6 +33,12 @@ export const PacketsPromosSection = () => {
   const [page, setPage] = React.useState<number>(0);
   const [totalPage, setTotalPage] = React.useState<number>(10);
 
+  React.useEffect(() => {
+    if (page) {
+      setTotalPage(page);
+    }
+  }, [page]);
+
   return (
     <>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">

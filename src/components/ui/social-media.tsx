@@ -14,6 +14,12 @@ export const MediaContent = () => {
   const isMobile = useMediaQuery("(min-width: 0px) and (max-width: 639px)");
 
   React.useEffect(() => {
+    if (page && limit) {
+      setTotalPage(page);
+    }
+  }, [page, limit]);
+
+  React.useEffect(() => {
     if (isDesktop) {
       setLimit(3);
     } else if (isTablet) {

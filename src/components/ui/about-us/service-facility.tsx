@@ -35,6 +35,12 @@ export const ServiceFacility = () => {
     });
   };
 
+  React.useEffect(() => {
+    if (page) {
+      setTotalPage(page);
+    }
+  }, [page]);
+
   return (
     <div className="space-y-10">
       <Motion tag="div" initialX={-50} animateX={0} duration={0.3} className="pb-8 space-y-2 leading-relaxed text-justify border-b-2 border-gray/20">
