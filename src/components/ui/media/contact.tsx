@@ -27,6 +27,7 @@ export const Contacts = () => {
     }
 
     // Send data to server here
+    console.log(`${email} ${firstName} ${lastName}`);
 
     setInput(initValues);
   };
