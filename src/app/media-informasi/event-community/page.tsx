@@ -1,7 +1,7 @@
 import { Breadcrumbs, Container, Motion, Submenu } from "@/components";
-import { EventCommunity } from "@/components/ui/media";
+import { EventsCommunities } from "@/components/ui/media";
 
-export default function EventsCommunities() {
+export default function EventsCommunitiesPage() {
   return (
     <main>
       <Container>
@@ -23,7 +23,7 @@ export default function EventsCommunities() {
       </Container>
       <Container className="relative flex min-h-screen gap-16 pt-4 pb-16">
         <div className="w-full">
-          <EventCommunity />
+          <EventsCommunities />
         </div>
 
         <div className="sticky self-start space-y-8 top-4">

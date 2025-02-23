@@ -6,10 +6,10 @@ import { Breadcrumbs, Container, Submenu } from "@/components";
 
 import { formatTitleCase } from "@/utils";
 
-export default function ServiceFacility({ params }: { params: { id: string } }) {
+export default function ServiceFacilityPage({ params }: { params: { id: string } }) {
   return (
     <main>
-      <Hero src="/images/ambulance.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
+      <Hero src="/images/service.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
       <Container>
         <Breadcrumbs
           items={[

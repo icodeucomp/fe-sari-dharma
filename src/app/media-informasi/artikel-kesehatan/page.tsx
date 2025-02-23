@@ -2,7 +2,7 @@ import { Breadcrumbs, Container } from "@/components";
 import { SocialMedia } from "@/components/ui";
 import { HealthArticle } from "@/components/ui/media";
 
-export default function HealthArticles() {
+export default function HealthArticlesPage() {
   return (
     <main>
       <Container>

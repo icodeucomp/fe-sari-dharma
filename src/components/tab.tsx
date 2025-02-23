@@ -35,7 +35,7 @@ export const Tab: React.FC = () => {
   };
 
   return (
-    <div className="w-full mx-auto overflow-hidden">
+    <div className="w-full overflow-hidden">
       <div ref={sliderRef} onMouseDown={handleMouseDown} className={`flex space-x-4 overflow-x-auto scrollbar-hide ${isScrollable ? "cursor-grab active:cursor-grabbing" : "cursor-default"}`}>
         {Array.from({ length: 10 }).map((_, index) => (
           <Button key={index} className="flex-shrink-0 w-40 btn-outline">

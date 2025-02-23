@@ -87,6 +87,9 @@ html {
   .btn-primary {
     @apply bg-primary text-light;
   }
+  .btn-green {
+    @apply bg-green-600 text-light;
+  }
   .btn-light {
     @apply bg-light text-primary;
   }
@@ -98,6 +101,9 @@ html {
   }
   .subheading {
     @apply text-sm sm:text-base md:text-lg text-dark;
+  }
+  .form-contact-input {
+    @apply w-full text-sm bg-gray/10 border border-gray/50 outline-primary focus:border-primary p-2.5 rounded-md duration-300;
   }
   .popover {
     @apply absolute py-2 -translate-x-1/2 border border-gray rounded-lg shadow-lg left-1/2 w-full bg-light text-dark z-100;

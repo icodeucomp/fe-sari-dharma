@@ -1,34 +1,25 @@
-import { Button, Container, Motion, Submenu } from "@/components";
+import { Button, Container, Img, Motion, Submenu } from "@/components";
 
 import { Recommendation } from "./recommendation";
 
-import { FaFacebook, FaInstagram, FaLink, FaXTwitter } from "react-icons/fa6";
+import { FaLink } from "react-icons/fa6";
 
-export const MainEventCommunity = () => {
+export const MainPromo = () => {
   return (
     <Container className="relative flex min-h-screen gap-16 pb-16">
       <div className="w-full space-y-8">
-        <div className="pb-8 space-y-12 border-b-2 border-gray/20">
+        <div className="pb-8 space-y-6 border-b-2 border-gray/20">
           <Motion tag="h2" initialY={50} animateY={0} duration={0.5} className="text-4xl font-semibold text-primary">
             Peresmian Gedung Baru dengan Fasilitas Rawat Inap Modern
           </Motion>
           <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={0.3} className="flex items-center justify-between gap-8">
-            <menu className="flex items-center gap-2">
-              <li className="flex items-center justify-center rounded-md size-10 bg-primary text-light">
-                <FaInstagram size={20} />
-              </li>
-              <li className="flex items-center justify-center rounded-md size-10 bg-primary text-light">
-                <FaXTwitter size={20} />
-              </li>
-              <li className="flex items-center justify-center rounded-md size-10 bg-primary text-light">
-                <FaFacebook size={20} />
-              </li>
-            </menu>
+            <span className="text-gray">*Berlaku s/d 31 Desember 2025</span>
             <Button className="flex items-center gap-1 btn-outline">
-              Share <FaLink />
+              Bagikan <FaLink />
             </Button>
           </Motion>
         </div>
+        <Img src="/images/temp-4.png" alt="temp" className="w-full min-h-400" cover />
         <div>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit corrupti, repellat nam voluptate ipsam, iusto ullam dolor voluptatum natus sed esse, sit possimus facilis odio repudiandae
           sunt temporibus distinctio cum ad consequuntur. Dolorem, aperiam voluptatem veniam ipsa non temporibus recusandae perspiciatis, ab alias tempore reiciendis libero cum accusamus, voluptatum

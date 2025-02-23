@@ -7,29 +7,30 @@ import { useRouter } from "next/navigation";
 import { Button, Img, Motion, Pagination } from "@/components";
 
 import { GoArrowRight } from "react-icons/go";
-import { IoCalendarOutline } from "react-icons/io5";
 
-import { convertDate, formatKebabCase } from "@/utils";
+import { formatKebabCase } from "@/utils";
 
-const ArticleCard = ({ date, title, pathUrl, pathImg }: { pathImg: string; date: string; title: string; pathUrl: string }) => {
+const Card = ({ title, pathUrl, pathImg }: { pathImg: string; title: string; pathUrl: string }) => {
   const router = useRouter();
   return (
     <>
-      <Img src={pathImg || "/images/temp-4.png"} alt={title} className="w-full rounded-lg h-60" cover />
-      <div className="flex items-center gap-1 mt-2 text-xs sm:text-sm text-gray">
-        <IoCalendarOutline />
-        {convertDate(date)}
+      <div className="relative text-light text-xs">
+        <span className="absolute left-0 bottom-0 rounded-se-md py-2 px-4 bg-secondary z-1">Divisi Medis</span>
+        <Img src={pathImg || "/images/temp-4.png"} alt={title} className="w-full h-60" cover />
       </div>
-      <h4 className="h-12 mt-2 text-base font-semibold sm:h-14 sm:text-lg text-dark line-clamp-2">{title}</h4>
 
-      <Button onClick={() => router.push(`/media-informasi/event-community/${pathUrl}`)} className="flex items-center gap-2 mt-4 btn-outline group w-max">
-        Read More <GoArrowRight className="fill-primary group-hover:fill-light" size={20} />
-      </Button>
+      <div className="p-4 space-y-2">
+        <h4 className="text-base font-semibold sm:text-lg text-dark line-clamp-2">{title}</h4>
+        <Button onClick={() => router.push(`/media-informasi/paket-promo/${pathUrl}`)} className="flex items-center justify-center gap-2 btn-primary w-full">
+          Lihat Lowongan
+          <GoArrowRight className="fill-light -rotate-45" size={20} />
+        </Button>
+      </div>
     </>
   );
 };
 
-export const PacketsPromosSection = () => {
+export const Carriers = () => {
   const [page, setPage] = React.useState<number>(0);
   const [totalPage, setTotalPage] = React.useState<number>(10);
 
@@ -47,9 +48,8 @@ export const PacketsPromosSection = () => {
           ) : (
             <> */}
         {[...Array(6)].map((_, index) => (
-          <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={index * 0.1} key={index}>
-            <ArticleCard
-              date={"2025-02-20"}
+          <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={index * 0.1} key={index} className="border border-gray/50 rounded-md overflow-hidden">
+            <Card
               title={"Pelatihan CT Scan dan MRI dalam Mendeteksi Kerusakan Otak"}
               pathUrl={formatKebabCase("Pelatihan CT Scan dan MRI dalam Mendeteksi Kerusakan Otak")}
               pathImg={"/images/temp-4.png"}

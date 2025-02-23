@@ -1,22 +1,22 @@
 import { Breadcrumbs, Container } from "@/components";
-import { MainArticle } from "@/components/ui/media";
+import { MainFormManagement } from "@/components/ui/media";
 import { formatTitleCase } from "@/utils";
 
-export default function FormManagement({ params }: { params: { id: string } }) {
+export default function FormManagementPage({ params }: { params: { id: string } }) {
   return (
     <main>
       <Container>
         <Breadcrumbs
           items={[
             { name: "Beranda", path: "/" },
-            { name: "Media & Informasi", path: "/media-informasi/artikel-kesehatan" },
-            { name: "Artikel Kesehatan", path: "/media-informasi/artikel-kesehatan" },
-            { name: `${formatTitleCase(params.id)}`, path: `/media-informasi/artikel-kesehatan/${params.id}` },
+            { name: "Media & Informasi", path: "/media-informasi/form-management" },
+            { name: "Form Management", path: "/media-informasi/form-management" },
+            { name: `${formatTitleCase(params.id)}`, path: `/media-informasi/form-management/${params.id}` },
           ]}
         />
       </Container>
 
-      <MainArticle />
+      <MainFormManagement />
     </main>
   );
 }

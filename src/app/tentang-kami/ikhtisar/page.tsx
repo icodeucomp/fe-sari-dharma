@@ -4,7 +4,7 @@ import { Hero } from "@/components/ui";
 
 import { Breadcrumbs, Container, Submenu } from "@/components";
 
-export default function Overviews() {
+export default function OverviewPage() {
   return (
     <main>
       <Hero src="/images/introduction.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Klinik introduction" />

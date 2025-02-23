@@ -42,7 +42,7 @@ export const Header = () => {
             <Img src="/images/logo.png" alt="logo clinic sari dharma" className="size-14" cover />
           </Link>
 
-          <Navbar toggleNavbar={() => console.log("test")} navbar />
+          <Navbar toggleNavbar={() => console.log("test")} navbar={false} />
           <div className="">
             <Button type="button" className="btn-primary">
               <IoSearch size={24} className="fill-white" />

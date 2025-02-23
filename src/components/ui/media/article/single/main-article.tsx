@@ -25,7 +25,7 @@ export const MainArticle = () => {
               </li>
             </menu>
             <Button className="flex items-center gap-1 btn-outline">
-              Share <FaLink />
+              Bagikan <FaLink />
             </Button>
           </Motion>
         </div>

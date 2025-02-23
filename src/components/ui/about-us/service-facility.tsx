@@ -9,15 +9,15 @@ import { formatKebabCase } from "@/utils";
 const sections = [
   {
     title: "Instalasi Gawat Darurat",
-    images: ["/images/home.webp", "/images/ambulance-car.webp", "/images/ambulance.webp"],
+    images: ["/images/home.webp", "/images/ambulance-car.webp", "/images/service.webp"],
   },
   {
     title: "Ruang Rawat Inap",
-    images: ["/images/home.webp", "/images/ambulance-car.webp", "/images/ambulance.webp"],
+    images: ["/images/home.webp", "/images/ambulance-car.webp", "/images/service.webp"],
   },
   {
     title: "Ruang USG 4D",
-    images: ["/images/home.webp", "/images/ambulance-car.webp", "/images/ambulance.webp"],
+    images: ["/images/home.webp", "/images/ambulance-car.webp", "/images/service.webp"],
   },
 ];
 

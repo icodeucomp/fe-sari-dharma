@@ -2,7 +2,7 @@ import { Article, Healthy, Hero, Overview, Review, Service, Specialize } from "@
 
 import { SocialMedia } from "@/components/ui";
 
-export default function Homes() {
+export default function HomePage() {
   return (
     <main>
       <Hero />

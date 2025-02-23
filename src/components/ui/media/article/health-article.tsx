@@ -1,7 +1,29 @@
-import { Background, Container, Motion } from "@/components";
-import { convertDate, formatKebabCase } from "@/utils";
 import Link from "next/link";
+
+import { Background, Container, Motion } from "@/components";
+
 import { LuTag } from "react-icons/lu";
+
+import { convertDate, formatKebabCase } from "@/utils";
+
+const Card = () => {
+  return (
+    <Background src="/images/temp-1.png" alt="temp" className="w-full min-h-60 flex items-end" imgClassName="object-cover" parentClassName="rounded-md">
+      <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
+      <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
+        <LuTag size={20} />
+        Edukasi Kesehatan
+      </span>
+
+      <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
+        <span className="text-xs font-light">{convertDate("2025-02-19")}</span>
+        <Link href={`/media-informasi/artikel-kesehatan/${formatKebabCase("Peran CT Scan dan MRI dalam Mendeteksi Stroke")}`}>
+          <h3 className="font-semibold line-clamp-2">Peran CT Scan dan MRI dalam Mendeteksi Stroke</h3>
+        </Link>
+      </div>
+    </Background>
+  );
+};
 
 export const HealthArticle = () => {
   return (
@@ -31,20 +53,7 @@ export const HealthArticle = () => {
           </div>
         </Background>
         {[...Array(4)].map((_, index) => (
-          <Background key={index} src="/images/temp-1.png" alt="temp" className="w-full min-h-60 flex items-end" imgClassName="object-cover" parentClassName="rounded-md">
-            <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
-            <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
-              <LuTag size={20} />
-              Edukasi Kesehatan
-            </span>
-
-            <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
-              <span className="text-xs font-light">{convertDate("2025-02-19")}</span>
-              <Link href={`/media-informasi/artikel-kesehatan/${formatKebabCase("Peran CT Scan dan MRI dalam Mendeteksi Stroke")}`}>
-                <h3 className="font-semibold line-clamp-2">Peran CT Scan dan MRI dalam Mendeteksi Stroke</h3>
-              </Link>
-            </div>
-          </Background>
+          <Card key={index} />
         ))}
       </div>
     </Container>

@@ -1,15 +1,15 @@
 import { Breadcrumbs, Container, Motion, Submenu } from "@/components";
-import { PacketsPromosSection } from "@/components/ui/media";
+import { PacketsPromos } from "@/components/ui/media";
 
-export default function PacketsPromos() {
+export default function PacketsPromosPage() {
   return (
     <main>
       <Container>
         <Breadcrumbs
           items={[
             { name: "Beranda", path: "/" },
-            { name: "Media & Informasi", path: "/media-informasi/artikel-kesehatan" },
-            { name: "Artikel Kesehatan", path: "/media-informasi/artikel-kesehatan" },
+            { name: "Media & Informasi", path: "/media-informasi/paket-promo" },
+            { name: "Paket Kesehatan", path: "/media-informasi/paket-promo" },
           ]}
         />
       </Container>
@@ -22,9 +22,10 @@ export default function PacketsPromos() {
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
         </Motion>
       </Container>
+
       <Container className="relative flex min-h-screen gap-16 pt-4 pb-16">
         <div className="w-full">
-          <PacketsPromosSection />
+          <PacketsPromos />
         </div>
 
         <div className="sticky self-start space-y-8 top-4">

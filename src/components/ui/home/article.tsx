@@ -47,7 +47,7 @@ export const Article = () => {
             </p>
 
             <Button className="flex items-center gap-2 btn-outline">
-              Read More
+              Lihat
               <FaArrowRightLong />
             </Button>
           </Motion>
@@ -71,7 +71,7 @@ export const Article = () => {
               </div>
 
               <Button className="flex items-center gap-2 btn-outline">
-                Read More
+                Lihat
                 <FaArrowRightLong />
               </Button>
             </Motion>

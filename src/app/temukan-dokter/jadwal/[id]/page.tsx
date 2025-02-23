@@ -3,7 +3,7 @@ import { Profile } from "@/components/ui/find-doctor";
 import { Breadcrumbs, Container } from "@/components";
 import { formatTitleCase } from "@/utils";
 
-export default function DoctorProfile({ params }: { params: { id: string } }) {
+export default function DoctorProfilePage({ params }: { params: { id: string } }) {
   return (
     <main>
       <Container>

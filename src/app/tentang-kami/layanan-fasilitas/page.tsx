@@ -4,10 +4,10 @@ import { Hero } from "@/components/ui";
 
 import { Breadcrumbs, Container, Submenu } from "@/components";
 
-export default function ServicesFacilities() {
+export default function ServicesFacilitiesPage() {
   return (
     <main>
-      <Hero src="/images/ambulance.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
+      <Hero src="/images/service.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
       <Container>
         <Breadcrumbs
           items={[

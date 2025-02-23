@@ -1,16 +1,13 @@
-import Link from "next/link";
-
-import { Img, Motion } from "@/components";
+import { Button, Img, Motion } from "@/components";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 import { LuTag } from "react-icons/lu";
 
-import { convertDate, formatKebabCase } from "@/utils";
-
-const RecommendationEvent = () => {
+const OthersPromo = () => {
   return (
     <div className="space-y-4 divide-y-2 divide-primary">
       <Motion tag="h4" initialY={50} animateY={0} duration={0.5} className="text-xl font-semibold text-primary">
-        Event & Community Lainnya
+        Paket Kesehatan Lainnya
       </Motion>
       <div className="pt-4 space-y-4">
         {[...Array(3)].map((_, index) => (
@@ -18,13 +15,20 @@ const RecommendationEvent = () => {
             <Img src="/images/temp-5.png" alt="temp" className="w-full min-h-32" cover />
             <span className="flex items-center gap-2 px-4 py-2 text-xs rounded-md w-max bg-secondary text-light">
               <LuTag size={16} />
-              Edukasi Kesehatan
+              General Checkup
             </span>
-            <div className="space-y-1 text-dark">
-              <span className="text-sm font-light">{convertDate("2025-02-19")}</span>
-              <Link href={`/media-informasi/artikel-kesehatan/${formatKebabCase("Peran CT Scan dan MRI dalam Mendeteksi Stroke")}`}>
-                <h3 className="font-semibold line-clamp-2">Pentingnya Tidur Berkualitas untuk Kesehatan Tubuh</h3>
-              </Link>
+            <div className="space-y-2 text-dark">
+              <span className="text-sm font-light">*Berlaku s/d 31 Desember 2025</span>
+              <h3 className="font-semibold line-clamp-2">Pentingnya Tidur Berkualitas untuk Kesehatan Tubuh</h3>
+
+              <p className="line-clamp-2 text-gray text-sm max-w-xs text-justify">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi non, doloremque eaque nostrum sapiente odit expedita voluptas fuga deserunt vitae?
+              </p>
+
+              <Button className="btn-outline flex items-center gap-2">
+                Lihat Paket
+                <FaArrowRightLong />
+              </Button>
             </div>
           </Motion>
         ))}
@@ -36,7 +40,7 @@ const RecommendationEvent = () => {
 export const Recommendation = () => {
   return (
     <div className="pb-8 pr-2 space-y-4">
-      <RecommendationEvent />
+      <OthersPromo />
     </div>
   );
 };

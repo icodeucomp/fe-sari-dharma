@@ -2,7 +2,7 @@ import { Schedule } from "@/components/ui/find-doctor";
 
 import { Breadcrumbs, Container, Submenu } from "@/components";
 
-export default function DoctorsSchedules() {
+export default function DoctorsSchedulesPage() {
   return (
     <main>
       <Container>

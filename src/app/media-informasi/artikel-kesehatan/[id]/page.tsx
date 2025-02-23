@@ -4,7 +4,7 @@ import { MainArticle } from "@/components/ui/media";
 
 import { formatTitleCase } from "@/utils";
 
-export default function HealthArticle({ params }: { params: { id: string } }) {
+export default function HealthArticlePage({ params }: { params: { id: string } }) {
   return (
     <main>
       <Container>
