@@ -91,7 +91,9 @@ export const ServiceFacility = () => {
               <Link href={`/tentang-kami/layanan-fasilitas/${item.slug}`}>
                 <h4 className="text-3xl font-semibold text-primary">{item.nama_fasilitas}</h4>
               </Link>
-              <p className="leading-relaxed text-justify">{item.deskripsi_overview}</p>
+              <p className="leading-relaxed text-justify">
+              {item.deskripsi_overview.length > 300 ? `${item.deskripsi_overview.slice(0, 300)}...` : item.deskripsi_overview}
+              </p>
             </div>
           </Motion>
         ))}

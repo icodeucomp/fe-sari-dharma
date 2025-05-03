@@ -28,7 +28,7 @@ const Card = ({ artikel }: { artikel: any }) => {
       <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
       <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
         <LuTag size={20} />
-        Edukasi Kesehatan
+        {artikel.kategori?.name}
       </span>
 
       <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
@@ -54,6 +54,7 @@ export const HealthArticle = () => {
       const articles = response.data.data;
       
       if (articles.length > 0) {
+        console.log(articles);
         setMainArticle(articles[0]);
         setSideArticles(articles.slice(1));
       }
@@ -68,8 +69,6 @@ export const HealthArticle = () => {
     fetchArtikel();
   }, [fetchArtikel]);
 
-  if (loading || !mainArticle) return <div>Loading...</div>;
-
   return (
     <Container className="space-y-8">
       <div className="pb-8 space-y-4 border-b border-gray/50">
@@ -81,30 +80,40 @@ export const HealthArticle = () => {
         </Motion>
       </div>
 
-      <div className="grid grid-cols-4 grid-rows-2 gap-4">
-        <Background 
-          src={getImageUrl(mainArticle.foto)} 
-          alt={mainArticle.judul} 
-          className="w-full min-h-60 flex items-end h-full" 
-          imgClassName="object-cover" 
-          parentClassName="rounded-md col-span-2 row-span-2"
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
-          <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
-            <LuTag size={20} />
-            Edukasi Kesehatan
-          </span>
+      <div className="grid grid-cols-4 pb-[100px] grid-rows-2 gap-4">
+        {
+          loading || !mainArticle ? (
+            <div className="col-span-4 row-span-2 flex items-center justify-center">
+              <p>Loading...</p>
+            </div>
+          ) : (
+            <>
+              <Background 
+                src={getImageUrl(mainArticle.foto)} 
+                alt={mainArticle.judul} 
+                className="w-full min-h-60 flex items-end h-full" 
+                imgClassName="object-cover" 
+                parentClassName="rounded-md col-span-2 row-span-2"
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
+                <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
+                  <LuTag size={20} />
+                  Edukasi Kesehatan
+                </span>
 
-          <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
-            <span className="font-light">{convertDate(mainArticle.created_at)}</span>
-            <Link href={`/media-informasi/artikel-kesehatan/${mainArticle.slug}/${mainArticle.id}`}>
-              <h3 className="font-semibold text-2xl line-clamp-2">{mainArticle.judul}</h3>
-            </Link>
-          </div>
-        </Background>
-        {sideArticles.map((artikel, index) => (
-          <Card key={artikel.id} artikel={artikel} />
-        ))}
+                <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
+                  <span className="font-light">{convertDate(mainArticle.created_at)}</span>
+                  <Link href={`/media-informasi/artikel-kesehatan/${mainArticle.slug}/${mainArticle.id}`}>
+                    <h3 className="font-semibold text-2xl line-clamp-2">{mainArticle.judul}</h3>
+                  </Link>
+                </div>
+              </Background>
+              {sideArticles.map((artikel, index) => (
+                <Card key={artikel.id} artikel={artikel} />
+              ))}
+            </>
+          )
+        }
       </div>
     </Container>
   );

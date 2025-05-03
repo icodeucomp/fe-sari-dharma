@@ -116,9 +116,9 @@ export const Schedule = () => {
             return (
               <div key={jadwal.id} className="flex w-full gap-8 py-4 border-b border-gray/50">
                 <Img 
-                  src={getImageUrl(jadwal.foto)} 
+                  src={getImageUrl(jadwal.dokter.foto)} 
                   alt="dokter" 
-                  className="min-h-72 min-w-52" 
+                  className="min-h-72 min-w-52 rounded-lg" 
                   cover 
                 />
                 <div className="flex flex-col justify-between w-full gap-4">

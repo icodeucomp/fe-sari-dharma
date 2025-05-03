@@ -144,17 +144,13 @@ export const Profile = ({ id }: { id: string }) => {
         </div>
         <Container className="flex items-center gap-16">
           <Img src={getImageUrl(data.dokter.foto)} alt={data.dokter.nama_dokter} className="min-h-72 min-w-52" cover />
-          <div className="max-w-2xl space-y-4 text-light">
+          <div className="w-2xl space-y-4 text-light">
             <h4 className="text-2xl font-semibold">{data.dokter.nama_dokter}</h4>
             <menu className="space-y-2">
               <span className="text-2xl font-semibold">Spesialis</span>
               <li className="flex items-center gap-2">
                 <i className="flex items-center justify-center flex-shrink-0 border-2 rounded-md border-light size-10">1</i>
                 <p>{ data.spesialis.nama_layanan}</p>
-              </li>
-              <li className="flex items-center gap-2">
-                <i className="flex items-center justify-center flex-shrink-0 border-2 rounded-md border-light size-10">2</i>
-                <p>{ data.spesialis.deskripsi}</p>
               </li>
             </menu>
             <Button className="btn-light">Appointment</Button>
