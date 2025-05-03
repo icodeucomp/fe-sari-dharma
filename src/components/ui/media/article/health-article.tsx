@@ -1,14 +1,30 @@
+"use client";
+
+import * as React from "react";
 import Link from "next/link";
-
 import { Background, Container, Motion } from "@/components";
-
 import { LuTag } from "react-icons/lu";
-
 import { convertDate, formatKebabCase } from "@/utils";
+import { getArtikelKesehatan } from "@/services/artikel-kesehatan.service";
 
-const Card = () => {
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
+// Helper function untuk format URL gambar
+const getImageUrl = (path: string) => {
+  if (!path) return '/images/placeholder.jpg';
+  if (path.startsWith('http')) return path;
+  return `${BASE_URL}/storage/${path}`;
+};
+
+const Card = ({ artikel }: { artikel: any }) => {
   return (
-    <Background src="/images/temp-1.png" alt="temp" className="w-full min-h-60 flex items-end" imgClassName="object-cover" parentClassName="rounded-md">
+    <Background 
+      src={getImageUrl(artikel.foto)} 
+      alt={artikel.judul} 
+      className="w-full min-h-60 flex items-end" 
+      imgClassName="object-cover" 
+      parentClassName="rounded-md"
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
       <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
         <LuTag size={20} />
@@ -16,9 +32,9 @@ const Card = () => {
       </span>
 
       <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
-        <span className="text-xs font-light">{convertDate("2025-02-19")}</span>
-        <Link href={`/media-informasi/artikel-kesehatan/${formatKebabCase("Peran CT Scan dan MRI dalam Mendeteksi Stroke")}`}>
-          <h3 className="font-semibold line-clamp-2">Peran CT Scan dan MRI dalam Mendeteksi Stroke</h3>
+        <span className="text-xs font-light">{convertDate(artikel.created_at)}</span>
+        <Link href={`/media-informasi/artikel-kesehatan/${artikel.slug}/${artikel.id}`}>
+          <h3 className="font-semibold line-clamp-2">{artikel.judul}</h3>
         </Link>
       </div>
     </Background>
@@ -26,6 +42,34 @@ const Card = () => {
 };
 
 export const HealthArticle = () => {
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [mainArticle, setMainArticle] = React.useState<any>(null);
+  const [sideArticles, setSideArticles] = React.useState<any[]>([]);
+
+  // Fungsi untuk mengambil data artikel
+  const fetchArtikel = React.useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await getArtikelKesehatan({ per_page: 5, page: 1 });
+      const articles = response.data.data;
+      
+      if (articles.length > 0) {
+        setMainArticle(articles[0]);
+        setSideArticles(articles.slice(1));
+      }
+    } catch (error) {
+      console.error('Error fetching artikel:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    fetchArtikel();
+  }, [fetchArtikel]);
+
+  if (loading || !mainArticle) return <div>Loading...</div>;
+
   return (
     <Container className="space-y-8">
       <div className="pb-8 space-y-4 border-b border-gray/50">
@@ -33,12 +77,18 @@ export const HealthArticle = () => {
           Artikel Kesehatan
         </Motion>
         <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="leading-tight subheading">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Temukan berbagai tips kesehatan dan informasi medis disini.
         </Motion>
       </div>
 
       <div className="grid grid-cols-4 grid-rows-2 gap-4">
-        <Background src="/images/temp-1.png" alt="temp" className="w-full min-h-60 flex items-end h-full" imgClassName="object-cover" parentClassName="rounded-md col-span-2 row-span-2">
+        <Background 
+          src={getImageUrl(mainArticle.foto)} 
+          alt={mainArticle.judul} 
+          className="w-full min-h-60 flex items-end h-full" 
+          imgClassName="object-cover" 
+          parentClassName="rounded-md col-span-2 row-span-2"
+        >
           <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
           <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
             <LuTag size={20} />
@@ -46,14 +96,14 @@ export const HealthArticle = () => {
           </span>
 
           <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
-            <span className="font-light">{convertDate("2025-02-19")}</span>
-            <Link href={`/media-informasi/artikel-kesehatan/${formatKebabCase("Peran CT Scan dan MRI dalam Mendeteksi Stroke")}`}>
-              <h3 className="font-semibold text-2xl line-clamp-2">Peran CT Scan dan MRI dalam Mendeteksi Stroke</h3>
+            <span className="font-light">{convertDate(mainArticle.created_at)}</span>
+            <Link href={`/media-informasi/artikel-kesehatan/${mainArticle.slug}/${mainArticle.id}`}>
+              <h3 className="font-semibold text-2xl line-clamp-2">{mainArticle.judul}</h3>
             </Link>
           </div>
         </Background>
-        {[...Array(4)].map((_, index) => (
-          <Card key={index} />
+        {sideArticles.map((artikel, index) => (
+          <Card key={artikel.id} artikel={artikel} />
         ))}
       </div>
     </Container>

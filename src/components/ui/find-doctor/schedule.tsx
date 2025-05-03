@@ -1,12 +1,39 @@
 "use client";
 
 import * as React from "react";
-
 import { useRouter } from "next/navigation";
-
 import { Button, Dropdown, Img, Motion, Pagination } from "@/components";
-
 import { formatKebabCase } from "@/utils";
+import { getJadwalDokter } from "@/services/jadwal-dokter.service";
+
+// Helper function untuk mendapatkan URL gambar
+const getImageUrl = (path: string) => {
+  if (!path) return '/images/placeholder.jpg';
+  if (path.startsWith('http')) return path;
+  return `${process.env.NEXT_PUBLIC_API_URL}/storage/${path}`;
+};
+
+/**
+ * Helper function untuk memformat jadwal berdasarkan hari
+ */
+const formatJadwalByHari = (jadwalDokter: any[]) => {
+  const hariList = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
+  const formattedJadwal: { [key: string]: string } = {};
+  
+  // Inisialisasi semua hari dengan "-"
+  hariList.forEach(hari => {
+    formattedJadwal[hari] = "-";
+  });
+  
+  // Isi jadwal yang ada
+  jadwalDokter.forEach(jadwal => {
+    if (hariList.includes(jadwal.hari)) {
+      formattedJadwal[jadwal.hari] = `${jadwal.jam_mulai} - ${jadwal.jam_selesai}`;
+    }
+  });
+  
+  return formattedJadwal;
+};
 
 const data = [
   { label: "Monday", value: "monday" },
@@ -15,20 +42,42 @@ const data = [
 ];
 
 export const Schedule = () => {
-  const [page, setPage] = React.useState<number>(0);
-  const [totalPage, setTotalPage] = React.useState<number>(10);
+  const [page, setPage] = React.useState<number>(1);
+  const [totalPage, setTotalPage] = React.useState<number>(1);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [jadwalDokter, setJadwalDokter] = React.useState<any[]>([]);
+  const [filters, setFilters] = React.useState({
+    spesialis_id: '',
+    dokter_id: '',
+  });
 
   const router = useRouter();
 
-  const handleFilteredSpecialist = (value: string) => {
-    console.log(value);
-  };
+  // Fungsi untuk mengambil data jadwal dokter
+  const fetchJadwalDokter = React.useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await getJadwalDokter(page, 10, {
+        spesialis_id: filters.spesialis_id || undefined,
+        dokter_id: filters.dokter_id || undefined,
+      });
+      setJadwalDokter(response.data.data);
+      setTotalPage(response.data.last_page);
+    } catch (error) {
+      console.error('Error fetching jadwal dokter:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [page, filters]);
 
   React.useEffect(() => {
-    if (page) {
-      setTotalPage(page);
-    }
-  }, [page]);
+    fetchJadwalDokter();
+  }, [fetchJadwalDokter]);
+
+  const handleFilteredSpecialist = (value: string) => {
+    setFilters(prev => ({ ...prev, spesialis_id: value }));
+    setPage(1);
+  };
 
   return (
     <>
@@ -56,53 +105,65 @@ export const Schedule = () => {
         </div>
       </div>
       <div className="w-full mb-8">
-        <div className="flex w-full gap-8 py-4 border-b border-gray/50">
-          <Img src="/images/temp-5.png" alt="temp" className="min-h-72 min-w-52" cover />
-          <div className="flex flex-col justify-between w-full gap-4">
-            <div className="space-y-1">
-              <h3 className="text-xl font-bold text-dark">dr. Bambang Sutoyo, Sp.A</h3>
-
-              <p className="font-semibold text-gray">
-                Spesialis <span className="text-primary">Anak</span>
-              </p>
-            </div>
-            <div className="w-full overflow-x-auto scrollbar">
-              <table className="w-full text-sm text-center">
-                <thead>
-                  <tr className="text-white bg-primary">
-                    {["Senin", "Selasa", "Rabu", "Kamis", "Jumat"].map((day) => (
-                      <th key={day} className="p-3 border border-primary">
-                        {day}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    {[...Array(5)].map((_, index) => (
-                      <td key={index} className="p-3 border border-gray/50">
-                        13.00 - 18.00
-                      </td>
-                    ))}
-                  </tr>
-                  <tr>
-                    {[...Array(5)].map((_, index) => (
-                      <td key={index} className="p-3 border border-gray/50">
-                        11.45 - 14.00
-                      </td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="flex space-x-4">
-              <Button onClick={() => router.push(`/temukan-dokter/jadwal/${formatKebabCase("dr. Bambang Sutoyo, Sp.A")}`)} className="btn-outline">
-                View Full Profile
-              </Button>
-              <Button className="btn-primary">Appointment</Button>
-            </div>
+        {loading ? (
+          <div className="flex justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
-        </div>
+        ) : (
+          jadwalDokter.map((jadwal) => {
+            const formattedJadwal = formatJadwalByHari(jadwal.jadwal_dokter);
+            
+            return (
+              <div key={jadwal.id} className="flex w-full gap-8 py-4 border-b border-gray/50">
+                <Img 
+                  src={getImageUrl(jadwal.foto)} 
+                  alt="dokter" 
+                  className="min-h-72 min-w-52" 
+                  cover 
+                />
+                <div className="flex flex-col justify-between w-full gap-4">
+                  <div className="space-y-1">
+                    <h3 className="text-xl font-bold text-dark">{jadwal.nama_dokter}</h3>
+                    <p className="font-semibold text-gray">
+                      Spesialis <span className="text-primary">{jadwal.spesialis}</span>
+                    </p>
+                  </div>
+                  <div className="w-full overflow-x-auto scrollbar">
+                    <table className="w-full text-sm text-center">
+                      <thead>
+                        <tr className="text-white bg-primary">
+                          {["Senin", "Selasa", "Rabu", "Kamis", "Jumat"].map((day) => (
+                            <th key={day} className="p-3 border border-primary">
+                              {day}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          {["Senin", "Selasa", "Rabu", "Kamis", "Jumat"].map((day) => (
+                            <td key={day} className="p-3 border border-gray/50">
+                              {formattedJadwal[day]}
+                            </td>
+                          ))}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="flex space-x-4">
+                    <Button 
+                      onClick={() => router.push(`/temukan-dokter/jadwal/${jadwal.id}`)} 
+                      className="btn-outline"
+                    >
+                      View Full Profile
+                    </Button>
+                    <Button className="btn-primary">Appointment</Button>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
       </div>
       <Pagination page={page} totalPage={totalPage} setPage={setPage} isNumber />
     </>

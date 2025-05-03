@@ -16,7 +16,7 @@ export default function DoctorProfilePage({ params }: { params: { id: string } }
           ]}
         />
       </Container>
-      <Profile />
+      <Profile id={params.id} />
     </main>
   );
 }
