@@ -123,9 +123,9 @@ export const Schedule = () => {
                 />
                 <div className="flex flex-col justify-between w-full gap-4">
                   <div className="space-y-1">
-                    <h3 className="text-xl font-bold text-dark">{jadwal.nama_dokter}</h3>
+                    <h3 className="text-xl font-bold text-dark">{jadwal.dokter.nama_dokter  }</h3>
                     <p className="font-semibold text-gray">
-                      Spesialis <span className="text-primary">{jadwal.spesialis}</span>
+                      Spesialis <span className="text-primary">{jadwal.spesialis.nama_layanan}</span>
                     </p>
                   </div>
                   <div className="w-full overflow-x-auto scrollbar">
