@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Img, Motion } from "@/components";
 import { LuTag } from "react-icons/lu";
-import { convertDate, formatKebabCase } from "@/utils";
+import { convertDate } from "@/utils";
 import { EventCommunity, getEventCommunity } from "@/services/event-community.service";
 
 /**

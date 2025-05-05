@@ -18,7 +18,7 @@ interface EventCommunityResponse {
   };
 }
 
-interface EventCommunity {
+export interface EventCommunity {
   id: string;
   kategori_id: string;
   judul: string;
