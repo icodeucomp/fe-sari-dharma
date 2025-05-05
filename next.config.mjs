@@ -1,12 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "source.unsplash.com",
-      },
-    ],
+    domains: ["img.youtube.com", "upload.wikimedia.org"], // Add YouTube and Play Button domains
   },
 };
 

@@ -89,7 +89,7 @@ const MobileLink = ({ link, title, content, toggleNavbar }: LinkProps) => {
       <motion.div initial={false} animate={dropdown ? "open" : "closed"} variants={motionVariants} className="w-full px-4 space-y-2 bg-light sm:px-8">
         <div className="py-4 space-y-4 text-sm sm:text-base">
           {content?.map((item, index) => (
-            <button onClick={() => handleClick(link + item.link)} key={index} className="flex items-center gap-4 font-medium text-dark-gray hover:font-semibold w-max">
+            <button onClick={() => handleClick(link + item.link)} key={index} className="flex items-center gap-4 font-medium text-dark hover:font-semibold w-max">
               {item.title} <FaAngleRight />
             </button>
           ))}
@@ -109,7 +109,7 @@ export const Navbar = ({ navbar, toggleNavbar }: { navbar: boolean; toggleNavbar
         initial={false}
         animate={navbar ? "open" : "closed"}
         variants={motionVariants}
-        className="absolute left-0 w-full pt-4 space-y-4 overflow-hidden sm:pt-8 lg:pt-0 top-20 text-nowrap bg-primary text-light"
+        className="absolute left-0 w-full space-y-4 overflow-hidden py-4 top-20 text-nowrap bg-primary text-light z-1000"
       >
         {navbarLists.map((item, index) => (
           <MobileLink key={index} link={item.link} title={item.title} content={item.content} toggleNavbar={toggleNavbar} />

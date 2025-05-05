@@ -4,7 +4,7 @@ import * as React from "react";
 import { Motion, Slider, Container } from "@/components";
 import { useMediaQuery } from "@/hooks";
 
-export const MediaContent = () => {
+export const MediaContent = ({ title, description }: { title: string; description: string }) => {
   const [page, setPage] = React.useState<number>(10);
   const [limit, setLimit] = React.useState<number>(3);
   const [totalPage, setTotalPage] = React.useState<number>(0);
@@ -29,16 +29,7 @@ export const MediaContent = () => {
     }
   }, [isDesktop, isTablet, isMobile]);
   return (
-    <Slider
-      page={page}
-      setPage={setPage}
-      title="Layanan Unggulan"
-      description="Layanan kesehatan terjangkau dengan perawatan terbaik."
-      totalPage={totalPage}
-      parentClassName="space-y-8"
-      className="grid grid-cols-3 grid-rows-2 gap-8"
-      loading={false}
-    >
+    <Slider page={page} setPage={setPage} title={title} description={description} totalPage={totalPage} parentClassName="space-y-8" className="grid grid-cols-3 grid-rows-2 gap-8" loading={false}>
       {Array.from({ length: 3 }, (_, index) => (
         <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={index} className={`card-shadow min-h-200 text-dark bg-light ${index === 0 && "row-span-2 col-span-2"}`}>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ducimus voluptate, obcaecati tempore alias nesciunt soluta commodi illo nostrum placeat ipsa quos deleniti, vel
@@ -74,9 +65,11 @@ export const SocialMedia = () => {
         </div>
       </Container>
 
-      {activeTab === "youtube" && <MediaContent />}
+      {activeTab === "youtube" && <MediaContent title="YouTube: Sari Dharma Klinik Utama" description="Saksikan video dan konten edukasi dari Klinik Utama Rawat Inap Sari Dharma." />}
 
-      {activeTab === "instagram" && <MediaContent />}
+      {activeTab === "instagram" && (
+        <MediaContent title="Instagram: @saridharma_clinic" description="Saksikan video konten edukasi dan promo paket kesehatan dari Klinik Utama Rawat Inap Sari Dharma." />
+      )}
     </div>
   );
 };

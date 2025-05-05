@@ -9,3 +9,4 @@ export * from "./dropdown";
 export * from "./slider";
 export * from "./breadcrumb";
 export * from "./static";
+export * from "./api/payload";

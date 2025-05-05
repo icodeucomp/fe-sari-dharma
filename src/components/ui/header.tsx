@@ -6,11 +6,13 @@ import { Img, Container, Navbar, Button } from "@/components";
 
 import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
+import { useToggleState } from "@/hooks";
 
 export const Header = () => {
+  const [ref, navbar, toggleNavbar] = useToggleState();
   return (
-    <header className="border-b shadow-sm border-gray/20">
-      <div className="bg-primary text-light">
+    <header ref={ref} className="border-b shadow-sm border-gray/20">
+      <div className="bg-primary text-light hidden lg:block">
         <Container className="flex items-center justify-end h-12 gap-6 divide-x-2">
           <menu className="flex items-center gap-4">
             <li className="flex items-center gap-1 text-xs">
@@ -42,12 +44,21 @@ export const Header = () => {
             <Img src="/images/logo.png" alt="logo clinic sari dharma" className="size-14" cover />
           </Link>
 
-          <Navbar toggleNavbar={() => console.log("test")} navbar={false} />
-          <div className="">
+          <Navbar toggleNavbar={toggleNavbar} navbar={navbar} />
+          <Button type="button" className="btn-primary hidden lg:block">
+            <IoSearch size={24} className="fill-white" />
+            <span className="sr-only">Search</span>
+          </Button>
+          <div className="flex items-center gap-4 lg:hidden">
             <Button type="button" className="btn-primary">
               <IoSearch size={24} className="fill-white" />
               <span className="sr-only">Search</span>
             </Button>
+            <button onClick={toggleNavbar} className={`relative flex flex-col justify-center overflow-hidden items-center p-2 ${navbar ? "space-y-1" : "space-y-1.5"}`}>
+              <span className={`block h-1 w-10 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "translate-y-2 rotate-45" : ""}`}></span>
+              <span className={`block h-1 w-8 rounded-full bg-primary duration-200 ${navbar && "translate-x-16"}`}></span>
+              <span className={`block h-1 w-10 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "-translate-y-2 -rotate-45" : ""}`}></span>
+            </button>
           </div>
         </div>
       </div>

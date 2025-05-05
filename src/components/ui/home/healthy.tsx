@@ -12,13 +12,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 export const Healthy = () => {
   const [page, setPage] = React.useState<number>(10);
   const [limit, setLimit] = React.useState<number>(3);
-  const [totalPage, setTotalPage] = React.useState<number>(0);
-
-  React.useEffect(() => {
-    if (page && limit) {
-      setTotalPage(page);
-    }
-  }, [page, limit]);
+  console.log("🚀 ~ Healthy ~ limit:", limit);
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
@@ -41,7 +35,7 @@ export const Healthy = () => {
         setPage={setPage}
         title="Layanan Unggulan"
         description="Layanan kesehatan terjangkau dengan perawatan terbaik."
-        totalPage={totalPage}
+        totalPage={0}
         parentClassName="py-14 space-y-8"
         className="space-y-4"
         linkButton="/"

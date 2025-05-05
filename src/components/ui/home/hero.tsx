@@ -31,18 +31,24 @@ export const Hero = () => {
           </Motion>
           <div className="flex justify-center gap-1 mt-12">
             {images.map((_, index) => (
-              <button key={index} className={`duration-300 min-w-3 min-h-3 rounded-full hover:bg-secondary ${currentSlide === index ? "bg-secondary" : "bg-light"}`} />
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`duration-300 min-w-3 min-h-3 rounded-full hover:bg-secondary ${currentSlide === index ? "bg-secondary" : "bg-light"}`}
+              />
             ))}
           </div>
-          <button onClick={prevSlide} className="absolute z-10 -translate-y-1/2 top-20 left-8 text-dark">
-            <SlArrowLeft size={50} className="fill-light" />
-          </button>
-          <button onClick={nextSlide} className="absolute z-10 -translate-y-1/2 top-20 right-8 text-dark">
-            <SlArrowRight size={50} className="fill-light" />
-          </button>
+          <div className="hidden lg:block">
+            <button onClick={prevSlide} className="absolute z-10 -translate-y-1/2 top-20 left-8 text-dark">
+              <SlArrowLeft size={50} className="fill-light" />
+            </button>
+            <button onClick={nextSlide} className="absolute z-10 -translate-y-1/2 top-20 right-8 text-dark">
+              <SlArrowRight size={50} className="fill-light" />
+            </button>
+          </div>
         </div>
       </Background>
-      <div className="w-full bg-secondary text-light">
+      <div className="w-full bg-secondary text-light hidden lg:block">
         <div className="flex justify-center w-full max-w-screen-lg mx-auto">
           <div className="flex items-center justify-between w-full gap-4 p-4 bg-primary">
             <p className="text-lg font-semibold">Temukan Dokter</p>
