@@ -4,30 +4,28 @@ import * as React from "react";
 
 import Link from "next/link";
 
-import { useMediaQuery } from "@/hooks";
+// import { useMediaQuery } from "@/hooks";
 
 import { Button, Img, Motion, Slider, Tab } from "@/components";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export const Healthy = () => {
   const [page, setPage] = React.useState<number>(10);
-  const [limit, setLimit] = React.useState<number>(3);
-  console.log("🚀 ~ Healthy ~ limit:", limit);
-  console.log("🚀 ~ Healthy ~ limit:", limit);
+  // const [limit, setLimit] = React.useState<number>(3);
 
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
-  const isMobile = useMediaQuery("(min-width: 0px) and (max-width: 639px)");
+  // const isDesktop = useMediaQuery("(min-width: 1024px)");
+  // const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
+  // const isMobile = useMediaQuery("(min-width: 0px) and (max-width: 639px)");
 
-  React.useEffect(() => {
-    if (isDesktop) {
-      setLimit(3);
-    } else if (isTablet) {
-      setLimit(2);
-    } else if (isMobile) {
-      setLimit(1);
-    }
-  }, [isDesktop, isTablet, isMobile]);
+  // React.useEffect(() => {
+  //   if (isDesktop) {
+  //     setLimit(3);
+  //   } else if (isTablet) {
+  //     setLimit(2);
+  //   } else if (isMobile) {
+  //     setLimit(1);
+  //   }
+  // }, [isDesktop, isTablet, isMobile]);
 
   return (
     <div className="bg-light-brown">
