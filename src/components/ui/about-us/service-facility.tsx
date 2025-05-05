@@ -88,7 +88,7 @@ export const ServiceFacility = () => {
               </div>
             </div>
             <div className="space-y-2">
-              <Link href={`/tentang-kami/layanan-fasilitas/${item.slug}`}>
+              <Link href={`/tentang-kami/layanan-fasilitas/${item.slug}/${item.id}`}>
                 <h4 className="text-3xl font-semibold text-primary">{item.nama_fasilitas}</h4>
               </Link>
               <p className="leading-relaxed text-justify">

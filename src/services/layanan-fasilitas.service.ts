@@ -30,6 +30,23 @@ interface LayananFasilitas {
   updated_at: string;
 }
 
+interface DetailLayananFasilitas {
+  id: string;
+  nama_fasilitas: string;
+  deskripsi_overview: string;
+  layanan_fasilitas: string;
+  foto_header: string;
+  foto_lainnya: string;
+  slug: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface DetailLayananFasilitasResponse {
+  success: boolean;
+  data: DetailLayananFasilitas;
+}
+
 /**
  * Service untuk mengambil data layanan fasilitas
  */
@@ -44,5 +61,15 @@ export const getLayananFasilitas = async (page: number = 1, perPage: number = 10
     `${process.env.NEXT_PUBLIC_API_URL}/api/layanan-fasilitas?${params}`
   );
 
+  return response.data;
+};
+
+/**
+ * Service untuk mengambil detail layanan fasilitas berdasarkan slug dan id
+ */
+export const getDetailLayananFasilitas = async (slug: string, id: string) => {
+  const response = await axios.get<DetailLayananFasilitasResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/layanan-fasilitas/${slug}/${id}`
+  );
   return response.data;
 };
