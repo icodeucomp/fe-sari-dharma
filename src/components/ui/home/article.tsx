@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
@@ -22,7 +23,7 @@ const getImageUrl = (path: string) => {
 };
 
 export const Article = () => {
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const [, setLoading] = React.useState<boolean>(false);
   const [mainArticle, setMainArticle] = React.useState<any>(null);
   const [sideArticles, setSideArticles] = React.useState<any[]>([]);
 

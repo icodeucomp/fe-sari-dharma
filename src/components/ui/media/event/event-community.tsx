@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
@@ -9,7 +10,7 @@ import { Button, Img, Motion, Pagination } from "@/components";
 import { GoArrowRight } from "react-icons/go";
 import { IoCalendarOutline } from "react-icons/io5";
 
-import { convertDate, formatKebabCase } from "@/utils";
+import { convertDate } from "@/utils";
 import { getEventCommunity } from "@/services/event-community.service";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -21,7 +22,7 @@ const getImageUrl = (path: string) => {
   return `${BASE_URL}/storage/${path}`;
 };
 
-const Card = ({ date, title, pathUrl, pathImg, id }: { pathImg: string; date: string; title: string; pathUrl: string; id: string }) => {
+const Card = ({ date, title, pathUrl, pathImg }: { pathImg: string; date: string; title: string; pathUrl: string; id: string }) => {
   const router = useRouter();
   return (
     <>

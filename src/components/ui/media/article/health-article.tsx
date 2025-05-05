@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
 import Link from "next/link";
 import { Background, Container, Motion } from "@/components";
 import { LuTag } from "react-icons/lu";
-import { convertDate, formatKebabCase } from "@/utils";
+import { convertDate } from "@/utils";
 import { getArtikelKesehatan } from "@/services/artikel-kesehatan.service";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -108,7 +109,7 @@ export const HealthArticle = () => {
                   </Link>
                 </div>
               </Background>
-              {sideArticles.map((artikel, index) => (
+              {sideArticles.map((artikel) => (
                 <Card key={artikel.id} artikel={artikel} />
               ))}
             </>

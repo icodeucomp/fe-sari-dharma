@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { Button, Img, Motion, Slider } from "@/components";
 import Link from "next/link";
-import Icon from '@mdi/react';
-import { mdiFileDocumentOutline } from '@mdi/js';
 import { useCallback, useEffect, useState } from "react";
 import { getSertifikasiPenghargaan } from "@/services/sertifikasi-penghargaan.service";
 
@@ -50,6 +49,8 @@ export const Certification = () => {
         </Motion>
       </div>
       <Slider
+        title="Sertifikasi & Penghargaan"
+        description="Explore our certifications and awards"
         page={page}
         setPage={setPage}
         totalPage={totalPage}

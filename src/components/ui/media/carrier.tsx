@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { Button, Img, Motion, Pagination } from "@/components";
 import { GoArrowRight } from "react-icons/go";
 import { getKarir } from "@/services/karir.service";
@@ -20,7 +20,6 @@ const Card = ({ divisi, posisi, pathUrl, pathImg }: {
   posisi: string; 
   pathUrl: string;
 }) => {
-  const router = useRouter();
   return (
     <>
       <div className="relative text-light text-xs">

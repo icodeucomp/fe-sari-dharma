@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Button, Dropdown, Img, Motion, Pagination } from "@/components";
-import { formatKebabCase } from "@/utils";
 import { getJadwalDokter } from "@/services/jadwal-dokter.service";
 
 // Helper function untuk mendapatkan URL gambar

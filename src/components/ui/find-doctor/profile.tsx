@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
 import { Button, Container, Img } from "@/components";
 import { Submenu } from "../../submenu";
 import { getJadwalDokterDetail } from "@/services/jadwal-dokter-detail.service";
-import moment from "moment";
 import Icon from '@mdi/react';
 import { mdiLoading } from '@mdi/js';
 

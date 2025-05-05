@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { Button, Container, Motion, Submenu } from "@/components";
 import { Recommendation } from "./recommendation";
@@ -32,7 +33,7 @@ export const MainEventCommunity = () => {
       try {
         const result = await getEventCommunityDetail(params.slug as string, params.id as string);
         setData(result.data);
-      } catch (err) {
+      } catch {
         setError("Gagal memuat data event");
       } finally {
         setLoading(false);
