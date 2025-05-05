@@ -13,6 +13,7 @@ export const Healthy = () => {
   const [page, setPage] = React.useState<number>(10);
   const [limit, setLimit] = React.useState<number>(3);
   console.log("🚀 ~ Healthy ~ limit:", limit);
+  console.log("🚀 ~ Healthy ~ limit:", limit);
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
