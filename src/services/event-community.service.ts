@@ -29,6 +29,26 @@ interface EventCommunity {
   updated_at: string;
 }
 
+interface EventCommunityDetailResponse {
+  success: boolean;
+  data: {
+    id: string;
+    kategori_id: string;
+    judul: string;
+    slug: string;
+    konten: string;
+    foto: string;
+    kategori: {
+      id: string;
+      name: string;
+      page: string;
+      flag: string;
+    };
+    created_at: string;
+    updated_at: string;
+  };
+}
+
 /**
  * Service untuk mengambil data event community
  */
@@ -41,6 +61,19 @@ export const getEventCommunity = async (page: number = 1, perPage: number = 10, 
 
   const response = await axios.get<EventCommunityResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/api/event-community?${params}`
+  );
+
+  return response.data;
+};
+
+/**
+ * Service untuk mengambil detail event community berdasarkan slug dan id
+ * @param slug - Slug event community
+ * @param id - ID event community
+ */
+export const getEventCommunityDetail = async (slug: string, id: string) => {
+  const response = await axios.get<EventCommunityDetailResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/event-community/${slug}/${id}`
   );
 
   return response.data;

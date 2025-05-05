@@ -1,33 +1,70 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
-
 import { Img, Motion } from "@/components";
-
 import { LuTag } from "react-icons/lu";
-
 import { convertDate, formatKebabCase } from "@/utils";
+import { EventCommunity, getEventCommunity } from "@/services/event-community.service";
 
+/**
+ * Komponen untuk menampilkan rekomendasi event
+ */
 const RecommendationEvent = () => {
+  const [events, setEvents] = useState<EventCommunity[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await getEventCommunity(1, 3);
+        setEvents(response.data.data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
   return (
     <div className="space-y-4 divide-y-2 divide-primary">
       <Motion tag="h4" initialY={50} animateY={0} duration={0.5} className="text-xl font-semibold text-primary">
         Event & Community Lainnya
       </Motion>
       <div className="pt-4 space-y-4">
-        {[...Array(3)].map((_, index) => (
-          <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={index * 0.1} key={index} className="pb-4 space-y-2 border-b border-gray/30">
-            <Img src="/images/temp-5.png" alt="temp" className="w-full min-h-32" cover />
-            <span className="flex items-center gap-2 px-4 py-2 text-xs rounded-md w-max bg-secondary text-light">
-              <LuTag size={16} />
-              Edukasi Kesehatan
-            </span>
-            <div className="space-y-1 text-dark">
-              <span className="text-sm font-light">{convertDate("2025-02-19")}</span>
-              <Link href={`/media-informasi/artikel-kesehatan/${formatKebabCase("Peran CT Scan dan MRI dalam Mendeteksi Stroke")}`}>
-                <h3 className="font-semibold line-clamp-2">Pentingnya Tidur Berkualitas untuk Kesehatan Tubuh</h3>
-              </Link>
-            </div>
-          </Motion>
-        ))}
+        {loading ? (
+          <p className="text-center text-gray-500">Memuat data...</p>
+        ) : (
+          events.map((event, index) => (
+            <Motion
+              tag="div"
+              initialY={50}
+              animateY={0}
+              duration={0.5}
+              delay={index * 0.1}
+              key={event.id}
+              className="pb-4 space-y-2 border-b border-gray/30"
+            >
+              <Img
+                src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${event.foto}`}
+                alt={event.judul}
+                className="w-full min-h-32"
+                cover
+              />
+              <span className="flex items-center gap-2 px-4 py-2 text-xs rounded-md w-max bg-secondary text-light">
+                <LuTag size={16} />
+                Edukasi Kesehatan
+              </span>
+              <div className="space-y-1 text-dark">
+                <span className="text-sm font-light">{convertDate(event.created_at)}</span>
+                <Link href={`/media-informasi/event-community/${event.slug}/${event.id}`}>
+                  <h3 className="font-semibold line-clamp-2">{event.judul}</h3>
+                </Link>
+              </div>
+            </Motion>
+          ))
+        )}
       </div>
     </div>
   );

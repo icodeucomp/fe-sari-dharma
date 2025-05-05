@@ -6,7 +6,7 @@ import { Breadcrumbs, Container, Submenu } from "@/components";
 
 import { formatTitleCase } from "@/utils";
 
-export default function ServiceFacilityPage({ params }: { params: { id: string } }) {
+export default function ServiceFacilityPage({ params }: { params: { id: string, slug:string } }) {
   return (
     <main>
       <Hero src="/images/service.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
@@ -16,7 +16,7 @@ export default function ServiceFacilityPage({ params }: { params: { id: string }
             { name: "Beranda", path: "/" },
             { name: "Tentang Kami", path: "/tentang-kami/layanan-fasilitas" },
             { name: "Layanan & Fasilitas", path: "/tentang-kami/layanan-fasilitas" },
-            { name: `${formatTitleCase(params.id)}`, path: `/tentang-kami/layanan-fasilitas/${params.id}` },
+            { name: `${formatTitleCase(params.slug)}`, path: `/tentang-kami/layanan-fasilitas/${params.id}` },
           ]}
         />
       </Container>
@@ -28,8 +28,6 @@ export default function ServiceFacilityPage({ params }: { params: { id: string }
         </div>
 
         <div className="sticky self-start space-y-8 top-4">
-          <Submenu menu="Akses Cepat" title="Ambulance & Emergency" items={[{ title: `${formatTitleCase(params.id)}`, link: `/tentang-kami/layanan-fasilitas/${params.id}#daftar` }]} />
-
           <Submenu
             menu="Akses Menu"
             title="Tentang Kami"

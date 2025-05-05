@@ -34,7 +34,7 @@ const Card = ({ date, title, pathUrl, pathImg }: { pathImg: string; date: string
       <h4 className="h-12 mt-2 text-base font-semibold sm:h-14 sm:text-lg text-dark line-clamp-2">{title}</h4>
 
       <Button 
-        onClick={() => router.push(`/media-informasi/event-community/detail/${pathUrl}`)} 
+        onClick={() => router.push(`/media-informasi/event-community/${pathUrl}/${id}`)} 
         className="flex items-center gap-2 mt-4 btn-outline group w-max"
       >
         Lihat <GoArrowRight className="fill-primary group-hover:fill-light" size={20} />

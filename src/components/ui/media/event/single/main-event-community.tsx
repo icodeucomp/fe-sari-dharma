@@ -4,19 +4,34 @@ import { Button, Container, Motion, Submenu } from "@/components";
 import { Recommendation } from "./recommendation";
 import { FaFacebook, FaInstagram, FaLink, FaXTwitter } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-import { getEventCommunityDetail } from "@/services/event-community";
+import { getEventCommunityDetail } from "@/services/event-community.service";
 import moment from "moment";
 import { useParams } from "next/navigation";
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
+// Helper function untuk URL gambar
+const getImageUrl = (path: string) => {
+  if (!path) return '/images/placeholder.jpg';
+  if (path.startsWith('http')) return path;
+  return `${BASE_URL}/storage/${path}`;
+};
+
 interface EventCommunityDetail {
   id: string;
+  kategori_id: string;
   judul: string;
+  slug: string;
   konten: string;
   foto: string;
-  created_at: string;
   kategori: {
+    id: string;
     name: string;
+    page: string;
+    flag: string;
   };
+  created_at: string;
+  updated_at: string;
 }
 
 export const MainEventCommunity = () => {
@@ -97,7 +112,7 @@ export const MainEventCommunity = () => {
         {data?.foto && (
           <div className="w-full aspect-video mb-8">
             <img 
-              src={data.foto} 
+              src={getImageUrl(data.foto)}
               alt={data.judul}
               className="w-full h-full object-cover rounded-lg"
             />

@@ -11,6 +11,12 @@ const nextConfig = {
         hostname: 'aksd.aacassandra.web.id',
         port: '',
         pathname: '/**',
+      }, 
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8000',
+        pathname: '/**',
       },
     ],
   },

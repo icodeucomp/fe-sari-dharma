@@ -16,7 +16,8 @@ const getImageUrl = (path: string) => {
   return `${BASE_URL}/storage/${path}`;
 };
 
-const Card = ({ title, description, pathUrl, pathImg, expiredDate }: { 
+const Card = ({ id, title, description, pathUrl, pathImg, expiredDate }: { 
+  id:string,
   pathImg: string; 
   title: string; 
   description: string; 
@@ -38,10 +39,10 @@ const Card = ({ title, description, pathUrl, pathImg, expiredDate }: {
 
         <p className="text-gray leading-normal line-clamp-5 text-sm text-justify">{description}</p>
 
-        <Button onClick={() => router.push(`/media-informasi/paket-promo/${pathUrl}`)} className="flex items-center justify-center gap-2 btn-primary w-full">
+        <Button onClick={() => router.push(`/media-informasi/paket-promo/${pathUrl}/${id}`)} className="flex items-center justify-center gap-2 btn-primary w-full">
           Lihat Paket <GoArrowRight className="fill-light -rotate-45" size={20} />
         </Button>
-      </div>
+      </div>  
     </>
   );
 };
@@ -98,6 +99,7 @@ export const PacketsPromos = () => {
                 className="border border-gray/50 rounded-md overflow-hidden"
               >
                 <Card
+                  id={item.id}
                   title={item.nama_paket}
                   description={item.deskripsi}
                   pathUrl={item.slug}
