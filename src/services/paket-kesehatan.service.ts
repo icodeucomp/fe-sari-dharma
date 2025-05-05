@@ -18,7 +18,7 @@ interface PaketKesehatanResponse {
   };
 }
 
-interface PaketKesehatan {
+export interface PaketKesehatan {
   id: string;
   nama_paket: string;
   kategori_id: string;

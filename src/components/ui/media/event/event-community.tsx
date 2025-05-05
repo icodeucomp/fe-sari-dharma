@@ -22,7 +22,7 @@ const getImageUrl = (path: string) => {
   return `${BASE_URL}/storage/${path}`;
 };
 
-const Card = ({ date, title, pathUrl, pathImg }: { pathImg: string; date: string; title: string; pathUrl: string; id: string }) => {
+const Card = ({ date, title, pathUrl, pathImg, id }: { pathImg: string; date: string; title: string; pathUrl: string; id: string }) => {
   const router = useRouter();
   return (
     <>
