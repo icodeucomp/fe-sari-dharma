@@ -101,7 +101,7 @@ export const Healthy = () => {
                 <p className="text-sm text-justify line-clamp-4">
                   {item.deskripsi}
                 </p>
-                <Link href={`/paket/${item.slug}`} className="block">
+                <Link href={`/media-informasi/paket-promo/${item.slug}/${item.id}`} className="block">
                   <Button className="flex items-center justify-center w-full gap-2 btn-primary group">
                     Lihat Paket
                     <FaArrowRightLong className="-rotate-45" />
