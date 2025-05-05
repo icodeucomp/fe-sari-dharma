@@ -76,7 +76,7 @@ export const Certification = () => {
             <div className="my-4 space-y-4">
               <h4 className="text-xl font-semibold line-clamp-2">{item.judul}</h4>
               <div className="flex gap-2">
-                <Link href={`/sertifikasi/${item.slug}`} className="block">
+                <Link href='#' className="block">
                   <Button className="flex items-center gap-2 btn-primary group">View Details</Button>
                 </Link>
               </div>

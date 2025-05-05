@@ -31,6 +31,20 @@ interface PaketKesehatan {
   updated_at: string;
 }
 
+interface PaketKesehatanDetail extends PaketKesehatan {
+  kategori: {
+    id: string;
+    name: string;
+    page: string;
+    flag: string;
+  };
+}
+
+interface PaketKesehatanDetailResponse {
+  success: boolean;
+  data: PaketKesehatanDetail;
+}
+
 interface GetPaketKesehatanParams {
   page?: number;
   per_page?: number;
@@ -65,6 +79,19 @@ export const getPaketKesehatan = async ({
 
   const response = await axios.get<PaketKesehatanResponse>(
     `${process.env.NEXT_PUBLIC_API_URL}/api/paket-kesehatan?${params}`
+  );
+
+  return response.data;
+};
+
+/**
+ * Service untuk mengambil detail paket kesehatan berdasarkan slug dan id
+ * @param slug - Slug paket kesehatan
+ * @param id - ID paket kesehatan
+ */
+export const getPaketKesehatanDetail = async (slug: string, id: string) => {
+  const response = await axios.get<PaketKesehatanDetailResponse>(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/paket-kesehatan/${slug}/${id}`
   );
 
   return response.data;
