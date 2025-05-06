@@ -109,7 +109,7 @@ export const Navbar = ({ navbar, toggleNavbar }: { navbar: boolean; toggleNavbar
         initial={false}
         animate={navbar ? "open" : "closed"}
         variants={motionVariants}
-        className="absolute left-0 w-full space-y-4 overflow-hidden py-4 top-20 text-nowrap bg-primary text-light z-1000"
+        className="absolute left-0 w-full space-y-4 overflow-hidden py-4 top-20 text-nowrap bg-primary text-light z-1000 block lg:hidden"
       >
         {navbarLists.map((item, index) => (
           <MobileLink key={index} link={item.link} title={item.title} content={item.content} toggleNavbar={toggleNavbar} />
