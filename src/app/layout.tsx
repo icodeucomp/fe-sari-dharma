@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Klinik Sari Dharma",
+  title: "Klinik Utama Rawat Inap Sari Dharma",
   description: "Official website for Klinik Utama Rawat Inap Sari Dharma",
 };
 

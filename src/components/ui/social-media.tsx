@@ -1,57 +1,26 @@
 "use client";
 
 import * as React from "react";
-import { Motion, Slider, Container } from "@/components";
-import { useMediaQuery } from "@/hooks";
-
-export const MediaContent = () => {
-  const [page, setPage] = React.useState<number>(10);
-  const [limit, setLimit] = React.useState<number>(3);
-  const [totalPage, setTotalPage] = React.useState<number>(0);
-
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
-  const isMobile = useMediaQuery("(min-width: 0px) and (max-width: 639px)");
-
-  React.useEffect(() => {
-    if (page && limit) {
-      setTotalPage(page);
-    }
-  }, [page, limit]);
-
-  React.useEffect(() => {
-    if (isDesktop) {
-      setLimit(3);
-    } else if (isTablet) {
-      setLimit(2);
-    } else if (isMobile) {
-      setLimit(1);
-    }
-  }, [isDesktop, isTablet, isMobile]);
-  return (
-    <Slider
-      page={page}
-      setPage={setPage}
-      title="Layanan Unggulan"
-      description="Layanan kesehatan terjangkau dengan perawatan terbaik."
-      totalPage={totalPage}
-      parentClassName="space-y-8"
-      className="grid grid-cols-3 grid-rows-2 gap-8"
-      loading={false}
-    >
-      {Array.from({ length: 3 }, (_, index) => (
-        <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={index} className={`card-shadow min-h-200 text-dark bg-light ${index === 0 && "row-span-2 col-span-2"}`}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium ducimus voluptate, obcaecati tempore alias nesciunt soluta commodi illo nostrum placeat ipsa quos deleniti, vel
-          praesentium id blanditiis minus mollitia provident similique vero laborum maiores earum corrupti. Voluptatibus quia, doloremque maiores, ab, dolores vitae fugiat quaerat architecto facere
-          ipsa alias quasi.
-        </Motion>
-      ))}
-    </Slider>
-  );
-};
+import { Container } from "@/components";
 
 export const SocialMedia = () => {
   const [activeTab, setActiveTab] = React.useState<"youtube" | "instagram">("youtube");
+
+  // Load Instagram embed script when tab changes to Instagram
+  React.useEffect(() => {
+    if (activeTab === "instagram") {
+      const script = document.createElement("script");
+      script.src = "https://www.instagram.com/embed.js";
+      script.async = true;
+      document.body.appendChild(script);
+
+      script.onload = () => {
+        if ((window as any).instgrm) {
+          (window as any).instgrm.Embeds.process();
+        }
+      };
+    }
+  }, [activeTab]);
 
   return (
     <div className="bg-primary/10 pb-20">
@@ -74,9 +43,68 @@ export const SocialMedia = () => {
         </div>
       </Container>
 
-      {activeTab === "youtube" && <MediaContent />}
+      <Container>
+        <>
+          {activeTab === "youtube" && (
+            <div>
+              <h2 className="text-2xl font-bold text-orange-700 mb-2">YouTube: Sari Dharma Klinik Utama</h2>
+              <p className="mb-4">Saksikan video dan konten edukasi kesehatan dari Klinik Utama Rawat Inap Sari Dharma.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-4 place-items-center">
+                <iframe
+                  className="w-full aspect-video rounded-md lg:col-span-2 lg:row-span-2"
+                  src="https://www.youtube.com/embed/jMPtlS2-73A?si=4LMoG8rKoGqO8wSf"
+                  title="WHO: What is coronavirus?"
+                  allowFullScreen
+                ></iframe>
+                <iframe className="w-full aspect-video rounded-md" src="https://www.youtube.com/embed/jMPtlS2-73A?si=4LMoG8rKoGqO8wSf" title="Covid-19: What you need to know" allowFullScreen></iframe>
+                <iframe
+                  className="w-full aspect-video rounded-md"
+                  src="https://www.youtube.com/embed/jMPtlS2-73A?si=4LMoG8rKoGqO8wSf"
+                  title="Health tips: How to wash hands properly"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+          )}
+        </>
+        <div>
+          {activeTab === "instagram" && (
+            <div>
+              <h2 className="text-2xl font-bold text-pink-700 mb-2">Instagram: @who</h2>
+              <p className="mb-4">Lihat postingan terbaru dari akun resmi World Health Organization.</p>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <blockquote
+                  className="instagram-media"
+                  data-instgrm-permalink="https://www.instagram.com/p/DJRkPQHNpmx/?utm_source=ig_web_copy_link"
+                  data-instgrm-version="14"
+                  style={{ background: "#fff", borderRadius: "8px" }}
+                ></blockquote>
 
-      {activeTab === "instagram" && <MediaContent />}
+                <blockquote
+                  className="instagram-media"
+                  data-instgrm-permalink="https://www.instagram.com/reel/DIbpzZdPcWJ/?igsh=MXg1aXNuMXZwZTFuYQ=="
+                  data-instgrm-version="14"
+                  style={{ background: "#fff", borderRadius: "8px" }}
+                ></blockquote>
+
+                <blockquote
+                  className="instagram-media"
+                  data-instgrm-permalink="https://www.instagram.com/p/DJRkPQHNpmx/?utm_source=ig_web_copy_link"
+                  data-instgrm-version="14"
+                  style={{ background: "#fff", borderRadius: "8px" }}
+                ></blockquote>
+
+                <blockquote
+                  className="instagram-media"
+                  data-instgrm-permalink="https://www.instagram.com/p/DJRkPQHNpmx/?utm_source=ig_web_copy_link"
+                  data-instgrm-version="14"
+                  style={{ background: "#fff", borderRadius: "8px" }}
+                ></blockquote>
+              </div>
+            </div>
+          )}
+        </div>
+      </Container>
     </div>
   );
 };

@@ -61,26 +61,26 @@ export const Contacts = () => {
           <div className="grid grid-cols-2 gap-5">
             <div className="w-full">
               <input type="text" placeholder="Nama Depan" name="firstName" onChange={handleChange} value={input.firstName} className={`form-contact-input`} />
-              {error && !input.firstName && <small className="text-red-500">Enter your first name</small>}
+              {error && !input.firstName && <small className="text-red-500">Masukkan nama depan</small>}
             </div>
 
             <div className="w-full">
               <input type="text" placeholder="Nama Belakang" name="lastName" onChange={handleChange} value={input.lastName} className={`form-contact-input`} />
-              {error && !input.lastName && <small className="text-red-500">Enter your last name</small>}
+              {error && !input.lastName && <small className="text-red-500">Masukkan nama belakang</small>}
             </div>
 
             <div className="w-full col-span-2">
               <input type="email" placeholder="Email" name="email" onChange={handleChange} value={input.email} className={`form-contact-input`} />
-              {error && !input.email && <small className="text-red-500">Enter your email</small>}
+              {error && !input.email && <small className="text-red-500">Masukkan email</small>}
             </div>
 
             <div className="w-full col-span-2">
               <input type="tel" placeholder="Nomor Telepon" name="phoneNumber" onChange={handleChange} value={input.phoneNumber} className={`form-contact-input`} />
-              {error && !input.phoneNumber && <small className="text-red-500">Enter your number phone</small>}
+              {error && !input.phoneNumber && <small className="text-red-500">Masukkan nomor telepon</small>}
             </div>
             <div className="w-full col-span-2">
               <textarea rows={5} placeholder="Silahkan masukkan pesan" onChange={handleChange} value={input.message} name="message" className="form-contact-input" />
-              {error && !input.message && <small className="text-red-500">Enter your messages</small>}
+              {error && !input.message && <small className="text-red-500">Masukkan pesan anda</small>}
             </div>
           </div>
           <Button type="submit" className={`btn-primary w-full`}>
