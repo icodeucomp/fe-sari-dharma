@@ -39,7 +39,7 @@ export const Healthy = () => {
         linkButton="/"
         loading={false}
       >
-        <Tab />
+        {/* <Tab /> */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 3 }, (_, index) => (
             <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={index} className="rounded-lg shadow-lg min-h-400 text-dark bg-light">
