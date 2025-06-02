@@ -101,7 +101,7 @@ export const Service = () => {
               <p className="text-sm line-clamp-2">
                 {normalizeAndTruncateDescription(item.deskripsi)}
               </p>
-              <Link href={`/layanan/${item.slug}`} className="block">
+              <Link href={`/layanan-unggulan/${item.slug}/${item.id}`} className="block">
                 <Button className="flex items-center gap-2 btn-primary group">
                   Selengkapnya
                   <FaArrowRightLong className="-rotate-45" />
