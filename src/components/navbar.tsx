@@ -37,7 +37,7 @@ const DesktopLink = () => {
       {navbarLists.map((navbar, i) => (
         <li key={i} className="flex items-center flex-1 w-full h-full group">
           <div className={`font-semibold text-lg relative text-dark w-full text-center cursor-default hover:font-semibold hover:text-primary`}>
-            <span>{navbar.title}</span>
+            {navbar.content && navbar.content.length > 0 ? <span>{navbar.title}</span> : <Link href="/layanan-unggulan">{navbar.title}</Link>}
             <span className={`absolute h-1 transition-all -bottom-2 left-1/2 bg-secondary w-0 group-hover:w-10`}></span>
             <span className={`absolute h-1 transition-all -bottom-2 right-1/2 bg-secondary w-0 group-hover:w-10`}></span>
           </div>

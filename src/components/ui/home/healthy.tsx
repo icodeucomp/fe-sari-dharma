@@ -5,7 +5,7 @@ import Link from "next/link";
 
 // import { useMediaQuery } from "@/hooks";
 
-import { Button, Img, Motion, Slider, Tab } from "@/components";
+import { Button, Img, Motion, Slider } from "@/components";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export const Healthy = () => {

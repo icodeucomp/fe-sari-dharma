@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
 import { Button, Container, Motion } from "@/components";
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { getLayananSpesialis, LayananSpesialis } from "@/services/layanan-spesialis.service";
-import Icon from '@mdi/react';
-import { mdiAlert } from '@mdi/js';
+import Icon from "@mdi/react";
 import { getIconPath } from "@/utils/icon-helper";
 
 export const Specialize = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [layananList, setLayananList] = useState<LayananSpesialis[]>([]);
+  console.log("🚀 ~ Specialize ~ error:", error);
 
   /**
    * Fungsi untuk mengambil data layanan spesialis
@@ -30,33 +30,9 @@ export const Specialize = () => {
     }
   };
 
-  /**
-   * Fungsi untuk mencoba mengambil data kembali
-   */
-  const handleRetry = () => {
-    fetchLayanan();
-  };
-
   useEffect(() => {
     fetchLayanan();
   }, []);
-
-  if (error) {
-    return (
-      <Container className="py-10 space-y-8 sm:py-16">
-        <div className="flex flex-col items-center justify-center p-8 space-y-4 text-center">
-          <Icon path={mdiAlert} size={2} className="text-red-500" />
-          <p className="text-lg font-medium text-gray-800">{error}</p>
-          <Button 
-            onClick={handleRetry}
-            className="px-6 py-2 text-white bg-primary hover:bg-primary/90"
-          >
-            Coba Lagi
-          </Button>
-        </div>
-      </Container>
-    );
-  }
 
   return (
     <Container className="py-10 space-y-8 sm:py-16">
@@ -83,16 +59,10 @@ export const Specialize = () => {
               className="relative flex-1 max-w-sm p-8 overflow-hidden rounded-lg card-shadow min-w-80 bg-light"
             >
               <div className="p-4 rounded-full bg-secondary w-max">
-                <Icon 
-                  path={getIconPath(item.icon)} 
-                  size={1}
-                  className="text-primary"
-                />
+                <Icon path={getIconPath(item.icon)} size={1} className="text-primary" />
               </div>
               <h5 className="mt-6 font-bold text-dark">{item.nama_layanan}</h5>
-              <p className="mt-1 text-sm text-justify text-gray line-clamp-3">
-                {item.deskripsi}
-              </p>
+              <p className="mt-1 text-sm text-justify text-gray line-clamp-3">{item.deskripsi}</p>
               <i className="absolute bottom-0 left-0 w-full h-1.5 bg-primary"></i>
             </Motion>
           ))

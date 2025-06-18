@@ -29,12 +29,12 @@ export const Tab: React.FC<TabProps> = ({ onTabClick, selectedCategoryId }) => {
     const fetchCategories = async () => {
       try {
         const response = await getMasterKategori({
-          flag: 'ArtikelKesehatan',
-          per_page: 100
+          flag: "ArtikelKesehatan",
+          per_page: 100,
         });
         setCategories(response.data.data);
         setLoading(false);
-        
+
         // If no category is selected yet and we have categories, select the first one
         if (!selectedCategoryId && response.data.data.length > 0 && onTabClick) {
           onTabClick(response.data.data[0].id);
@@ -79,26 +79,17 @@ export const Tab: React.FC<TabProps> = ({ onTabClick, selectedCategoryId }) => {
     <div className="w-full overflow-hidden">
       <div ref={sliderRef} onMouseDown={handleMouseDown} className={`flex space-x-4 overflow-x-auto scrollbar-hide ${isScrollable ? "cursor-grab active:cursor-grabbing" : "cursor-default"}`}>
         {loading ? (
-          // Show loading state
-          Array.from({ length: 3 }).map((_, index) => (
-            <Button key={index} className="flex-shrink-0 w-40 btn-outline">
-              Loading...
-            </Button>
-          ))
+          <Button className="flex-shrink-0 w-40 btn-outline">Loading...</Button>
         ) : categories.length > 0 ? (
           // Map through actual categories
           categories.map((category) => (
-            <Button 
-              key={category.id} 
-              className={`flex-shrink-0 w-auto ${selectedCategoryId === category.id ? 'btn-primary' : 'btn-outline'}`}
-              onClick={() => onTabClick && onTabClick(category.id)}
-            >
+            <Button key={category.id} className={`flex-shrink-0 w-auto ${selectedCategoryId === category.id ? "btn-primary" : "btn-outline"}`} onClick={() => onTabClick && onTabClick(category.id)}>
               {category.name}
             </Button>
           ))
         ) : (
           // Fallback if no categories found
-          <Button className="flex-shrink-0 w-40 btn-outline">No categories found</Button>
+          <Button className="flex-shrink-0 btn-outline">No categories found</Button>
         )}
       </div>
     </div>

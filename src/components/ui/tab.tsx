@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { Motion } from '@/components';
-import { getMasterKategori } from '@/services/master-kategori.service';
+import * as React from "react";
+import { Motion } from "@/components";
+import { getMasterKategori } from "@/services/master-kategori.service";
 
 interface TabProps {
   onTabChange?: (kategoriId: string) => void;
@@ -13,7 +13,7 @@ interface TabProps {
  */
 export const Tab: React.FC<TabProps> = ({ onTabChange }) => {
   const [categories, setCategories] = React.useState<Array<{ id: string; name: string }>>([]);
-  const [activeTab, setActiveTab] = React.useState<string>('');
+  const [activeTab, setActiveTab] = React.useState<string>("");
   const [loading, setLoading] = React.useState(true);
 
   // Fungsi untuk mengambil data kategori
@@ -30,7 +30,7 @@ export const Tab: React.FC<TabProps> = ({ onTabChange }) => {
         }
       }
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error("Error fetching categories:", error);
     } finally {
       setLoading(false);
     }
@@ -51,23 +51,13 @@ export const Tab: React.FC<TabProps> = ({ onTabChange }) => {
   return (
     <div className="flex flex-wrap gap-4">
       {categories.map((category, index) => (
-        <Motion
-          key={category.id}
-          initialY={20}
-          animateY={0}
-          duration={0.3}
-          delay={index * 0.1}
-        >
+        <Motion tag="div" key={category.id} initialY={20} animateY={0} duration={0.3} delay={index * 0.1}>
           <button
             onClick={() => {
               setActiveTab(category.id);
               onTabChange?.(category.id);
             }}
-            className={`px-6 py-2 rounded-full transition-all duration-300 whitespace-nowrap ${
-              activeTab === category.id
-                ? 'bg-primary text-white'
-                : 'bg-gray-100 hover:bg-gray-200'
-            }`}
+            className={`px-6 py-2 rounded-full transition-all duration-300 whitespace-nowrap ${activeTab === category.id ? "bg-primary text-white" : "bg-gray-100 hover:bg-gray-200"}`}
           >
             {category.name}
           </button>

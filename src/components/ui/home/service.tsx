@@ -12,19 +12,19 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Fungsi helper untuk memformat URL gambar
 const getImageUrl = (path: string) => {
-  if (!path) return '/images/placeholder.jpg'; // gambar default jika path kosong
-  if (path.startsWith('http')) return path; // jika sudah URL lengkap
+  if (!path) return "/images/placeholder.jpg"; // gambar default jika path kosong
+  if (path.startsWith("http")) return path; // jika sudah URL lengkap
   return `${BASE_URL}/storage/${path}`; // tambahkan /storage/ untuk akses file
 };
 
 // Fungsi untuk menormalisasi HTML dan membatasi karakter
 const normalizeAndTruncateDescription = (html: string, maxLength: number = 200) => {
   // Hapus semua tag HTML
-  const plainText = html.replace(/<[^>]+>/g, '');
-  
+  const plainText = html.replace(/<[^>]+>/g, "");
+
   // Batasi karakter dan tambahkan ... jika melebihi batas
   if (plainText.length <= maxLength) return plainText;
-  return plainText.substring(0, maxLength).trim() + '...';
+  return plainText.substring(0, maxLength).trim() + "...";
 };
 
 export const Service = () => {
@@ -42,7 +42,7 @@ export const Service = () => {
       setData(response.data.data);
       setTotalPage(response.data.last_page);
     } catch (error) {
-      console.error('Error fetching layanan unggulan:', error);
+      console.error("Error fetching layanan unggulan:", error);
     } finally {
       setLoading(false);
     }
@@ -79,28 +79,11 @@ export const Service = () => {
         loading={loading}
       >
         {data.map((item: any, index: number) => (
-          <Motion 
-            tag="div" 
-            initialY={30} 
-            animateY={0} 
-            duration={1} 
-            delay={index * 0.1} 
-            key={item.id} 
-            className="rounded-lg shadow-lg min-h-400 text-dark bg-light"
-          >
-            <Img 
-              src={getImageUrl(item.foto)} 
-              alt={item.nama_layanan} 
-              className="w-full rounded-lg h-60" 
-              cover 
-            />
+          <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={item.id} className="rounded-lg shadow-lg min-h-400 text-dark bg-light">
+            <Img src={getImageUrl(item.foto)} alt={item.nama_layanan} className="w-full rounded-lg h-60" cover />
             <div className="px-4 my-4 space-y-4">
-              <h4 className="text-xl font-semibold sm:text-2xl line-clamp-1">
-                {item.nama_layanan}
-              </h4>
-              <p className="text-sm line-clamp-2">
-                {normalizeAndTruncateDescription(item.deskripsi)}
-              </p>
+              <h4 className="text-xl font-semibold sm:text-2xl line-clamp-1">{item.nama_layanan}</h4>
+              <p className="text-sm line-clamp-2">{normalizeAndTruncateDescription(item.deskripsi)}</p>
               <Link href={`/layanan-unggulan/${item.slug}/${item.id}`} className="block">
                 <Button className="flex items-center gap-2 btn-primary group">
                   Selengkapnya

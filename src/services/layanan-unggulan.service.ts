@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 interface LayananUnggulanResponse {
   success: boolean;
@@ -33,7 +33,7 @@ interface LayananUnggulanDetail {
   id: string | number;
   nama_layanan: string;
   deskripsi: string;
-  foto: string;  // Change to match component's expectation
+  foto: string; // Change to match component's expectation
   slug: string;
   created_at: string;
   updated_at: string;
@@ -49,9 +49,7 @@ export const getLayananUnggulan = async (page: number = 1, perPage: number = 10,
     ...(search && { search }),
   });
 
-  const response = await axios.get<LayananUnggulanResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/layanan-unggulan?${params}`
-  );
+  const response = await axios.get<LayananUnggulanResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/layanan-unggulan?${params}`);
 
   return response.data;
 };
@@ -60,14 +58,12 @@ export const getLayananUnggulan = async (page: number = 1, perPage: number = 10,
  * Service untuk mengambil detail layanan unggulan berdasarkan slug dan id
  */
 export const getLayananUnggulanDetail = async (slug: string, id: string) => {
-  const response = await axios.get<{ success: boolean; data: LayananUnggulanDetail }>(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/layanan-unggulan/${slug}/${id}`
-  );
-  
+  const response = await axios.get<{ success: boolean; data: LayananUnggulanDetail }>(`${process.env.NEXT_PUBLIC_API_URL}/api/layanan-unggulan/${slug}/${id}`);
+
   // If API returns gambar instead of foto, map it
-  if (response.data.data.gambar && !response.data.data.foto) {
-    response.data.data.foto = response.data.data.gambar;
+  if (response.data.data.foto && !response.data.data.foto) {
+    response.data.data.foto = response.data.data.foto;
   }
-  
+
   return response.data;
 };

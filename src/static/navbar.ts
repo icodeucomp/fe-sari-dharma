@@ -11,15 +11,7 @@ export const navbarLists: navbarListType[] = [
   },
   {
     title: "Layanan Unggulan",
-    content: [
-      { title: "Neurology Center", link: "/layanan-unggulan/neurology-center" },
-      { title: "Digestive & Endoscopy Center", link: "/layanan-unggulan/digestive-endoscopy-center" },
-      { title: "Mom & Kids Center", link: "/layanan-unggulan/mom-kids-center" },
-      { title: "Orthopedic & Traumatology", link: "/layanan-unggulan/orthopedic-traumatology" },
-      { title: "Urology Center", link: "/layanan-unggulan/urology-center" },
-      { title: "Hidroterapi (Terapi Air)", link: "/layanan-unggulan/hidroterapi" },
-      { title: "Cardiovascular Center", link: "/layanan-unggulan/cardiovascular-center" },
-    ],
+    content: [],
   },
   {
     title: "Temukan Dokter",
