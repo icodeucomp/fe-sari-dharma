@@ -29,8 +29,8 @@ jobs:
         with:
           server: ftp.saridharma.id
           username: frontend@saridharma.id
-          password: Ig@O]loGhCRSBiFB
+          password: 3N3U2bOp+g4{.,VM
           protocol: ftps
           local-dir: .next/
-          server-dir: sari_dharma/frontend/main/.next/
+          server-dir: ./
           timeout: 1800000
