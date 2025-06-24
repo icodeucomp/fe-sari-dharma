@@ -8,7 +8,6 @@ jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-    # environment: cpanel
 
     steps:
       - name: 🚚 Get latest code
@@ -30,7 +29,7 @@ jobs:
         with:
           server: ftp.saridharma.id
           username: frontend@saridharma.id
-          password: o6&4n&H5y&;G(ofM
+          password: QaTC53zj-D$i[bg0
           protocol: ftps
           local-dir: .next/
-          server-dir: home/saridar/sari_dharma/frontend/main/
+          server-dir: .next/

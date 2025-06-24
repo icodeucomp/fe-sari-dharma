@@ -15,7 +15,7 @@ export const Overview = () => {
         <p className="text-sm text-justify sm:text-base text-dark/80">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores dolores assumenda volupyate in placeat atque. Nobis consectetur praesentium rerum iure rem vero nesciunt, ratione fugiat
           dolorum quia dignissimos quo natus eum! Odio hic autem recusandae tempore minima expedita. Nisi, delectus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti et in atque quos,
-          impedit aspernatur quidem architecto sunt tempore ipsam.
+          impedit aspernatur quidem architecto sunt tempore ipsam. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum, voluptatem?
         </p>
         <Link href="/tentang-kami/ikhtisar" className="block">
           <Button className="flex items-center gap-2 w-max btn-outline group">

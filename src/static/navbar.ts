@@ -16,7 +16,7 @@ export const navbarLists: navbarListType[] = [
   {
     title: "Temukan Dokter",
     content: [
-      { title: "Jadwal Dokterr", link: "/temukan-dokter/jadwal" },
+      { title: "Jadwal Dokter", link: "/temukan-dokter/jadwal" },
       { title: "Buat Janji Dokter", link: "/temukan-dokter/janji" },
     ],
   },
