@@ -32,4 +32,4 @@ jobs:
           password: saridharma12345
           protocol: ftps
           local-dir: .next/
-          server-dir: .next/
+          server-dir: /.next/
