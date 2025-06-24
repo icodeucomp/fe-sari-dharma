@@ -8,7 +8,7 @@ jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-    environment: cpanel
+    # environment: cpanel
 
     steps:
       - name: 🚚 Get latest code
@@ -28,9 +28,9 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.GIT_CPANEL_NEXT_SERVER }}
-          username: ${{ secrets.GIT_CPANEL_NEXT_USER }}
-          password: ${{ secrets.GIT_CPANEL_NEXT_PWD }}
+          server: ftp.saridharma.id
+          username: frontend@saridharma.id
+          password: o6&4n&H5y&;G(ofM
           protocol: ftps
           local-dir: .next/
           server-dir: home/saridar/sari_dharma/frontend/main/
