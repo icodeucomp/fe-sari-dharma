@@ -29,7 +29,7 @@ jobs:
         with:
           server: ftp.saridharma.id
           username: frontend@saridharma.id
-          password: QaTC53zj-D$i[bg0
+          password: saridharma12345
           protocol: ftps
           local-dir: .next/
           server-dir: .next/
