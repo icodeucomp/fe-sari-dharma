@@ -32,5 +32,5 @@ jobs:
           password: Ig@O]loGhCRSBiFB
           protocol: ftps
           local-dir: .next/
-          server-dir: home/saridar/sari_dharma/frontend/main/tests
+          server-dir: sari_dharma/frontend/main/.next/
           timeout: 1800000
