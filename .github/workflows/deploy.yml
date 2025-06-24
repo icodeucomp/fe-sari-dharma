@@ -32,5 +32,5 @@ jobs:
           password: saridharma12345
           protocol: ftps
           local-dir: .next/
-          server-dir: sari_dharma/nexts
+          server-dir: saridharma/frontend/main/
           timeout: 1800000
