@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - main
+name: 🚀 Deploy website on push
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    environment: cpanel
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: Set Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: 🔨 Build Project
+        run: |
+          npm install
+          npm run build
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.GIT_CPANEL_NEXT_SERVER }}
+          username: ${{ secrets.GIT_CPANEL_NEXT_USER }}
+          password: ${{ secrets.GIT_CPANEL_NEXT_PWD }}
+          protocol: sftp
+          local-dir: ./
+          server-dir: /sari_dharma/frontend/main
