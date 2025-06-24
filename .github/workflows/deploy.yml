@@ -32,4 +32,4 @@ jobs:
           password: ${{ secrets.GIT_CPANEL_NEXT_PWD }}
           protocol: ftps
           local-dir: ./
-          server-dir: /sari_dharma/frontend/main
+          server-dir: /sari_dharma/frontend/main/
