@@ -33,4 +33,4 @@ jobs:
           password: ${{ secrets.GIT_CPANEL_NEXT_PWD }}
           protocol: ftps
           local-dir: .next/
-          server-dir: sari_dharma/frontend/main/
+          server-dir: home/saridar/sari_dharma/frontend/main/
