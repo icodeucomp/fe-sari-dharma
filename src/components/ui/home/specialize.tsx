@@ -1,12 +1,16 @@
-'use client';
+"use client";
 
 import { Button, Container, Motion } from "@/components";
 import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
-import { getLayananSpesialis, LayananSpesialis } from "@/services/layanan-spesialis.service";
-import Icon from '@mdi/react';
-import { mdiAlert } from '@mdi/js';
+import {
+  getLayananSpesialis,
+  LayananSpesialis,
+} from "@/services/layanan-spesialis.service";
+import Icon from "@mdi/react";
+import { mdiAlert } from "@mdi/js";
 import { getIconPath } from "@/utils/icon-helper";
+import Link from "next/link";
 
 export const Specialize = () => {
   const [loading, setLoading] = useState(true);
@@ -47,7 +51,7 @@ export const Specialize = () => {
         <div className="flex flex-col items-center justify-center p-8 space-y-4 text-center">
           <Icon path={mdiAlert} size={2} className="text-red-500" />
           <p className="text-lg font-medium text-gray-800">{error}</p>
-          <Button 
+          <Button
             onClick={handleRetry}
             className="px-6 py-2 text-white bg-primary hover:bg-primary/90"
           >
@@ -61,14 +65,27 @@ export const Specialize = () => {
   return (
     <Container className="py-10 space-y-8 sm:py-16">
       <div className="space-y-2">
-        <Motion tag="h4" initialX={-50} animateX={0} duration={0.3} className="heading">
+        <Motion
+          tag="h4"
+          initialX={-50}
+          animateX={0}
+          duration={0.3}
+          className="heading"
+        >
           Layanan Spesialis Kami
         </Motion>
-        <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="subheading">
+        <Motion
+          tag="p"
+          initialX={-50}
+          animateX={0}
+          duration={0.6}
+          delay={0.3}
+          className="subheading"
+        >
           Solusi tepat dengan dokter berpengalaman di bidangnya.
         </Motion>
       </div>
-      <div className="flex flex-wrap justify-between gap-8">
+      <div className="flex flex-wrap justify-between gap-8 pb-[50px]">
         {loading ? (
           <p className="text-center w-full">Memuat data...</p>
         ) : (
@@ -83,24 +100,27 @@ export const Specialize = () => {
               className="relative flex-1 max-w-sm p-8 overflow-hidden rounded-lg card-shadow min-w-80 bg-light"
             >
               <div className="p-4 rounded-full bg-secondary w-max">
-                <Icon 
-                  path={getIconPath(item.icon)} 
+                <Icon
+                  path={getIconPath(item.icon)}
                   size={1}
                   className="text-primary"
                 />
               </div>
               <h5 className="mt-6 font-bold text-dark">{item.nama_layanan}</h5>
-              <p className="mt-1 text-sm text-justify text-gray line-clamp-3">
-                {item.deskripsi}
-              </p>
+              <div
+                className="mt-1 text-sm text-justify text-gray line-clamp-3"
+                dangerouslySetInnerHTML={{ __html: item.deskripsi }}
+              />
               <i className="absolute bottom-0 left-0 w-full h-1.5 bg-primary"></i>
             </Motion>
           ))
         )}
       </div>
-      <Button className="flex items-center gap-2 mx-auto btn-outline">
-        Lihat Semua <IoIosArrowDown size={20} />
-      </Button>
+      <Link href="/tentang-kami/layanan-fasilitas">
+        <Button className="flex items-center gap-2 mx-auto btn-outline">
+          Lihat Semua <IoIosArrowDown size={20} />
+        </Button>
+      </Link>
     </Container>
   );
 };

@@ -94,9 +94,9 @@ export const Article = () => {
             Temukan berbagai tips kesehatan dan informasi medis disini.
           </Motion>
         </div>
-        <div className="flex gap-4">
+        <Link href={'/media-informasi/artikel-kesehatan'} className="flex gap-4">
           <Button className="btn-outline">Lihat Semua</Button>
-        </div>
+        </Link>
       </div>
 
       <Tab onTabClick={handleTabClick} selectedCategoryId={selectedCategoryId} />
