@@ -13,12 +13,14 @@ export const Submenu = ({ menu, title, items, isBig }: { menu: string; title: st
       </div>
       <div className="border-l border-r border-gray/30 text-gray">
         {items.map((item, index) => (
-          <div key={index} className="flex items-center justify-between px-4 py-2 border-b border-gray/30">
+          <Link
+            key={index}
+            href={item.link}
+            className="flex items-center justify-between px-4 py-2 border-b border-gray/30 hover:bg-gray-100 transition-colors cursor-pointer"
+          >
             <p className="font-medium">{item.title}</p>
-            <Link href={item.link}>
-              <MdArrowForward size={28} />
-            </Link>
-          </div>
+            <MdArrowForward size={28} />
+          </Link>
         ))}
       </div>
     </Motion>

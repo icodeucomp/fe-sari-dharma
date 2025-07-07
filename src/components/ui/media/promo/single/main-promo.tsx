@@ -87,7 +87,7 @@ export const MainPromo = () => {
           items={[
             { title: "Artikel Kesehatan", link: "/media-informasi/artikel-kesehatan" },
             { title: "Event & Community", link: "/media-informasi/event-community" },
-            { title: "Paket Kesehatan", link: "/media-informasi/form-management" },
+            { title: "Paket Kesehatan", link: "/media-informasi/paket-promo" },
             { title: "Indikator Mutu", link: "/media-informasi/indikator-mutu" },
             { title: "Karir", link: "/media-informasi/karir" },
             { title: "Form Management", link: "/media-informasi/form-management" },
