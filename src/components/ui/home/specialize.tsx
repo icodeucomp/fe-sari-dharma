@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { getLayananSpesialis, LayananSpesialis } from "@/services/layanan-spesialis.service";
 import Icon from "@mdi/react";
 import { getIconPath } from "@/utils/icon-helper";
+import Link from "next/link";
 
 export const Specialize = () => {
   const [loading, setLoading] = useState(true);
@@ -44,7 +45,7 @@ export const Specialize = () => {
           Solusi tepat dengan dokter berpengalaman di bidangnya.
         </Motion>
       </div>
-      <div className="flex flex-wrap justify-between gap-8">
+      <div className="flex flex-wrap justify-between gap-8 pb-[50px]">
         {loading ? (
           <p className="text-center w-full">Memuat data...</p>
         ) : (
@@ -68,9 +69,11 @@ export const Specialize = () => {
           ))
         )}
       </div>
-      <Button className="flex items-center gap-2 mx-auto btn-outline">
-        Lihat Semua <IoIosArrowDown size={20} />
-      </Button>
+      <Link href="/tentang-kami/layanan-fasilitas">
+        <Button className="flex items-center gap-2 mx-auto btn-outline">
+          Lihat Semua <IoIosArrowDown size={20} />
+        </Button>
+      </Link>
     </Container>
   );
 };

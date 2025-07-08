@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 interface JadwalDokter {
   id: string;
@@ -42,12 +42,13 @@ interface JadwalDokterResponse {
  * Service untuk mengambil data jadwal dokter
  */
 export const getJadwalDokter = async (
-  page: number = 1, 
-  perPage: number = 10, 
+  page: number = 1,
+  perPage: number = 10,
   params?: {
     search?: string;
     dokter_id?: string;
     spesialis_id?: string;
+    hari?: string;
   }
 ) => {
   const queryParams = new URLSearchParams({
@@ -56,6 +57,7 @@ export const getJadwalDokter = async (
     ...(params?.search && { search: params.search }),
     ...(params?.dokter_id && { dokter_id: params.dokter_id }),
     ...(params?.spesialis_id && { spesialis_id: params.spesialis_id }),
+    ...(params?.hari && { hari: params.hari }),
   });
 
   const response = await axios.get<JadwalDokterResponse>(

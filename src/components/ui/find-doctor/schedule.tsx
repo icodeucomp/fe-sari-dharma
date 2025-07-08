@@ -5,6 +5,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Button, Dropdown, Img, Motion, Pagination } from "@/components";
 import { getJadwalDokter } from "@/services/jadwal-dokter.service";
+import axios from "axios";
 
 // Helper function untuk mendapatkan URL gambar
 const getImageUrl = (path: string) => {
@@ -35,11 +36,29 @@ const formatJadwalByHari = (jadwalDokter: any[]) => {
   return formattedJadwal;
 };
 
-const data = [
-  { label: "Monday", value: "monday" },
-  { label: "Tuesday", value: "tuesday" },
-  { label: "Wednesday", value: "wednesday" },
+const hariOptions = [
+  { label: "Senin", value: "Senin" },
+  { label: "Selasa", value: "Selasa" },
+  { label: "Rabu", value: "Rabu" },
+  { label: "Kamis", value: "Kamis" },
+  { label: "Jumat", value: "Jumat" },
+  { label: "Sabtu", value: "Sabtu" },
+  { label: "Minggu", value: "Minggu" },
 ];
+
+interface Dokter {
+  id: string;
+  nama_dokter: string;
+  label: string;
+  value: string;
+}
+
+interface Spesialis {
+  id: string;
+  name: string;
+  label: string;
+  value: string;
+}
 
 export const Schedule = () => {
   const [page, setPage] = React.useState<number>(1);
@@ -50,6 +69,11 @@ export const Schedule = () => {
     spesialis_id: '',
     dokter_id: '',
   });
+  const [listDokter, setListDokter] = React.useState<Dokter[]>([]);
+  const [listSpesialis, setListSpesialis] = React.useState<Spesialis[]>([]);
+  const [dokterDisplay, setDokterDisplay] = React.useState<string>("semua");
+  const [spesialisDisplay, setSpesialisDisplay] = React.useState<string>("semua");
+  const [hari, setHari] = React.useState<string>("");
 
   const router = useRouter();
 
@@ -60,6 +84,7 @@ export const Schedule = () => {
       const response = await getJadwalDokter(page, 10, {
         spesialis_id: filters.spesialis_id || undefined,
         dokter_id: filters.dokter_id || undefined,
+        hari: hari !== "semua" ? hari : undefined,
       });
       setJadwalDokter(response.data.data);
       setTotalPage(response.data.last_page);
@@ -68,14 +93,64 @@ export const Schedule = () => {
     } finally {
       setLoading(false);
     }
-  }, [page, filters]);
+  }, [page, filters.spesialis_id, filters.dokter_id, hari]);
+
+  // Fungsi untuk mengambil data master dokter
+  const fetchMasterDokter = React.useCallback(async () => {
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/master-dokter?per_page=100`);
+      const dokterData = response.data.data.data.map((dokter: any) => ({
+        label: dokter.nama_dokter,
+        value: dokter.id,
+      }));
+      setListDokter(dokterData);
+    } catch (error) {
+      console.error('Error fetching master dokter:', error);
+    }
+  }, []);
+
+  // Fungsi untuk mengambil data master spesialis
+  const fetchMasterSpesialis = React.useCallback(async () => {
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/master-kategori?per_page=100`);
+      const spesialisData = response.data.data.data.map((spesialis: any) => ({
+        label: spesialis.name,
+        value: spesialis.id,
+      }));
+      setListSpesialis(spesialisData);
+    } catch (error) {
+      console.error('Error fetching master spesialis:', error);
+    }
+  }, []);
 
   React.useEffect(() => {
     fetchJadwalDokter();
-  }, [fetchJadwalDokter]);
+    fetchMasterDokter();
+    fetchMasterSpesialis();
+  }, [fetchJadwalDokter, fetchMasterDokter, fetchMasterSpesialis]);
 
   const handleFilteredSpecialist = (value: string) => {
     setFilters(prev => ({ ...prev, spesialis_id: value }));
+    setSpesialisDisplay(value === "" ? "semua" : listSpesialis.find(s => s.value === value)?.label || "semua");
+    setPage(1);
+  };
+
+  const handleFilteredDokter = (value: string) => {
+    setFilters(prev => ({ ...prev, dokter_id: value }));
+    setDokterDisplay(value === "" ? "semua" : listDokter.find(d => d.value === value)?.label || "semua");
+    setPage(1);
+  };
+
+  const handleFilteredHari = (value: string) => {
+    setHari(value);
+    setPage(1);
+  };
+
+  const handleReset = () => {
+    setFilters({ spesialis_id: '', dokter_id: '' });
+    setDokterDisplay("semua");
+    setSpesialisDisplay("semua");
+    setHari("");
     setPage(1);
   };
 
@@ -93,15 +168,45 @@ export const Schedule = () => {
       <div className="flex gap-8 py-8 border-b border-gray/50">
         <div className="w-full space-y-2 min-w-60">
           <h4 className="font-semibold text-primary">Spesialis</h4>
-          <Dropdown className="top-14" parentClassName="w-full min-h-12" data={data} handleFiltered={handleFilteredSpecialist} defaultValue="semua" />
+          <Dropdown 
+            className="top-14" 
+            parentClassName="w-full min-h-12" 
+            data={listSpesialis} 
+            handleFiltered={handleFilteredSpecialist} 
+            defaultValue="semua"
+            displayValue={spesialisDisplay}
+          />
         </div>
         <div className="w-full space-y-2 min-w-60">
           <h4 className="font-semibold text-primary">Hari</h4>
-          <Dropdown className="top-14" parentClassName="w-full min-h-12" data={data} handleFiltered={handleFilteredSpecialist} defaultValue="semua" />
+          <Dropdown
+            className="top-14"
+            parentClassName="w-full min-h-12"
+            data={hariOptions}
+            handleFiltered={handleFilteredHari}
+            defaultValue="semua"
+            displayValue={hari || "semua"}
+          />
         </div>
-        <div className="w-full space-y-2 min-w-60">
-          <h4 className="font-semibold text-primary">Dokter</h4>
-          <Dropdown className="top-14" parentClassName="w-full min-h-12" data={data} handleFiltered={handleFilteredSpecialist} defaultValue="semua" />
+        <div className="w-full space-y-2 min-w-60 flex items-end gap-2">
+          <div className="w-full">
+            <h4 className="font-semibold text-primary">Dokter</h4>
+            <Dropdown 
+              className="top-14" 
+              parentClassName="w-full min-h-12" 
+              data={listDokter} 
+              handleFiltered={handleFilteredDokter} 
+              defaultValue="semua"
+              displayValue={dokterDisplay}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="h-12 px-4 py-2 mt-6 text-sm font-semibold text-white bg-primary rounded hover:bg-primary/90 transition"
+          >
+            Reset
+          </button>
         </div>
       </div>
       <div className="w-full mb-8">
@@ -115,12 +220,18 @@ export const Schedule = () => {
             
             return (
               <div key={jadwal.id} className="flex w-full gap-8 py-4 border-b border-gray/50">
-                <Img 
+                {
+                  jadwal.dokter.foto ? (
+                    <Img 
                   src={getImageUrl(jadwal.dokter.foto)} 
                   alt="dokter" 
                   className="min-h-72 min-w-52 rounded-lg" 
                   cover 
                 />
+                  ) : (
+                    <div className="min-h-72 min-w-52 rounded-lg" style={{ backgroundColor: 'lightgray' }}></div>
+                  )
+                }
                 <div className="flex flex-col justify-between w-full gap-4">
                   <div className="space-y-1">
                     <h3 className="text-xl font-bold text-dark">{jadwal.dokter.nama_dokter  }</h3>
