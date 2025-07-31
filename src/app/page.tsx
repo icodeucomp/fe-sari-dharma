@@ -1,4 +1,4 @@
-import { Article, Hero, Overview, Review, Service, Specialize } from "@/components/ui/home";
+import { Article, Hero, Overview, Service, Specialize } from "@/components/ui/home";
 
 import { SocialMedia } from "@/components/ui";
 
@@ -9,7 +9,7 @@ export default function HomePage() {
       <Overview />
       <Service />
       <Specialize />
-      <Review />
+      {/* <Review /> */}
       <Article />
       <SocialMedia />
     </main>

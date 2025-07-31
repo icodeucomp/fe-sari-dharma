@@ -1,6 +1,8 @@
 import { navbarListType } from "@/types";
+import { getLayananUnggulan } from "@/services/layanan-unggulan.service";
 
-export const navbarLists: navbarListType[] = [
+// Static navbar items
+const staticNavbarLists: navbarListType[] = [
   {
     title: "Tentang Kami",
     content: [
@@ -11,7 +13,7 @@ export const navbarLists: navbarListType[] = [
   },
   {
     title: "Layanan Unggulan",
-    content: [],
+    content: [], // This will be populated dynamically
   },
   {
     title: "Temukan Dokter",
@@ -33,3 +35,34 @@ export const navbarLists: navbarListType[] = [
     ],
   },
 ];
+
+// Function to get navbar lists with dynamic Layanan Unggulan content
+export const getNavbarLists = async (): Promise<navbarListType[]> => {
+  try {
+    const layananUnggulanResponse = await getLayananUnggulan(1, 20);
+    const layananUnggulanContent = layananUnggulanResponse.data.data.map((item: any) => ({
+      title: item.nama_layanan,
+      link: `/layanan-unggulan/${item.slug}/${item.id}`,
+    }));
+
+    const dynamicNavbarLists = staticNavbarLists.map((navItem) => {
+      if (navItem.title === "Layanan Unggulan") {
+        return {
+          ...navItem,
+          content: layananUnggulanContent,
+        };
+      }
+      return navItem;
+    });
+
+    return dynamicNavbarLists;
+  } catch (error) {
+    console.error("Error fetching Layanan Unggulan data:", error);
+
+    // Return static navbar lists as fallback
+    return staticNavbarLists;
+  }
+};
+
+// Export static version for cases where you need it synchronously
+export const navbarLists = staticNavbarLists;

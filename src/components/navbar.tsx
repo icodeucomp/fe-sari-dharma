@@ -1,5 +1,7 @@
 "use client";
 
+import * as React from "react";
+
 import { useToggleState } from "@/hooks";
 
 import Link from "next/link";
@@ -10,9 +12,10 @@ import { motion, Variants } from "framer-motion";
 
 import { FaAngleRight } from "react-icons/fa6";
 
-import { navbarLists } from "@/static";
+import { getNavbarLists, navbarLists } from "@/static";
 
 import { navbarListType } from "@/types";
+import { Container } from "./container";
 
 interface LinkProps extends navbarListType {
   toggleNavbar: () => void;
@@ -32,27 +35,40 @@ const motionVariants: Variants = {
 };
 
 const DesktopLink = () => {
+  const [navbarItems, setNavbarItems] = React.useState(navbarLists);
+
+  React.useEffect(() => {
+    const loadNavbarData = async () => {
+      const dynamicNavbarItems = await getNavbarLists();
+      setNavbarItems(dynamicNavbarItems);
+    };
+
+    loadNavbarData();
+  }, []);
   return (
     <>
-      {navbarLists.map((navbar, i) => (
+      {navbarItems.map((navbar, i) => (
         <li key={i} className="flex items-center flex-1 w-full h-full group">
           <div className={`font-semibold text-lg relative text-dark w-full text-center cursor-default hover:font-semibold hover:text-primary`}>
-            {navbar.content && navbar.content.length > 0 ? <span>{navbar.title}</span> : <Link href="/layanan-unggulan">{navbar.title}</Link>}
+            <span>{navbar.title}</span>
             <span className={`absolute h-1 transition-all -bottom-2 left-1/2 bg-secondary w-0 group-hover:w-10`}></span>
             <span className={`absolute h-1 transition-all -bottom-2 right-1/2 bg-secondary w-0 group-hover:w-10`}></span>
           </div>
           <div className="group-hover:opacity-100 navbar-submenu group-hover:pointer-events-auto">
-            <div className="grid w-full grid-cols-4 mx-auto border-l-2 border-r-2 divide-x-2 max-w-navbar border-gray/20 divide-gray/20">
-              {navbarLists.map((item, j) => (
-                <div key={j} className="w-full px-4 pt-4 pb-8 space-y-4 hover:bg-primary/20">
-                  {item.content?.map((field, k) => (
-                    <Link key={k} href={field.link || "/"} className="flex items-center gap-4 text-sm font-medium duration-300 text-primary">
-                      {field.title}
-                    </Link>
-                  ))}
-                </div>
-              ))}
-            </div>
+            <Container className="flex items-center justify-between">
+              <div className="w-full max-w-[410px]"></div>
+              <div className="grid w-full grid-cols-4 border-l-2 border-r-2 divide-x-2 border-gray/20 divide-gray/20">
+                {navbarItems.map((item, j) => (
+                  <div key={j} className="w-full px-4 pt-4 pb-8 space-y-4 hover:bg-primary/20">
+                    {item.content?.map((field, k) => (
+                      <Link key={k} href={field.link || "/"} className="flex items-center gap-4 text-sm font-medium duration-300 text-primary">
+                        {field.title}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </Container>
           </div>
         </li>
       ))}

@@ -25,13 +25,13 @@ export const Dropdown = ({ parentClassName, className, data, handleFiltered, def
   }, [displayValue]);
 
   const handleClickChoose = (value: string, label: string) => {
-    handleFiltered(value, label);
+    handleFiltered(value);
     setDisplay(label);
     togglePopover();
     setSearchTerm("");
   };
 
-  const filteredData = data?.filter(item => item.label.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredData = data?.filter((item) => item.label.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div ref={ref} className={`dropdown max-h-[48px] ${parentClassName ?? ""} ${popover ? "border-primary" : "border-gray/50"}`}>
@@ -50,11 +50,7 @@ export const Dropdown = ({ parentClassName, className, data, handleFiltered, def
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           {filteredData?.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => handleClickChoose(item.value, item.label)}
-              className="w-full px-4 py-2 text-start hover:bg-gray/20"
-            >
+            <button key={index} onClick={() => handleClickChoose(item.value, item.label)} className="w-full px-4 py-2 text-start hover:bg-gray/20">
               {item.label}
             </button>
           ))}

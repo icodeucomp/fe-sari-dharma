@@ -1,49 +1,64 @@
+import { getLayananUnggulan } from "@/services/layanan-unggulan.service";
 import { footerListType } from "@/types";
 
 export const footerList: footerListType[] = [
   {
     title: "Tentang Kami",
     navigation: [
-      { subtitle: "Perkenalan Klinik", link: "#klinik-introduction" },
-      { subtitle: "Layanan & Fasilitas", link: "#layanan-fasilitas" },
-      { subtitle: "Ambulance Emergency", link: "#ambulance-emergency" },
+      { subtitle: "Perkenalan Klinik", link: "/tentang-kami/ikhtisar" },
+      { subtitle: "Layanan & Fasilitas", link: "/tentang-kami/layanan-fasilitas" },
+      { subtitle: "Ambulance Emergency", link: "/tentang-kami/ambulans" },
     ],
   },
   {
     title: "Layanan Unggulan",
-    navigation: [
-      { subtitle: "Neurology Center", link: "#neurology-center" },
-      { subtitle: "Digestive & Endoscopy Center", link: "#digestive-endoscopy-center" },
-      { subtitle: "Mom & Kids Center", link: "#mom-kids-center" },
-      { subtitle: "Orthopedic & Traumatology Center", link: "#orthopedic-traumatology-center" },
-      { subtitle: "Urology Center", link: "#urology-center" },
-      { subtitle: "Hidroterapi (Terapi Air)", link: "#hidroterapi" },
-      { subtitle: "Cardiovascular Center", link: "#cardiovascular-center" },
-    ],
+    navigation: [],
   },
   {
     title: "Temukan Dokter",
     navigation: [
-      { subtitle: "Jadwal Dokter", link: "#jadwal-dokter" },
-      { subtitle: "Buat Janji Dokter", link: "#buat-janji-dokter" },
+      { subtitle: "Jadwal Dokter", link: "/temukan-dokter/jadwal" },
+      { subtitle: "Buat Janji Dokter", link: "/temukan-dokter/janji" },
     ],
   },
   {
     title: "Media & Informasi",
     navigation: [
-      { subtitle: "Artikel Kesehatan", link: "#artikel-kesehatan" },
-      { subtitle: "Komunitas & Acara", link: "#event-community" },
-      { subtitle: "Paket Kesehatan", link: "#paket-kesehatan" },
-      { subtitle: "Data Indikator Mutu", link: "#data-indikator-mutu" },
-      { subtitle: "Karir", link: "#karir" },
-      { subtitle: "Survei", link: "#survey" },
-    ],
-  },
-  {
-    title: "Hubungi Kami",
-    navigation: [
-      { subtitle: "Call Center", link: "#call-center" },
-      { subtitle: "Emergency Call", link: "#emergency-call" },
+      { subtitle: "Hubungi Kami", link: "/media-informasi/hubungi-kami" },
+      { subtitle: "Paket & Promo Kesehatan", link: "/media-informasi/paket-promo" },
+      { subtitle: "Artikel Kesehatan", link: "/media-informasi/artikel-kesehatan" },
+      { subtitle: "Event & Community", link: "/media-informasi/event-community" },
+      { subtitle: "Indikator Mutu", link: "/media-informasi/indikator-mutu" },
+      { subtitle: "Karir", link: "/media-informasi/karir" },
+      { subtitle: "Form Management", link: "/media-informasi/form-management" },
     ],
   },
 ];
+
+export const getFooterLists = async (): Promise<footerListType[]> => {
+  try {
+    const layananUnggulanResponse = await getLayananUnggulan(1, 20);
+    const layananUnggulanContent = layananUnggulanResponse.data.data.map((item: any) => ({
+      subtitle: item.nama_layanan,
+      link: `/layanan-unggulan/${item.slug}/${item.id}`,
+    }));
+
+    const dynamicFooterLists = footerList.map((navItem) => {
+      if (navItem.title === "Layanan Unggulan") {
+        return {
+          ...navItem,
+          navigation: layananUnggulanContent,
+        };
+      }
+      return navItem;
+    });
+
+    return dynamicFooterLists;
+  } catch (error) {
+    console.error("Error fetching Layanan Unggulan data:", error);
+
+    return footerList;
+  }
+};
+
+export const footer = footerList;

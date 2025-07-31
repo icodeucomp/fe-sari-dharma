@@ -1,13 +1,28 @@
+"use client";
+
+import * as React from "react";
+
 import Link from "next/link";
 
 import { Button, Container, Img } from "@/components";
 
-import { footerList } from "@/static";
+import { footerList, getFooterLists } from "@/static";
 
 import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
+
 import { IoLogoWhatsapp } from "react-icons/io5";
 
 export const Footer = () => {
+  const [footerItems, setFooterItems] = React.useState(footerList);
+
+  React.useEffect(() => {
+    const loadFooterData = async () => {
+      const dynamicFooterItems = await getFooterLists();
+      setFooterItems(dynamicFooterItems);
+    };
+
+    loadFooterData();
+  }, []);
   return (
     <footer className="bg-gray/10 mt-auto">
       <Container className="flex justify-between gap-8 py-8">
@@ -32,7 +47,7 @@ export const Footer = () => {
           </menu>
         </div>
         <div className="flex flex-wrap gap-8">
-          {footerList.map((item, index) => (
+          {footerItems.map((item, index) => (
             <div key={index} className="space-y-4">
               <h4 className="font-semibold text-primary">{item.title}</h4>
               <menu className="space-y-2">
