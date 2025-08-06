@@ -11,7 +11,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "aksd.aacassandra.web.id",
+        hostname: "back-office.saridharma.id",
         port: "",
         pathname: "/**",
       },

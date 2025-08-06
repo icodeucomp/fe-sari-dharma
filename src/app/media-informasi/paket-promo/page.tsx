@@ -19,7 +19,8 @@ export default function PacketsPromosPage() {
           Paket Kesehatan
         </Motion>
         <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="pb-8 leading-tight border-b subheading border-gray/50">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          Kami menyediakan berbagai paket pemeriksaan kesehatan menyeluruh untuk mendukung deteksi dini dan pemantauan kesehatan Anda. Pilih paket yang sesuai dengan kebutuhan pribadi maupun keluarga
+          Anda.
         </Motion>
       </Container>
 

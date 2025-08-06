@@ -16,10 +16,7 @@ export const footerList: footerListType[] = [
   },
   {
     title: "Temukan Dokter",
-    navigation: [
-      { subtitle: "Jadwal Dokter", link: "/temukan-dokter/jadwal" },
-      { subtitle: "Buat Janji Dokter", link: "/temukan-dokter/janji" },
-    ],
+    navigation: [{ subtitle: "Jadwal Dokter", link: "/temukan-dokter/jadwal" }],
   },
   {
     title: "Media & Informasi",
@@ -28,9 +25,7 @@ export const footerList: footerListType[] = [
       { subtitle: "Paket & Promo Kesehatan", link: "/media-informasi/paket-promo" },
       { subtitle: "Artikel Kesehatan", link: "/media-informasi/artikel-kesehatan" },
       { subtitle: "Event & Community", link: "/media-informasi/event-community" },
-      { subtitle: "Indikator Mutu", link: "/media-informasi/indikator-mutu" },
       { subtitle: "Karir", link: "/media-informasi/karir" },
-      { subtitle: "Form Management", link: "/media-informasi/form-management" },
     ],
   },
 ];

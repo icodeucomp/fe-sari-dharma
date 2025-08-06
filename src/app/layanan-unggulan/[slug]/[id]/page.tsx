@@ -44,7 +44,6 @@ export default function FeatureServicesPage({ params }: { params: { slug: string
         <Breadcrumbs
           items={[
             { name: "Beranda", path: "/" },
-            { name: "Layanan Unggulan", path: "/layanan-unggulan" },
             {
               name: layanan ? layanan.nama_layanan : "Loading...",
               path: `/layanan-unggulan/${params.slug}/${params.id}`,

@@ -8,7 +8,7 @@ import { Button, Container, Img } from "@/components";
 
 import { footerList, getFooterLists } from "@/static";
 
-import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { FaFacebook, FaInstagram } from "react-icons/fa6";
 
 import { IoLogoWhatsapp } from "react-icons/io5";
 
@@ -32,17 +32,18 @@ export const Footer = () => {
           <p className="text-sm">Bergabung dengan Komunitas Sahabat Sari Dharma dan dapatkan edukasi seputar kesehatan.</p>
           <Button className="flex items-center gap-2 font-medium bg-primary text-light">
             <IoLogoWhatsapp className="fill-light" size={20} />
-            Join Our Whatsapp Community
+            Call us on Whatsapp
           </Button>
           <menu className="flex items-center gap-2">
             <li className="flex items-center justify-center rounded-full size-9 bg-primary">
-              <FaInstagram size={20} className="fill-light" />
+              <a href="https://www.instagram.com/saridharma_clinic/?hl=en" target="_blank" rel="noopener noreferrer">
+                <FaInstagram size={20} className="fill-light" />
+              </a>
             </li>
             <li className="flex items-center justify-center rounded-full size-9 bg-primary">
-              <FaXTwitter size={20} className="fill-light" />
-            </li>
-            <li className="flex items-center justify-center rounded-full size-9 bg-primary">
-              <FaFacebook size={20} className="fill-light" />
+              <a href="https://www.facebook.com/klinik.utama.sari.dharma/" target="_blank" rel="noopener noreferrer">
+                <FaFacebook size={20} className="fill-light" />
+              </a>
             </li>
           </menu>
         </div>

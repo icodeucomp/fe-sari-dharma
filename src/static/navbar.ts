@@ -13,14 +13,11 @@ const staticNavbarLists: navbarListType[] = [
   },
   {
     title: "Layanan Unggulan",
-    content: [], // This will be populated dynamically
+    content: [],
   },
   {
     title: "Temukan Dokter",
-    content: [
-      { title: "Jadwal Dokter", link: "/temukan-dokter/jadwal" },
-      { title: "Buat Janji Dokter", link: "/temukan-dokter/janji" },
-    ],
+    content: [{ title: "Jadwal Dokter", link: "/temukan-dokter/jadwal" }],
   },
   {
     title: "Media & Informasi",
@@ -29,14 +26,11 @@ const staticNavbarLists: navbarListType[] = [
       { title: "Paket & Promo Kesehatan", link: "/media-informasi/paket-promo" },
       { title: "Artikel Kesehatan", link: "/media-informasi/artikel-kesehatan" },
       { title: "Event & Community", link: "/media-informasi/event-community" },
-      { title: "Indikator Mutu", link: "/media-informasi/indikator-mutu" },
       { title: "Karir", link: "/media-informasi/karir" },
-      { title: "Form Management", link: "/media-informasi/form-management" },
     ],
   },
 ];
 
-// Function to get navbar lists with dynamic Layanan Unggulan content
 export const getNavbarLists = async (): Promise<navbarListType[]> => {
   try {
     const layananUnggulanResponse = await getLayananUnggulan(1, 20);
@@ -59,10 +53,8 @@ export const getNavbarLists = async (): Promise<navbarListType[]> => {
   } catch (error) {
     console.error("Error fetching Layanan Unggulan data:", error);
 
-    // Return static navbar lists as fallback
     return staticNavbarLists;
   }
 };
 
-// Export static version for cases where you need it synchronously
 export const navbarLists = staticNavbarLists;

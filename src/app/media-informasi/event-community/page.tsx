@@ -18,7 +18,7 @@ export default function EventsCommunitiesPage() {
           Event & Community
         </Motion>
         <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="pb-8 leading-tight border-b subheading border-gray/50">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          Mari jadi bagian dari komunitas sehat bersama kami! Temukan informasi terbaru seputar seminar kesehatan, bakti sosial, donor darah, dan event menarik lainnya.
         </Motion>
       </Container>
       <Container className="relative flex min-h-screen gap-16 pt-4 pb-16">

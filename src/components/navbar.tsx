@@ -6,6 +6,8 @@ import { useToggleState } from "@/hooks";
 
 import Link from "next/link";
 
+import { Container } from "./container";
+
 import { useRouter } from "next/navigation";
 
 import { motion, Variants } from "framer-motion";
@@ -15,7 +17,6 @@ import { FaAngleRight } from "react-icons/fa6";
 import { getNavbarLists, navbarLists } from "@/static";
 
 import { navbarListType } from "@/types";
-import { Container } from "./container";
 
 interface LinkProps extends navbarListType {
   toggleNavbar: () => void;

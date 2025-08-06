@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { Button, Container, Img } from "@/components";
 import { Submenu } from "../../submenu";
 import { getJadwalDokterDetail } from "@/services/jadwal-dokter-detail.service";
-import Icon from '@mdi/react';
-import { mdiLoading } from '@mdi/js';
+import Icon from "@mdi/react";
+import { mdiLoading } from "@mdi/js";
 
 interface Tab {
   name: string;
@@ -38,9 +38,7 @@ const TabProfile = ({ activeTab, handleActiveTab }: { activeTab: string; handleA
   );
 };
 
-const BackgroundContent = ({ background }: { background: string }) => (
-  <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: background }} />
-);
+const BackgroundContent = ({ background }: { background: string }) => <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: background }} />;
 
 const EdukasiContent = ({ edukasi }: { edukasi: any[] }) => (
   <div className="space-y-4">
@@ -48,7 +46,7 @@ const EdukasiContent = ({ edukasi }: { edukasi: any[] }) => (
       <div key={index} className="p-4 border rounded-lg">
         <h3 className="text-xl font-semibold">{item.judul}</h3>
         <p className="text-gray">
-          {item.tahun_mulai} - {item.tahun_selesai || 'Sekarang'}
+          {item.tahun_mulai} - {item.tahun_selesai || "Sekarang"}
         </p>
       </div>
     ))}
@@ -65,7 +63,7 @@ const JadwalContent = ({ jadwal }: { jadwal: any[] }) => (
     </thead>
     <tbody>
       {jadwal.map((item, index) => (
-        <tr key={index} className="border-b">
+        <tr key={index} className="border-b text-center">
           <td className="p-3">{item.hari}</td>
           <td className="p-3">{`${item.jam_mulai} - ${item.jam_selesai}`}</td>
         </tr>
@@ -131,8 +129,8 @@ export const Profile = ({ id }: { id: string }) => {
   };
 
   const getImageUrl = (path: string) => {
-    if (!path) return '/images/placeholder.jpg';
-    if (path.startsWith('http')) return path;
+    if (!path) return "/images/placeholder.jpg";
+    if (path.startsWith("http")) return path;
     return `${process.env.NEXT_PUBLIC_API_URL}/storage/${path}`;
   };
 
@@ -150,7 +148,7 @@ export const Profile = ({ id }: { id: string }) => {
               <span className="text-2xl font-semibold">Spesialis</span>
               <li className="flex items-center gap-2">
                 <i className="flex items-center justify-center flex-shrink-0 border-2 rounded-md border-light size-10">1</i>
-                <p>{ data.spesialis.nama_layanan}</p>
+                <p>{data.spesialis.nama_layanan}</p>
               </li>
             </menu>
             <Button className="btn-light">Appointment</Button>
@@ -159,9 +157,7 @@ export const Profile = ({ id }: { id: string }) => {
       </div>
       <TabProfile activeTab={activeTab} handleActiveTab={handleActiveTab} />
       <Container className="relative flex min-h-screen gap-16 py-8">
-        <div className="w-full">
-          {getContent()}
-        </div>
+        <div className="w-full">{getContent()}</div>
         <div className="sticky self-start space-y-8 top-4">
           <Submenu
             menu="Akses Menu"

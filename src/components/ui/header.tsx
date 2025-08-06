@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Img, Container, Navbar } from "@/components";
 
-import { FaFacebook, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { FaFacebook, FaInstagram } from "react-icons/fa6";
 
 import { useToggleState } from "@/hooks";
 
@@ -15,8 +15,10 @@ export const Header = () => {
       <div className="bg-primary text-light hidden lg:block">
         <Container className="flex items-center justify-end h-12 gap-6 divide-x-2">
           <menu className="flex items-center gap-4">
-            <li className="flex items-center gap-1 text-xs">
-              <Img src="/icons/maps.svg" alt="maps icon" className="size-5" cover /> Maps
+            <li className="text-xs">
+              <a href="https://maps.app.goo.gl/U1rDLphibDfC3Dia6" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
+                <Img src="/icons/maps.svg" alt="maps icon" className="size-5" cover /> Maps
+              </a>
             </li>
             <li className="flex items-center gap-1 text-xs">
               <Img src="/icons/ambulance.svg" alt="ambulance icon" className="size-5" cover /> Emergency Call
@@ -27,13 +29,14 @@ export const Header = () => {
           </menu>
           <menu className="flex items-center gap-2 pl-6">
             <li className="flex items-center justify-center rounded-full size-7 bg-secondary">
-              <FaInstagram size={15} />
+              <a href="https://www.instagram.com/saridharma_clinic/?hl=en" target="_blank" rel="noopener noreferrer">
+                <FaInstagram size={15} />
+              </a>
             </li>
             <li className="flex items-center justify-center rounded-full size-7 bg-secondary">
-              <FaXTwitter size={15} />
-            </li>
-            <li className="flex items-center justify-center rounded-full size-7 bg-secondary">
-              <FaFacebook size={15} />
+              <a href="https://www.facebook.com/klinik.utama.sari.dharma/" target="_blank" rel="noopener noreferrer">
+                <FaFacebook size={15} />
+              </a>
             </li>
           </menu>
         </Container>

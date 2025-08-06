@@ -2,7 +2,7 @@
 
 import { Button, Container, Motion } from "@/components";
 import { useEffect, useState } from "react";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDropright } from "react-icons/io";
 import { getLayananSpesialis, LayananSpesialis } from "@/services/layanan-spesialis.service";
 import Icon from "@mdi/react";
 import { getIconPath } from "@/utils/icon-helper";
@@ -54,24 +54,24 @@ export const Specialize = () => {
               tag="div"
               initialY={50}
               animateY={0}
-              duration={1}
-              delay={index * 0.3}
+              duration={index * 0.3}
+              delay={index * 0.1}
               key={item.id}
               className="relative flex-1 max-w-sm p-8 overflow-hidden rounded-lg card-shadow min-w-80 bg-light"
             >
               <div className="p-4 rounded-full bg-secondary w-max">
-                <Icon path={getIconPath(item.icon)} size={1} className="text-primary" />
+                <Icon path={getIconPath(item.icon)} size={1.5} className="text-primary" />
               </div>
               <h5 className="mt-6 font-bold text-dark">{item.nama_layanan}</h5>
-              <p className="mt-1 text-sm text-justify text-gray line-clamp-3">{item.deskripsi}</p>
+              <div className="mt-1 text-sm text-justify text-gray line-clamp-3" dangerouslySetInnerHTML={{ __html: item.deskripsi }} />
               <i className="absolute bottom-0 left-0 w-full h-1.5 bg-primary"></i>
             </Motion>
           ))
         )}
       </div>
-      <Link href="/tentang-kami/layanan-fasilitas">
+      <Link href="/temukan-dokter/jadwal">
         <Button className="flex items-center gap-2 mx-auto btn-outline">
-          Lihat Semua <IoIosArrowDown size={20} />
+          Temukan Jadwal Dokter <IoIosArrowDropright size={20} />
         </Button>
       </Link>
     </Container>

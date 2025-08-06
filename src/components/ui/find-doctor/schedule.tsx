@@ -9,8 +9,8 @@ import axios from "axios";
 
 // Helper function untuk mendapatkan URL gambar
 const getImageUrl = (path: string) => {
-  if (!path) return '/images/placeholder.jpg';
-  if (path.startsWith('http')) return path;
+  if (!path) return "/images/placeholder.jpg";
+  if (path.startsWith("http")) return path;
   return `${process.env.NEXT_PUBLIC_API_URL}/storage/${path}`;
 };
 
@@ -20,19 +20,19 @@ const getImageUrl = (path: string) => {
 const formatJadwalByHari = (jadwalDokter: any[]) => {
   const hariList = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"];
   const formattedJadwal: { [key: string]: string } = {};
-  
+
   // Inisialisasi semua hari dengan "-"
-  hariList.forEach(hari => {
+  hariList.forEach((hari) => {
     formattedJadwal[hari] = "-";
   });
-  
+
   // Isi jadwal yang ada
-  jadwalDokter.forEach(jadwal => {
+  jadwalDokter.forEach((jadwal) => {
     if (hariList.includes(jadwal.hari)) {
       formattedJadwal[jadwal.hari] = `${jadwal.jam_mulai} - ${jadwal.jam_selesai}`;
     }
   });
-  
+
   return formattedJadwal;
 };
 
@@ -65,9 +65,10 @@ export const Schedule = () => {
   const [totalPage, setTotalPage] = React.useState<number>(1);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [jadwalDokter, setJadwalDokter] = React.useState<any[]>([]);
+  console.log("🚀 ~ Schedule ~ jadwalDokter:", jadwalDokter);
   const [filters, setFilters] = React.useState({
-    spesialis_id: '',
-    dokter_id: '',
+    spesialis_id: "",
+    dokter_id: "",
   });
   const [listDokter, setListDokter] = React.useState<Dokter[]>([]);
   const [listSpesialis, setListSpesialis] = React.useState<Spesialis[]>([]);
@@ -89,7 +90,7 @@ export const Schedule = () => {
       setJadwalDokter(response.data.data);
       setTotalPage(response.data.last_page);
     } catch (error) {
-      console.error('Error fetching jadwal dokter:', error);
+      console.error("Error fetching jadwal dokter:", error);
     } finally {
       setLoading(false);
     }
@@ -105,21 +106,21 @@ export const Schedule = () => {
       }));
       setListDokter(dokterData);
     } catch (error) {
-      console.error('Error fetching master dokter:', error);
+      console.error("Error fetching master dokter:", error);
     }
   }, []);
 
   // Fungsi untuk mengambil data master spesialis
   const fetchMasterSpesialis = React.useCallback(async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/master-kategori?per_page=100`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/layanan-spesialis?per_page=100`);
       const spesialisData = response.data.data.data.map((spesialis: any) => ({
-        label: spesialis.name,
+        label: spesialis.nama_layanan,
         value: spesialis.id,
       }));
       setListSpesialis(spesialisData);
     } catch (error) {
-      console.error('Error fetching master spesialis:', error);
+      console.error("Error fetching master spesialis:", error);
     }
   }, []);
 
@@ -130,14 +131,14 @@ export const Schedule = () => {
   }, [fetchJadwalDokter, fetchMasterDokter, fetchMasterSpesialis]);
 
   const handleFilteredSpecialist = (value: string) => {
-    setFilters(prev => ({ ...prev, spesialis_id: value }));
-    setSpesialisDisplay(value === "" ? "semua" : listSpesialis.find(s => s.value === value)?.label || "semua");
+    setFilters((prev) => ({ ...prev, spesialis_id: value }));
+    setSpesialisDisplay(value === "" ? "semua" : listSpesialis.find((s) => s.value === value)?.label || "semua");
     setPage(1);
   };
 
   const handleFilteredDokter = (value: string) => {
-    setFilters(prev => ({ ...prev, dokter_id: value }));
-    setDokterDisplay(value === "" ? "semua" : listDokter.find(d => d.value === value)?.label || "semua");
+    setFilters((prev) => ({ ...prev, dokter_id: value }));
+    setDokterDisplay(value === "" ? "semua" : listDokter.find((d) => d.value === value)?.label || "semua");
     setPage(1);
   };
 
@@ -147,11 +148,29 @@ export const Schedule = () => {
   };
 
   const handleReset = () => {
-    setFilters({ spesialis_id: '', dokter_id: '' });
+    setFilters({ spesialis_id: "", dokter_id: "" });
     setDokterDisplay("semua");
     setSpesialisDisplay("semua");
     setHari("");
     setPage(1);
+  };
+
+  const handleClick = (doctorName: string, specialization: string) => {
+    const message = `Halo Admin,
+Saya ingin melakukan janji temu dengan dokter melalui website.
+Berikut detailnya:
+
+  *Dokter:* ${doctorName} - ${specialization}
+  *Hari:* (isi…)
+  *Jam:* (isi…)
+
+Mohon bantuannya untuk konfirmasi ketersediaan jadwal tersebut.
+Terima kasih`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const phoneNumber = "6281318041828";
+    const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(url, "_blank");
   };
 
   return (
@@ -161,50 +180,25 @@ export const Schedule = () => {
           Jadwal Dokter
         </Motion>
         <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="leading-tight subheading">
-          Let us help you connect with our specialists. <br />
-          Browse our list of specialists and schedule an appointment.
+          Kami siap membantu Anda terhubung dengan dokter spesialis kami. <br />
+          Lihat daftar dokter spesialis dan jadwalkan kunjungan dengan mudah.
         </Motion>
       </div>
       <div className="flex gap-8 py-8 border-b border-gray/50">
         <div className="w-full space-y-2 min-w-60">
           <h4 className="font-semibold text-primary">Spesialis</h4>
-          <Dropdown 
-            className="top-14" 
-            parentClassName="w-full min-h-12" 
-            data={listSpesialis} 
-            handleFiltered={handleFilteredSpecialist} 
-            defaultValue="semua"
-            displayValue={spesialisDisplay}
-          />
+          <Dropdown className="top-14" parentClassName="w-full min-h-12" data={listSpesialis} handleFiltered={handleFilteredSpecialist} defaultValue="semua" displayValue={spesialisDisplay} />
         </div>
         <div className="w-full space-y-2 min-w-60">
           <h4 className="font-semibold text-primary">Hari</h4>
-          <Dropdown
-            className="top-14"
-            parentClassName="w-full min-h-12"
-            data={hariOptions}
-            handleFiltered={handleFilteredHari}
-            defaultValue="semua"
-            displayValue={hari || "semua"}
-          />
+          <Dropdown className="top-14" parentClassName="w-full min-h-12" data={hariOptions} handleFiltered={handleFilteredHari} defaultValue="semua" displayValue={hari || "semua"} />
         </div>
         <div className="w-full space-y-2 min-w-60 flex items-end gap-2">
           <div className="w-full">
             <h4 className="font-semibold text-primary">Dokter</h4>
-            <Dropdown 
-              className="top-14" 
-              parentClassName="w-full min-h-12" 
-              data={listDokter} 
-              handleFiltered={handleFilteredDokter} 
-              defaultValue="semua"
-              displayValue={dokterDisplay}
-            />
+            <Dropdown className="top-14" parentClassName="w-full min-h-12" data={listDokter} handleFiltered={handleFilteredDokter} defaultValue="semua" displayValue={dokterDisplay} />
           </div>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="h-12 px-4 py-2 mt-6 text-sm font-semibold text-white bg-primary rounded hover:bg-primary/90 transition"
-          >
+          <button type="button" onClick={handleReset} className="h-12 px-4 py-2 mt-6 text-sm font-semibold text-white bg-primary rounded hover:bg-primary/90 transition">
             Reset
           </button>
         </div>
@@ -217,24 +211,17 @@ export const Schedule = () => {
         ) : (
           jadwalDokter.map((jadwal) => {
             const formattedJadwal = formatJadwalByHari(jadwal.jadwal_dokter);
-            
+
             return (
               <div key={jadwal.id} className="flex w-full gap-8 py-4 border-b border-gray/50">
-                {
-                  jadwal.dokter.foto ? (
-                    <Img 
-                  src={getImageUrl(jadwal.dokter.foto)} 
-                  alt="dokter" 
-                  className="min-h-72 min-w-52 rounded-lg" 
-                  cover 
-                />
-                  ) : (
-                    <div className="min-h-72 min-w-52 rounded-lg" style={{ backgroundColor: 'lightgray' }}></div>
-                  )
-                }
+                {jadwal.dokter.foto ? (
+                  <Img src={getImageUrl(jadwal.dokter.foto)} alt="dokter" className="min-h-72 min-w-52 rounded-lg" cover />
+                ) : (
+                  <div className="min-h-72 min-w-52 rounded-lg" style={{ backgroundColor: "lightgray" }}></div>
+                )}
                 <div className="flex flex-col justify-between w-full gap-4">
                   <div className="space-y-1">
-                    <h3 className="text-xl font-bold text-dark">{jadwal.dokter.nama_dokter  }</h3>
+                    <h3 className="text-xl font-bold text-dark">{jadwal.dokter.nama_dokter}</h3>
                     <p className="font-semibold text-gray">
                       Spesialis <span className="text-primary">{jadwal.spesialis.nama_layanan}</span>
                     </p>
@@ -262,13 +249,12 @@ export const Schedule = () => {
                     </table>
                   </div>
                   <div className="flex space-x-4">
-                    <Button 
-                      onClick={() => router.push(`/temukan-dokter/jadwal/${jadwal.id}`)} 
-                      className="btn-outline"
-                    >
+                    <Button onClick={() => router.push(`/temukan-dokter/jadwal/${jadwal.id}`)} className="btn-outline">
                       View Full Profile
                     </Button>
-                    <Button className="btn-primary">Appointment</Button>
+                    <Button onClick={() => handleClick(jadwal.dokter.nama_dokter, jadwal.spesialis.nama_layanan)} className="btn-primary">
+                      Appointment
+                    </Button>
                   </div>
                 </div>
               </div>
