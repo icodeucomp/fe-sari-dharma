@@ -65,7 +65,6 @@ export const Schedule = () => {
   const [totalPage, setTotalPage] = React.useState<number>(1);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [jadwalDokter, setJadwalDokter] = React.useState<any[]>([]);
-  console.log("🚀 ~ Schedule ~ jadwalDokter:", jadwalDokter);
   const [filters, setFilters] = React.useState({
     spesialis_id: "",
     dokter_id: "",

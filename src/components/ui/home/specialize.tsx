@@ -10,22 +10,18 @@ import Link from "next/link";
 
 export const Specialize = () => {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [layananList, setLayananList] = useState<LayananSpesialis[]>([]);
-  console.log("🚀 ~ Specialize ~ error:", error);
 
   /**
    * Fungsi untuk mengambil data layanan spesialis
    */
   const fetchLayanan = async () => {
     try {
-      setError(null);
       setLoading(true);
       const response = await getLayananSpesialis("", 1, 10);
       setLayananList(response.data.data);
     } catch (error) {
       console.error("Error fetching layanan:", error);
-      setError("Terjadi kesalahan saat mengambil data layanan spesialis");
     } finally {
       setLoading(false);
     }

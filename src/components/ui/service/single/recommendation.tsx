@@ -26,12 +26,10 @@ interface Layanan {
 }
 
 const getImageUrl = (path: string) => {
-  console.log("Image path:", path); // For debugging
-  if (!path) return "/images/placeholder.jpg"; // Use placeholder if path is empty
+  if (!path) return "/images/placeholder.jpg";
   if (path.startsWith("http")) return path;
 
   const debug = `${BASE_URL}/storage/${path}`;
-  console.log("Formatted image URL:", debug); // For debugging
   return debug;
 };
 
