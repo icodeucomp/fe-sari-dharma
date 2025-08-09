@@ -4,6 +4,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -34,7 +35,7 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
-    domains: ["img.youtube.com", "upload.wikimedia.org", "back-office.saridharma.id"],
+    domains: ["back-office.saridharma.id"],
   },
 };
 
