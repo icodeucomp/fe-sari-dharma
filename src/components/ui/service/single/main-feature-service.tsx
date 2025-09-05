@@ -35,7 +35,7 @@ Terima kasih.
 `;
 
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "6281318041828";
+    const phoneNumber = "628113881248";
     const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(url, "_blank");
   };
@@ -52,9 +52,9 @@ Terima kasih.
         </div>
 
         <div dangerouslySetInnerHTML={{ __html: layanan.deskripsi }} />
-        <div className="space-y-4 w-full">
-          <h3 className="text-primary text-xl font-semibold">Informasi Seputar {layanan.nama_layanan}</h3>
-          <Button onClick={() => handleClick(layanan.nama_layanan)} className="btn-green w-full">
+        <div className="w-full space-y-4">
+          <h3 className="text-xl font-semibold text-primary">Informasi Seputar {layanan.nama_layanan}</h3>
+          <Button onClick={() => handleClick(layanan.nama_layanan)} className="w-full btn-green">
             Chat Via Whatsapp
           </Button>
         </div>

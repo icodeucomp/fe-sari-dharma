@@ -9,7 +9,7 @@ import { Img, Motion } from "@/components";
 
 import { LuTag } from "react-icons/lu";
 
-import { convertDate, formatKebabCase } from "@/utils";
+import { convertDate } from "@/utils";
 import Icon from "@mdi/react";
 import { mdiLoading } from "@mdi/js";
 
@@ -64,7 +64,7 @@ const RecommendationEvent = ({ layanan, loading, error }: { layanan: Layanan[] |
             </span>
             <div className="space-y-1 text-dark">
               <span className="text-sm font-light">{convertDate(item.created_at)}</span>
-              <Link href={`/media-informasi/artikel-kesehatan/${formatKebabCase("Peran CT Scan dan MRI dalam Mendeteksi Stroke")}`}>
+              <Link href={`/layanan-unggulan/${item.slug}/${item.id}`}>
                 <h3 className="font-semibold line-clamp-2">{item.nama_layanan}</h3>
               </Link>
             </div>

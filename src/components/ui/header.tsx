@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Img, Container, Navbar } from "@/components";
 
-import { FaFacebook, FaInstagram } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa6";
 
 import { useToggleState } from "@/hooks";
 
@@ -12,7 +12,7 @@ export const Header = () => {
   const [ref, navbar, toggleNavbar] = useToggleState();
   return (
     <header ref={ref} className="border-b shadow-sm border-gray/20">
-      <div className="bg-primary text-light hidden lg:block">
+      <div className="hidden bg-primary text-light lg:block">
         <Container className="flex items-center justify-end h-12 gap-6 divide-x-2">
           <menu className="flex items-center gap-4">
             <li className="text-xs">
@@ -20,11 +20,15 @@ export const Header = () => {
                 <Img src="/icons/maps.svg" alt="maps icon" className="size-5" cover /> Maps
               </a>
             </li>
-            <li className="flex items-center gap-1 text-xs">
-              <Img src="/icons/ambulance.svg" alt="ambulance icon" className="size-5" cover /> Emergency Call
+            <li className="text-xs">
+              <a href="tel:+62361226866" className="flex items-center gap-1">
+                <Img src="/icons/ambulance.svg" alt="ambulance icon" className="size-5" cover /> Emergency Call
+              </a>
             </li>
-            <li className="flex items-center gap-1 text-xs">
-              <Img src="/icons/fluent-call.svg" alt="fluent call icon" className="size-5" cover /> Call Center
+            <li className="text-xs">
+              <a href="tel:+62361226866" className="flex items-center gap-1">
+                <Img src="/icons/fluent-call.svg" alt="fluent call icon" className="size-5" cover /> Call Center
+              </a>
             </li>
           </menu>
           <menu className="flex items-center gap-2 pl-6">
@@ -38,6 +42,11 @@ export const Header = () => {
                 <FaFacebook size={15} />
               </a>
             </li>
+            <li className="flex items-center justify-center rounded-full size-7 bg-secondary">
+              <a href="https://www.tiktok.com/@saridharma_clinic" target="_blank" rel="noopener noreferrer">
+                <FaTiktok size={15} />
+              </a>
+            </li>
           </menu>
         </Container>
       </div>
@@ -48,7 +57,7 @@ export const Header = () => {
           </Link>
 
           <Navbar toggleNavbar={toggleNavbar} navbar={navbar} />
-          {/* <Button type="button" className="btn-primary hidden lg:block">
+          {/* <Button type="button" className="hidden btn-primary lg:block">
             <IoSearch size={24} className="fill-white" />
             <span className="sr-only">Search</span>
           </Button> */}
