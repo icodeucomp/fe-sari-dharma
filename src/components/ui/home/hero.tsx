@@ -7,7 +7,7 @@ import { Background, Img, Motion } from "@/components";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
 export const Hero = () => {
-  const images: string[] = ["/images/home.webp", "/images/ambulance-car.webp", "/images/service.webp"];
+  const images: string[] = ["/images/sari-dharma-photo-1.webp", "/images/sari-dharma-photo-2.webp", "/images/sari-dharma-photo-3.webp"];
   const [currentSlide, setCurrentSlide] = React.useState(0);
 
   const nextSlide = () => {
@@ -20,7 +20,7 @@ export const Hero = () => {
 
   return (
     <>
-      <Background src={images[currentSlide]} alt="hero background" imgClassName="object-cover object-center" className="flex items-center justify-center min-h-500">
+      <Background src={images[currentSlide]} alt="hero background" imgClassName="object-cover object-center" className="flex items-center justify-center min-h-400 sm:min-h-500">
         <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-primary/40 to-secondary/40"></div>
         <div className="relative w-full max-w-screen-xl px-4 mx-auto text-center sm:px-8">
           <Motion tag="h1" initialX={-50} animateX={0} duration={0.3} className="max-w-xl mx-auto text-3xl font-semibold leading-snug md:text-4xl lg:text-5xl">

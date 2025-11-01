@@ -35,17 +35,17 @@ const motionVariants: Variants = {
   },
 };
 
-const DesktopLink = () => {
-  const [navbarItems, setNavbarItems] = React.useState(navbarLists);
+const DesktopLink = ({ navbarItems }: { navbarItems: navbarListType[] }) => {
+  // const [navbarItems, setNavbarItems] = React.useState(navbarLists);
 
-  React.useEffect(() => {
-    const loadNavbarData = async () => {
-      const dynamicNavbarItems = await getNavbarLists();
-      setNavbarItems(dynamicNavbarItems);
-    };
+  // React.useEffect(() => {
+  //   const loadNavbarData = async () => {
+  //     const dynamicNavbarItems = await getNavbarLists();
+  //     setNavbarItems(dynamicNavbarItems);
+  //   };
 
-    loadNavbarData();
-  }, []);
+  //   loadNavbarData();
+  // }, []);
   return (
     <>
       {navbarItems.map((navbar, i) => (
@@ -105,11 +105,13 @@ const MobileLink = ({ link, title, content, toggleNavbar }: LinkProps) => {
       </div>
       <motion.div initial={false} animate={dropdown ? "open" : "closed"} variants={motionVariants} className="w-full px-4 space-y-2 bg-light sm:px-8">
         <div className="py-4 space-y-4 text-sm sm:text-base">
-          {content?.map((item, index) => (
-            <button onClick={() => handleClick(link + item.link)} key={index} className="flex items-center gap-4 font-medium text-dark hover:font-semibold w-max">
-              {item.title} <FaAngleRight />
-            </button>
-          ))}
+          {content?.map((item, index) => {
+            return (
+              <button onClick={() => handleClick(item.link || "/")} key={index} className="flex items-center gap-4 font-medium text-dark hover:font-semibold w-max">
+                {item.title} <FaAngleRight />
+              </button>
+            );
+          })}
         </div>
       </motion.div>
     </div>
@@ -117,18 +119,28 @@ const MobileLink = ({ link, title, content, toggleNavbar }: LinkProps) => {
 };
 
 export const Navbar = ({ navbar, toggleNavbar }: { navbar: boolean; toggleNavbar: () => void }) => {
+  const [navbarItems, setNavbarItems] = React.useState(navbarLists);
+
+  React.useEffect(() => {
+    const loadNavbarData = async () => {
+      const dynamicNavbarItems = await getNavbarLists();
+      setNavbarItems(dynamicNavbarItems);
+    };
+
+    loadNavbarData();
+  }, []);
   return (
     <>
       <nav className="items-center justify-center hidden w-full h-full grid-cols-4 list-none max-w-navbar lg:grid">
-        <DesktopLink />
+        <DesktopLink navbarItems={navbarItems} />
       </nav>
       <motion.nav
         initial={false}
         animate={navbar ? "open" : "closed"}
         variants={motionVariants}
-        className="absolute left-0 w-full space-y-4 overflow-hidden py-4 top-20 text-nowrap bg-primary text-light z-1000 block lg:hidden"
+        className="absolute left-0 w-full space-y-4 overflow-hidden py-4 top-16 text-nowrap bg-primary text-light z-1000 block lg:hidden"
       >
-        {navbarLists.map((item, index) => (
+        {navbarItems.map((item, index) => (
           <MobileLink key={index} link={item.link} title={item.title} content={item.content} toggleNavbar={toggleNavbar} />
         ))}
       </motion.nav>

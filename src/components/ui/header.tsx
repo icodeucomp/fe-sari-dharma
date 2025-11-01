@@ -51,9 +51,9 @@ export const Header = () => {
         </Container>
       </div>
       <div className="bg-light text-dark">
-        <div className="flex items-center justify-between w-full h-20 px-4 mx-auto max-w-container sm:px-8">
+        <div className="flex items-center justify-between w-full h-16 sm:h-20 px-4 mx-auto max-w-container sm:px-8">
           <Link href="/">
-            <Img src="/images/logo.png" alt="logo clinic sari dharma" className="size-14" cover />
+            <Img src="/images/logo.png" alt="logo clinic sari dharma" className="size-11 md:size-14" cover />
           </Link>
 
           <Navbar toggleNavbar={toggleNavbar} navbar={navbar} />
@@ -67,9 +67,9 @@ export const Header = () => {
               <span className="sr-only">Search</span>
             </Button> */}
             <button onClick={toggleNavbar} className={`relative flex flex-col justify-center overflow-hidden items-center p-2 ${navbar ? "space-y-1" : "space-y-1.5"}`}>
-              <span className={`block h-1 w-10 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "translate-y-2 rotate-45" : ""}`}></span>
-              <span className={`block h-1 w-8 rounded-full bg-primary duration-200 ${navbar && "translate-x-16"}`}></span>
-              <span className={`block h-1 w-10 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "-translate-y-2 -rotate-45" : ""}`}></span>
+              <span className={`block h-1 w-8 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "translate-y-2 rotate-45" : ""}`}></span>
+              <span className={`block h-1 w-6 rounded-full bg-primary duration-200 ${navbar && "translate-x-16"}`}></span>
+              <span className={`block h-1 w-8 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "-translate-y-2 -rotate-45" : ""}`}></span>
             </button>
           </div>
         </div>

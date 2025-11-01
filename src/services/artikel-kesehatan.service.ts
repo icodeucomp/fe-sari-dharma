@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 interface ArtikelKesehatanResponse {
   success: boolean;
@@ -70,9 +70,7 @@ export const getArtikelKesehatan = async (params?: ArtikelParams) => {
     ...(params?.dokter_terkait && { dokter_terkait: JSON.stringify(params.dokter_terkait) }),
   });
 
-  const response = await axios.get<ArtikelKesehatanResponse>(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/artikel-kesehatan?${queryParams}`
-  );
+  const response = await axios.get<ArtikelKesehatanResponse>(`${process.env.NEXT_PUBLIC_API_URL}/api/artikel-kesehatan?${queryParams}`);
 
   return response.data;
 };
@@ -81,8 +79,6 @@ export const getArtikelKesehatan = async (params?: ArtikelParams) => {
  * Service untuk mengambil detail artikel kesehatan berdasarkan slug dan id
  */
 export const getArtikelKesehatanDetail = async (slug: string, id: string) => {
-  const response = await axios.get<{ success: boolean; data: ArtikelDetail }>(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/artikel-kesehatan/${slug}/${id}`
-  );
+  const response = await axios.get<{ success: boolean; data: ArtikelDetail }>(`${process.env.NEXT_PUBLIC_API_URL}/api/artikel-kesehatan/${slug}/${id}`);
   return response.data;
 };

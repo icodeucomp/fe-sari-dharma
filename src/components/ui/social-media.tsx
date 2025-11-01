@@ -3,8 +3,8 @@
 import * as React from "react";
 import { Container } from "@/components";
 import { KontenSocialMedia, getKontenSocialMedia } from "@/services/konten-social-media.service";
-import Icon from '@mdi/react';
-import { mdiLoading } from '@mdi/js';
+import Icon from "@mdi/react";
+import { mdiLoading } from "@mdi/js";
 
 export const SocialMedia = () => {
   const [activeTab, setActiveTab] = React.useState<"youtube" | "instagram">("youtube");
@@ -20,7 +20,7 @@ export const SocialMedia = () => {
       try {
         const response = await getKontenSocialMedia({
           type: activeTab,
-          per_page: 4
+          per_page: 4,
         });
         setKontenSocialMedia(response.data.data);
       } catch (error) {
@@ -86,12 +86,12 @@ export const SocialMedia = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-4 place-items-center">
                   {kontenSocialMedia.map((konten, index) => {
                     // Mengubah URL YouTube watch menjadi embed
-                    const embedUrl = konten.links.replace('watch?v=', 'embed/').split('&')[0];
-                    
+                    const embedUrl = konten.links.replace("watch?v=", "embed/").split("&")[0];
+
                     return (
                       <iframe
                         key={konten.id}
-                        className={`w-full aspect-video rounded-md ${index === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}`}
+                        className={`w-full aspect-video rounded-md ${index === 0 ? "lg:col-span-2 lg:row-span-2" : ""}`}
                         src={embedUrl}
                         title={`Video ${index + 1}`}
                         allowFullScreen
@@ -106,7 +106,7 @@ export const SocialMedia = () => {
               <div>
                 <h2 className="text-2xl font-bold text-pink-700 mb-2">Instagram: @saridharma</h2>
                 <p className="mb-4">Lihat postingan terbaru dari akun resmi Klinik Utama Sari Dharma.</p>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                   {kontenSocialMedia.map((konten) => (
                     <blockquote
                       key={konten.id}

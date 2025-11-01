@@ -41,7 +41,7 @@ export const Specialize = () => {
           Solusi tepat dengan dokter berpengalaman di bidangnya.
         </Motion>
       </div>
-      <div className="flex flex-wrap justify-between gap-8 pb-[50px]">
+      <div className="grid grid-cols-2 md:grid-cols-3 justify-between gap-4 sm:gap-8 pb-[50px]">
         {loading ? (
           <p className="text-center w-full">Memuat data...</p>
         ) : (
@@ -50,16 +50,16 @@ export const Specialize = () => {
               tag="div"
               initialY={50}
               animateY={0}
-              duration={index * 0.3}
-              delay={index * 0.1}
+              duration={index * 0.2}
+              delay={index * 0.01}
               key={item.id}
-              className="relative flex-1 max-w-sm p-8 overflow-hidden rounded-lg card-shadow min-w-80 bg-light"
+              className="relative flex-1 max-w-sm p-4 lg:p-8 overflow-hidden rounded-lg card-shadow min-w-40 md:min-w-56 lg:min-h-80 bg-light"
             >
-              <div className="p-4 rounded-full bg-secondary w-max">
+              <div className="p-4 rounded-full bg-secondary w-max mx-auto md:mx-0">
                 <Icon path={getIconPath(item.icon)} size={1.5} className="text-primary" />
               </div>
-              <h5 className="mt-6 font-bold text-dark">{item.nama_layanan}</h5>
-              <div className="mt-1 text-sm text-justify text-gray line-clamp-3" dangerouslySetInnerHTML={{ __html: item.deskripsi }} />
+              <h5 className="mt-6 font-bold text-dark text-sm lg:text-base">{item.nama_layanan}</h5>
+              <div className="mt-1 text-xs lg:text-sm text-justify text-gray line-clamp-3" dangerouslySetInnerHTML={{ __html: item.deskripsi }} />
               <i className="absolute bottom-0 left-0 w-full h-1.5 bg-primary"></i>
             </Motion>
           ))

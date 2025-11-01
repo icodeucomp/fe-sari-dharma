@@ -17,7 +17,7 @@ export default function OverviewPage() {
           ]}
         />
       </Container>
-      <Container className="relative flex min-h-screen gap-16 pb-16 pt-8">
+      <Container className="relative flex flex-col-reverse md:flex-row min-h-screen gap-8 xl:gap-16 pb-16 pt-4 sm:pt-8">
         <div className="w-full space-y-16">
           <section id="pesan">
             <Message />
@@ -33,7 +33,7 @@ export default function OverviewPage() {
           </section>
         </div>
 
-        <div className="sticky self-start space-y-8 top-4">
+        <div className="md:sticky self-start space-y-8 top-4 w-full md:max-w-xs">
           <Submenu
             menu="Akses Cepat"
             title="Klinik Introduction"

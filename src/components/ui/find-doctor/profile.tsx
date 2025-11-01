@@ -22,11 +22,11 @@ const tabs: Tab[] = [
 const TabProfile = ({ activeTab, handleActiveTab }: { activeTab: string; handleActiveTab: (tabName: string) => void }) => {
   return (
     <div className="border-b-2 border-gray/50">
-      <Container className="flex gap-4">
+      <Container className="flex gap-2 sm:gap-4">
         {tabs.map((tab) => (
           <button
             key={tab.name}
-            className={`py-6 px-4 text-lg transition-colors duration-300 
+            className={`py-3 sm:py-6 px-2 sm:px-4 text-base sm:text-lg transition-colors duration-300 
             ${activeTab === tab.name ? "text-primary border-custom font-semibold" : "text-gray font-medium"}`}
             onClick={() => handleActiveTab(tab.name)}
           >
@@ -44,8 +44,8 @@ const EdukasiContent = ({ edukasi }: { edukasi: any[] }) => (
   <div className="space-y-4">
     {edukasi.map((item, index) => (
       <div key={index} className="p-4 border rounded-lg">
-        <h3 className="text-xl font-semibold">{item.judul}</h3>
-        <p className="text-gray">
+        <h3 className="text-base sm:text-xl font-semibold">{item.judul}</h3>
+        <p className="text-gray text-sm sm:text-base">
           {item.tahun_mulai} - {item.tahun_selesai || "Sekarang"}
         </p>
       </div>
@@ -140,15 +140,15 @@ export const Profile = ({ id }: { id: string }) => {
         <div className="absolute top-0 right-0 flex items-end justify-end w-full h-full">
           <Img src="/icons/frame.svg" alt="frame picture" className="w-full max-w-lg aspect-video" />
         </div>
-        <Container className="flex items-center gap-16">
-          <Img src={getImageUrl(data.dokter.foto)} alt={data.dokter.nama_dokter} className="min-h-72 min-w-52" cover />
+        <Container className="flex items-center flex-col md:flex-row gap-8 md:gap-16 py-8 md:py-0">
+          <Img src={getImageUrl(data.dokter.foto)} alt={data.dokter.nama_dokter} className="min-h-60 sm:min-h-72 min-w-44 sm:min-w-52" cover />
           <div className="w-2xl space-y-4 text-light">
-            <h4 className="text-2xl font-semibold">{data.dokter.nama_dokter}</h4>
+            <h4 className="text-base sm:text-xl md:text-2xl font-semibold">{data.dokter.nama_dokter}</h4>
             <menu className="space-y-2">
-              <span className="text-2xl font-semibold">Spesialis</span>
+              <span className="text-sm sm:text-xl md:text-2xl font-semibold">Spesialis</span>
               <li className="flex items-center gap-2">
-                <i className="flex items-center justify-center flex-shrink-0 border-2 rounded-md border-light size-10">1</i>
-                <p>{data.spesialis.nama_layanan}</p>
+                <i className="flex items-center justify-center flex-shrink-0 border-2 rounded-md border-light size-8 sm:size-10">1</i>
+                <p className="text-sm sm:text-base">{data.spesialis.nama_layanan}</p>
               </li>
             </menu>
             <Button className="btn-light">Appointment</Button>
@@ -156,9 +156,9 @@ export const Profile = ({ id }: { id: string }) => {
         </Container>
       </div>
       <TabProfile activeTab={activeTab} handleActiveTab={handleActiveTab} />
-      <Container className="relative flex min-h-screen gap-16 py-8">
+      <Container className="relative flex flex-col-reverse md:flex-row gap-8 xl:gap-16 pb-16 pt-4 sm:pt-8">
         <div className="w-full">{getContent()}</div>
-        <div className="sticky self-start space-y-8 top-4">
+        <div className="md:sticky self-start space-y-8 top-4 w-full md:max-w-xs">
           <Submenu
             menu="Akses Menu"
             title="Tentang Kami"

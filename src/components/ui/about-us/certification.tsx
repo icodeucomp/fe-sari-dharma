@@ -5,6 +5,7 @@ import { Button, Img, Motion, Slider } from "@/components";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { getSertifikasiPenghargaan } from "@/services/sertifikasi-penghargaan.service";
+import { useMediaQuery } from "@/hooks";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -19,7 +20,7 @@ const getImageUrl = (path: string) => {
 
 export const Certification = () => {
   const [page, setPage] = useState<number>(1);
-  const [limit] = useState<number>(3);
+  const [limit, setLimit] = useState<number>(3);
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<any>([]);
   const [totalPage, setTotalPage] = useState<number>(0);
@@ -40,6 +41,20 @@ export const Certification = () => {
   useEffect(() => {
     fetchSertifikasi();
   }, [fetchSertifikasi]);
+
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
+  const isMobile = useMediaQuery("(min-width: 0px) and (max-width: 639px)");
+
+  useEffect(() => {
+    if (isDesktop) {
+      setLimit(3);
+    } else if (isTablet) {
+      setLimit(2);
+    } else if (isMobile) {
+      setLimit(1);
+    }
+  }, [isDesktop, isTablet, isMobile]);
 
   return (
     <Slider

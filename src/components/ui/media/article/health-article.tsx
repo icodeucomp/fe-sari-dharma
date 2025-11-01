@@ -4,7 +4,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Background, Container, Motion } from "@/components";
-import { LuTag } from "react-icons/lu";
+import { LuTag, LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { convertDate } from "@/utils";
 import { getArtikelKesehatan } from "@/services/artikel-kesehatan.service";
 
@@ -38,20 +38,16 @@ const Card = ({ artikel }: { artikel: any }) => {
 
 export const HealthArticle = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [mainArticle, setMainArticle] = React.useState<any>(null);
-  const [sideArticles, setSideArticles] = React.useState<any[]>([]);
+  const [articles, setArticles] = React.useState<any[]>([]);
+  const [currentIndex, setCurrentIndex] = React.useState<number>(0);
 
   // Fungsi untuk mengambil data artikel
   const fetchArtikel = React.useCallback(async () => {
     try {
       setLoading(true);
       const response = await getArtikelKesehatan({ per_page: 5, page: 1 });
-      const articles = response.data.data;
-
-      if (articles.length > 0) {
-        setMainArticle(articles[0]);
-        setSideArticles(articles.slice(1));
-      }
+      const articlesData = response.data.data;
+      setArticles(articlesData);
     } catch (error) {
       console.error("Error fetching artikel:", error);
     } finally {
@@ -62,6 +58,19 @@ export const HealthArticle = () => {
   React.useEffect(() => {
     fetchArtikel();
   }, [fetchArtikel]);
+
+  // Handler untuk navigasi slide
+  const handlePrevSlide = () => {
+    setCurrentIndex((prev) => (prev === 0 ? articles.length - 1 : prev - 1));
+  };
+
+  const handleNextSlide = () => {
+    setCurrentIndex((prev) => (prev === articles.length - 1 ? 0 : prev + 1));
+  };
+
+  const mainArticle = articles.length > 0 ? articles[0] : null;
+  const sideArticles = articles.slice(1);
+  const currentArticle = articles[currentIndex];
 
   return (
     <Container className="space-y-8">
@@ -74,36 +83,91 @@ export const HealthArticle = () => {
         </Motion>
       </div>
 
-      <div className="grid grid-cols-4 pb-[100px] grid-rows-2 gap-4">
-        {loading || !mainArticle ? (
-          <div className="col-span-4 row-span-2 flex items-center justify-center">
+      <div className="pb-[100px]">
+        {loading || articles.length === 0 ? (
+          <div className="flex items-center justify-center min-h-60">
             <p>Loading...</p>
           </div>
         ) : (
           <>
-            <Background
-              src={getImageUrl(mainArticle.foto)}
-              alt={mainArticle.judul}
-              className="w-full min-h-60 flex items-end h-full"
-              imgClassName="object-cover"
-              parentClassName="rounded-md col-span-2 row-span-2"
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
-              <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
-                <LuTag size={20} />
-                Edukasi Kesehatan
-              </span>
+            {/* Mobile/Tablet View - Single Card Carousel */}
+            <div className="block lg:hidden relative">
+              <Background
+                src={getImageUrl(currentArticle.foto)}
+                alt={currentArticle.judul}
+                className="w-full min-h-60 flex items-end h-[400px]"
+                imgClassName="object-cover"
+                parentClassName="rounded-md"
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
+                <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
+                  <LuTag size={20} />
+                  {currentArticle.kategori?.name || "Edukasi Kesehatan"}
+                </span>
 
-              <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
-                <span className="font-light">{convertDate(mainArticle.created_at)}</span>
-                <Link href={`/media-informasi/artikel-kesehatan/${mainArticle.slug}/${mainArticle.id}`}>
-                  <h3 className="font-semibold text-2xl line-clamp-2">{mainArticle.judul}</h3>
-                </Link>
+                <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
+                  <span className="font-light text-sm">{convertDate(currentArticle.created_at)}</span>
+                  <Link href={`/media-informasi/artikel-kesehatan/${currentArticle.slug}/${currentArticle.id}`}>
+                    <h3 className="font-semibold text-xl line-clamp-2">{currentArticle.judul}</h3>
+                  </Link>
+                </div>
+              </Background>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={handlePrevSlide}
+                className="z-5 absolute left-4 top-1/2 -translate-y-1/2 bg-primary hover:bg-primary/90 text-white p-3 rounded-lg shadow-lg transition-all hover:scale-105 active:scale-95"
+                aria-label="Previous slide"
+              >
+                <LuChevronLeft size={24} />
+              </button>
+              <button
+                onClick={handleNextSlide}
+                className="z-5 absolute right-4 top-1/2 -translate-y-1/2 bg-primary hover:bg-primary/90 text-white p-3 rounded-lg shadow-lg transition-all hover:scale-105 active:scale-95"
+                aria-label="Next slide"
+              >
+                <LuChevronRight size={24} />
+              </button>
+
+              {/* Slide Indicators */}
+              <div className="flex justify-center gap-2 mt-4">
+                {articles.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`h-2 rounded-full transition-all ${index === currentIndex ? "w-8 bg-primary" : "w-2 bg-gray/30"}`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
               </div>
-            </Background>
-            {sideArticles.map((artikel) => (
-              <Card key={artikel.id} artikel={artikel} />
-            ))}
+            </div>
+
+            {/* Desktop View - Grid Layout */}
+            <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-4">
+              <Background
+                src={getImageUrl(mainArticle.foto)}
+                alt={mainArticle.judul}
+                className="w-full min-h-60 flex items-end h-full"
+                imgClassName="object-cover"
+                parentClassName="rounded-md col-span-2 row-span-2"
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
+                <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
+                  <LuTag size={20} />
+                  {mainArticle.kategori?.name || "Edukasi Kesehatan"}
+                </span>
+
+                <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
+                  <span className="font-light">{convertDate(mainArticle.created_at)}</span>
+                  <Link href={`/media-informasi/artikel-kesehatan/${mainArticle.slug}/${mainArticle.id}`}>
+                    <h3 className="font-semibold text-2xl line-clamp-2">{mainArticle.judul}</h3>
+                  </Link>
+                </div>
+              </Background>
+              {sideArticles.map((artikel) => (
+                <Card key={artikel.id} artikel={artikel} />
+              ))}
+            </div>
           </>
         )}
       </div>

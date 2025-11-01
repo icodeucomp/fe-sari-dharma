@@ -21,12 +21,12 @@ export default function EventsCommunitiesPage() {
           Mari jadi bagian dari komunitas sehat bersama kami! Temukan informasi terbaru seputar seminar kesehatan, bakti sosial, donor darah, dan event menarik lainnya.
         </Motion>
       </Container>
-      <Container className="relative flex min-h-screen gap-16 pt-4 pb-16">
+      <Container className="relative flex flex-col-reverse md:flex-row min-h-screen gap-8 xl:gap-16 pb-16 pt-4 sm:pt-8">
         <div className="w-full">
           <EventsCommunities />
         </div>
 
-        <div className="sticky self-start space-y-8 top-4">
+        <div className="md:sticky self-start space-y-8 top-4 w-full md:max-w-xs">
           <Submenu
             menu="Akses Menu"
             title="Media & Informasi"

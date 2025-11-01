@@ -8,7 +8,7 @@ import { Button, Container, Img } from "@/components";
 
 import { footerList, getFooterLists } from "@/static";
 
-import { FaFacebook, FaInstagram } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa6";
 
 import { IoLogoWhatsapp } from "react-icons/io5";
 
@@ -25,14 +25,14 @@ export const Footer = () => {
   }, []);
   return (
     <footer className="bg-gray/10 mt-auto">
-      <Container className="flex justify-between gap-8 py-8">
+      <Container className="flex justify-between flex-col md:flex-row gap-8 py-8">
         <div className="max-w-sm space-y-4">
           <Img src="/images/logo.png" alt="logo clinic sari dharma" className="size-14" cover />
           <h2 className="text-xl font-semibold text-primary">Komunitas Sahabat Sari Dharma</h2>
           <p className="text-sm">Bergabung dengan Komunitas Sahabat Sari Dharma dan dapatkan edukasi seputar kesehatan.</p>
           <Button className="flex items-center gap-2 font-medium bg-primary text-light">
             <IoLogoWhatsapp className="fill-light" size={20} />
-            Call us on Whatsapp
+            Join Our Whatsapp Community
           </Button>
           <menu className="flex items-center gap-2">
             <li className="flex items-center justify-center rounded-full size-9 bg-primary">
@@ -43,6 +43,11 @@ export const Footer = () => {
             <li className="flex items-center justify-center rounded-full size-9 bg-primary">
               <a href="https://www.facebook.com/klinik.utama.sari.dharma/" target="_blank" rel="noopener noreferrer">
                 <FaFacebook size={20} className="fill-light" />
+              </a>
+            </li>
+            <li className="flex items-center justify-center rounded-full size-9 bg-primary">
+              <a href="https://www.tiktok.com/@saridharma_clinic" target="_blank" rel="noopener noreferrer">
+                <FaTiktok size={20} className="fill-light" />
               </a>
             </li>
           </menu>
@@ -63,9 +68,9 @@ export const Footer = () => {
         </div>
       </Container>
       <div className="py-6 bg-primary text-light">
-        <div className="flex items-center w-full max-w-screen-lg mx-auto divide-x-2">
-          <h4 className="pr-8 text-lg font-bold whitespace-nowrap">Klinik Utama Rawat Inap Sari Dharma</h4>
-          <h5 className="pl-8 text-sm text-center">
+        <div className="flex items-center w-full flex-col lg:flex-row gap-4 lg:gap-0 px-4 lg:px-0 max-w-screen-lg mx-auto lg:divide-x-2">
+          <h4 className="lg:pr-8 text-base sm:text-lg font-bold xl:whitespace-nowrap">Klinik Utama Rawat Inap Sari Dharma</h4>
+          <h5 className="lg:pl-8 text-xs sm:text-sm text-center">
             <strong>© 2025 Klinik Utama Rawat Inap Sari Dharma.</strong> Jl. Pulau Seram No.1 Dauh Puri Klod, Denpasar Barat, Bali 80113
           </h5>
         </div>

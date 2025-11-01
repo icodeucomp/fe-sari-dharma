@@ -40,8 +40,8 @@ Terima kasih.
     window.open(url, "_blank");
   };
   return (
-    <Container className="relative flex min-h-screen gap-16 pb-16">
-      <div className="w-full space-y-8">
+    <Container className="relative flex flex-col md:flex-row min-h-screen gap-16 pb-16">
+      <div className="w-full space-y-4 sm:space-y-8">
         <Motion tag="h2" initialY={50} animateY={0} duration={0.5} className="text-4xl font-semibold text-primary">
           {layanan.nama_layanan}
         </Motion>
@@ -51,7 +51,7 @@ Terima kasih.
           <img src={getImageUrl(layanan.foto)} alt={layanan.nama_layanan} className="w-full rounded-lg object-cover max-h-[400px]" />
         </div>
 
-        <div dangerouslySetInnerHTML={{ __html: layanan.deskripsi }} />
+        <div dangerouslySetInnerHTML={{ __html: layanan.deskripsi }} className="text-sm sm:text-base" />
         <div className="w-full space-y-4">
           <h3 className="text-xl font-semibold text-primary">Informasi Seputar {layanan.nama_layanan}</h3>
           <Button onClick={() => handleClick(layanan.nama_layanan)} className="w-full btn-green">
@@ -60,7 +60,7 @@ Terima kasih.
         </div>
       </div>
 
-      <div className="sticky self-start h-screen space-y-8 overflow-y-auto scrollbar top-4 min-w-[340px]">
+      <div className="md:sticky self-start h-screen space-y-8 overflow-y-auto scrollbar md:top-4 w-full md:max-w-[340px] min-w-[340px]">
         <Recommendation />
       </div>
     </Container>

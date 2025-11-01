@@ -183,16 +183,16 @@ Terima kasih`;
           Lihat daftar dokter spesialis dan jadwalkan kunjungan dengan mudah.
         </Motion>
       </div>
-      <div className="flex gap-8 py-8 border-b border-gray/50">
-        <div className="w-full space-y-2 min-w-60">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 py-8 border-b border-gray/50">
+        <div className="w-full space-y-2">
           <h4 className="font-semibold text-primary">Spesialis</h4>
           <Dropdown className="top-14" parentClassName="w-full min-h-12" data={listSpesialis} handleFiltered={handleFilteredSpecialist} defaultValue="semua" displayValue={spesialisDisplay} />
         </div>
-        <div className="w-full space-y-2 min-w-60">
+        <div className="w-full space-y-2">
           <h4 className="font-semibold text-primary">Hari</h4>
           <Dropdown className="top-14" parentClassName="w-full min-h-12" data={hariOptions} handleFiltered={handleFilteredHari} defaultValue="semua" displayValue={hari || "semua"} />
         </div>
-        <div className="w-full space-y-2 min-w-60 flex items-end gap-2">
+        <div className="w-full space-y-2 flex items-end gap-2">
           <div className="w-full">
             <h4 className="font-semibold text-primary">Dokter</h4>
             <Dropdown className="top-14" parentClassName="w-full min-h-12" data={listDokter} handleFiltered={handleFilteredDokter} defaultValue="semua" displayValue={dokterDisplay} />
@@ -202,7 +202,7 @@ Terima kasih`;
           </button>
         </div>
       </div>
-      <div className="w-full mb-8">
+      <div className="w-full mb-8 space-y-8">
         {loading ? (
           <div className="flex justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -212,49 +212,73 @@ Terima kasih`;
             const formattedJadwal = formatJadwalByHari(jadwal.jadwal_dokter);
 
             return (
-              <div key={jadwal.id} className="flex w-full gap-8 py-4 border-b border-gray/50">
-                {jadwal.dokter.foto ? (
-                  <Img src={getImageUrl(jadwal.dokter.foto)} alt="dokter" className="min-h-72 min-w-52 rounded-lg" cover />
-                ) : (
-                  <div className="min-h-72 min-w-52 rounded-lg" style={{ backgroundColor: "lightgray" }}></div>
-                )}
-                <div className="flex flex-col justify-between w-full gap-4">
-                  <div className="space-y-1">
-                    <h3 className="text-xl font-bold text-dark">{jadwal.dokter.nama_dokter}</h3>
-                    <p className="font-semibold text-gray">
-                      Spesialis <span className="text-primary">{jadwal.spesialis.nama_layanan}</span>
-                    </p>
+              <div key={jadwal.id}>
+                <div className="flex w-full gap-4 sm:gap-8 py-4 border-b border-gray/50">
+                  {jadwal.dokter.foto ? (
+                    <Img src={getImageUrl(jadwal.dokter.foto)} alt="dokter" className="min-h-60 sm:min-h-72 min-w-44 sm:min-w-52 rounded-lg" cover />
+                  ) : (
+                    <div className="min-h-60 sm:min-h-72 min-w-44 sm:min-w-52 rounded-lg" style={{ backgroundColor: "lightgray" }}></div>
+                  )}
+                  <div className="flex flex-col justify-between w-full gap-4">
+                    <div className="space-y-1">
+                      <h3 className="text-lg md:text-xl font-bold text-dark">{jadwal.dokter.nama_dokter}</h3>
+                      <p className="font-semibold text-gray text-sm sm:text-base">
+                        <span className="text-primary">{jadwal.spesialis.nama_layanan}</span>
+                      </p>
+                    </div>
+                    <div className="w-full overflow-x-auto scrollbar hidden md:block">
+                      <table className="w-full text-sm text-center">
+                        <thead>
+                          <tr className="text-white bg-primary">
+                            {["Senin", "Selasa", "Rabu", "Kamis", "Jumat"].map((day) => (
+                              <th key={day} className="p-3 border border-primary">
+                                {day}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            {["Senin", "Selasa", "Rabu", "Kamis", "Jumat"].map((day) => (
+                              <td key={day} className="p-3 border border-gray/50">
+                                {formattedJadwal[day]}
+                              </td>
+                            ))}
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Button onClick={() => router.push(`/temukan-dokter/jadwal/${jadwal.id}`)} className="btn-outline">
+                        View Full Profile
+                      </Button>
+                      <Button onClick={() => handleClick(jadwal.dokter.nama_dokter, jadwal.spesialis.nama_layanan)} className="btn-primary">
+                        Appointment
+                      </Button>
+                    </div>
                   </div>
-                  <div className="w-full overflow-x-auto scrollbar">
-                    <table className="w-full text-sm text-center">
-                      <thead>
-                        <tr className="text-white bg-primary">
-                          {["Senin", "Selasa", "Rabu", "Kamis", "Jumat"].map((day) => (
-                            <th key={day} className="p-3 border border-primary">
-                              {day}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          {["Senin", "Selasa", "Rabu", "Kamis", "Jumat"].map((day) => (
-                            <td key={day} className="p-3 border border-gray/50">
-                              {formattedJadwal[day]}
-                            </td>
-                          ))}
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="flex space-x-4">
-                    <Button onClick={() => router.push(`/temukan-dokter/jadwal/${jadwal.id}`)} className="btn-outline">
-                      View Full Profile
-                    </Button>
-                    <Button onClick={() => handleClick(jadwal.dokter.nama_dokter, jadwal.spesialis.nama_layanan)} className="btn-primary">
-                      Appointment
-                    </Button>
-                  </div>
+                </div>
+                <div className="w-full overflow-x-auto scrollbar block md:hidden">
+                  <table className="w-full text-xs sm:text-sm text-center">
+                    <thead>
+                      <tr className="text-white bg-primary">
+                        {["Senin", "Selasa", "Rabu", "Kamis", "Jumat"].map((day) => (
+                          <th key={day} className="p-3 border border-primary">
+                            {day}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        {["Senin", "Selasa", "Rabu", "Kamis", "Jumat"].map((day) => (
+                          <td key={day} className="p-3 border border-gray/50">
+                            {formattedJadwal[day]}
+                          </td>
+                        ))}
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             );

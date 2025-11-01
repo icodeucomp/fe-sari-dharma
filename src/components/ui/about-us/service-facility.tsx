@@ -8,8 +8,8 @@ import { getLayananFasilitas } from "@/services/layanan-fasilitas.service";
 
 // Helper function untuk format URL gambar
 const getImageUrl = (path: string) => {
-  if (!path) return '/images/placeholder.jpg';
-  if (path.startsWith('http')) return path;
+  if (!path) return "/images/placeholder.jpg";
+  if (path.startsWith("http")) return path;
   return `${process.env.NEXT_PUBLIC_API_URL}/storage/${path}`;
 };
 
@@ -30,7 +30,7 @@ export const ServiceFacility = () => {
       setTotalPage(response.data.last_page);
       setActiveIndex(new Array(response.data.data.length).fill(0));
     } catch (error) {
-      console.error('Error fetching layanan fasilitas:', error);
+      console.error("Error fetching layanan fasilitas:", error);
     } finally {
       setLoading(false);
     }
@@ -60,22 +60,17 @@ export const ServiceFacility = () => {
       </Motion>
       <div className="space-y-8">
         {data.map((item, sectionIndex) => (
-          <Motion 
-            key={item.id} 
-            tag="div" 
-            initialX={-50} 
-            animateX={0} 
-            duration={0.3 * sectionIndex} 
-            delay={0.2 * sectionIndex} 
-            className="grid grid-cols-2 gap-8 pb-6 border-b-2 border-gray/20"
+          <Motion
+            key={item.id}
+            tag="div"
+            initialY={-50}
+            animateY={0}
+            duration={0.2 * sectionIndex}
+            delay={0.01 * sectionIndex}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-6 border-b-2 border-gray/20"
           >
             <div className="space-y-6">
-              <Img 
-                src={activeIndex[sectionIndex] === 0 ? getImageUrl(item.foto_header) : getImageUrl(item.foto_lainnya)} 
-                alt={item.nama_fasilitas} 
-                className="w-full min-h-56" 
-                cover 
-              />
+              <Img src={activeIndex[sectionIndex] === 0 ? getImageUrl(item.foto_header) : getImageUrl(item.foto_lainnya)} alt={item.nama_fasilitas} className="w-full min-h-56" cover />
               <div className="flex justify-center gap-1 mt-12">
                 {[item.foto_header, item.foto_lainnya].map((_, imageIndex) => (
                   <button
@@ -90,11 +85,9 @@ export const ServiceFacility = () => {
             </div>
             <div className="space-y-2">
               <Link href={`/tentang-kami/layanan-fasilitas/${item.slug}/${item.id}`}>
-                <h4 className="text-3xl font-semibold text-primary">{item.nama_fasilitas}</h4>
+                <h4 className="text-2xl sm:text-3xl font-semibold text-primary">{item.nama_fasilitas}</h4>
               </Link>
-              <p className="leading-relaxed text-justify">
-              {item.deskripsi_overview.length > 300 ? `${item.deskripsi_overview.slice(0, 300)}...` : item.deskripsi_overview}
-              </p>
+              <p className="leading-relaxed text-justify text-sm sm:text-base">{item.deskripsi_overview.length > 300 ? `${item.deskripsi_overview.slice(0, 300)}...` : item.deskripsi_overview}</p>
             </div>
           </Motion>
         ))}

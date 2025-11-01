@@ -4,7 +4,7 @@ import { MainEventCommunity } from "@/components/ui/media";
 
 import { formatTitleCase } from "@/utils";
 
-export default function EventCommunityPage({ params }: { params: { id: string,  slug:string } }) {
+export default function EventCommunityPage({ params }: { params: { id: string; slug: string } }) {
   return (
     <main>
       <Container>

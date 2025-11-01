@@ -17,8 +17,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Helper function untuk URL gambar
 const getImageUrl = (path: string) => {
-  if (!path) return '/images/placeholder.jpg';
-  if (path.startsWith('http')) return path;
+  if (!path) return "/images/placeholder.jpg";
+  if (path.startsWith("http")) return path;
   return `${BASE_URL}/storage/${path}`;
 };
 
@@ -33,10 +33,7 @@ const Card = ({ date, title, pathUrl, pathImg, id }: { pathImg: string; date: st
       </div>
       <h4 className="h-12 mt-2 text-base font-semibold sm:h-14 sm:text-lg text-dark line-clamp-2">{title}</h4>
 
-      <Button 
-        onClick={() => router.push(`/media-informasi/event-community/${pathUrl}/${id}`)} 
-        className="flex items-center gap-2 mt-4 btn-outline group w-max"
-      >
+      <Button onClick={() => router.push(`/media-informasi/event-community/${pathUrl}/${id}`)} className="flex items-center gap-2 mt-4 btn-outline group w-max">
         Lihat <GoArrowRight className="fill-primary group-hover:fill-light" size={20} />
       </Button>
     </>
@@ -58,7 +55,7 @@ export const EventsCommunities = () => {
       setData(response.data.data);
       setTotalPage(response.data.last_page);
     } catch (error) {
-      console.error('Error fetching event community:', error);
+      console.error("Error fetching event community:", error);
     } finally {
       setLoading(false);
     }
@@ -72,23 +69,13 @@ export const EventsCommunities = () => {
     <>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {loading ? (
-          <h3 className="w-full col-span-1 py-16 text-lg font-semibold text-center min-h-400 sm:text-2xl md:text-3xl sm:col-span-2 lg:col-span-3 text-gray/50">
-            Loading...
-          </h3>
+          <h3 className="w-full col-span-1 py-16 text-lg font-semibold text-center min-h-400 sm:text-2xl md:text-3xl sm:col-span-2 lg:col-span-3 text-gray/50">Loading...</h3>
         ) : data.length < 1 ? (
-          <h3 className="w-full col-span-1 py-16 text-lg font-semibold text-center min-h-400 sm:text-2xl md:text-3xl sm:col-span-2 lg:col-span-3 text-gray/50">
-            Event tidak ditemukan
-          </h3>
+          <h3 className="w-full col-span-1 py-16 text-lg font-semibold text-center min-h-400 sm:text-2xl md:text-3xl sm:col-span-2 lg:col-span-3 text-gray/50">Event tidak ditemukan</h3>
         ) : (
           data.map((item: any, index: number) => (
             <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={index * 0.1} key={item.id}>
-              <Card
-                date={item.created_at}
-                title={item.judul}
-                pathUrl={item.slug}
-                pathImg={getImageUrl(item.foto)}
-                id={item.id}
-              />
+              <Card date={item.created_at} title={item.judul} pathUrl={item.slug} pathImg={getImageUrl(item.foto)} id={item.id} />
             </Motion>
           ))
         )}
