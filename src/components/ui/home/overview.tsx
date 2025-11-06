@@ -1,5 +1,7 @@
-import { Button, Container, Img, Motion } from "@/components";
 import Link from "next/link";
+
+import { Button, Container, Img, Motion } from "@/components";
+
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export const Overview = () => {
