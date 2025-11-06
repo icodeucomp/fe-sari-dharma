@@ -33,7 +33,7 @@ export const Contacts = () => {
   };
   return (
     <Container className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 py-12">
-      <Motion tag="div" initialX={-40} animateX={0} duration={0.3}>
+      <Motion tag="div" initialY={-40} animateY={0} duration={0.3}>
         <Img src="/images/office-building.webp" alt="klinik sari dharma office" className="w-full min-h-300" cover />
         <menu className="space-y-2 mt-4">
           <li className="flex items-center gap-3 text-sm sm:text-base">
@@ -52,7 +52,7 @@ export const Contacts = () => {
           </Button>
         </a>
       </Motion>
-      <Motion tag="div" initialX={40} animateX={0} duration={0.6} delay={0.3} className="px-4 py-4 space-y-4 md:px-8 rounded-md bg-light border border-gray/20 text-dark">
+      <Motion tag="div" initialY={40} animateY={0} duration={0.6} delay={0.3} className="px-4 py-4 space-y-4 md:px-8 rounded-md bg-light border border-gray/20 text-dark">
         <div className="space-y-2">
           <h4 className="text-xl font-semibold sm:text-2xl text-primary">Butuh bantuan kami?</h4>
           <p className="text-sm">Anda akan menerima feedback pelayanan dalam 1x24 jam</p>

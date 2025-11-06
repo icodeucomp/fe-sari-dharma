@@ -15,10 +15,10 @@ export default function PacketsPromosPage() {
       </Container>
 
       <Container className="space-y-4">
-        <Motion tag="h2" initialX={-50} animateX={0} duration={0.3} className="heading">
+        <Motion tag="h2" initialY={-50} animateY={0} duration={0.3} className="heading">
           Paket Kesehatan
         </Motion>
-        <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="pb-8 leading-tight border-b subheading border-gray/50">
+        <Motion tag="p" initialY={-50} animateY={0} duration={0.6} delay={0.3} className="pb-8 leading-tight border-b subheading border-gray/50">
           Kami menyediakan berbagai paket pemeriksaan kesehatan menyeluruh untuk mendukung deteksi dini dan pemantauan kesehatan Anda. Pilih paket yang sesuai dengan kebutuhan pribadi maupun keluarga
           Anda.
         </Motion>

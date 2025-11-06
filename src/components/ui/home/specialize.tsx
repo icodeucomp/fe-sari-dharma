@@ -34,10 +34,10 @@ export const Specialize = () => {
   return (
     <Container className="py-10 space-y-8 sm:py-16">
       <div className="space-y-2">
-        <Motion tag="h4" initialX={-50} animateX={0} duration={0.3} className="heading">
+        <Motion tag="h4" initialY={-50} animateY={0} duration={0.3} className="heading">
           Layanan Spesialis Kami
         </Motion>
-        <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="subheading">
+        <Motion tag="p" initialY={-50} animateY={0} duration={0.6} delay={0.3} className="subheading">
           Solusi tepat dengan dokter berpengalaman di bidangnya.
         </Motion>
       </div>

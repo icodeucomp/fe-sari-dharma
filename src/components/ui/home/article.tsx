@@ -120,10 +120,10 @@ export const Article = () => {
       <Container className="py-16 space-y-8 lg:py-20 hidden lg:block">
         <div className="flex flex-col justify-between gap-6 sm:gap-0 sm:items-center sm:flex-row">
           <div className="space-y-2">
-            <Motion tag="h4" initialX={-50} animateX={0} duration={0.4} className="heading">
+            <Motion tag="h4" initialY={-50} animateY={0} duration={0.4} className="heading">
               Artikel Kesehatan
             </Motion>
-            <Motion tag="p" initialX={-50} animateX={0} duration={0.4} delay={0.3} className="subheading">
+            <Motion tag="p" initialY={-50} animateY={0} duration={0.4} delay={0.3} className="subheading">
               Temukan berbagai tips kesehatan dan informasi medis disini.
             </Motion>
           </div>
@@ -174,7 +174,7 @@ export const Article = () => {
             <div className="py-4 space-y-8">
               {sideArticles.length > 0
                 ? sideArticles.map((article, index) => (
-                    <Motion tag="div" initialX={30} animateX={0} duration={index * 0.4} delay={index * 0.2} key={article.id} className="flex items-center justify-between w-full gap-4 lg:gap-8">
+                    <Motion tag="div" initialY={30} animateY={0} duration={index * 0.4} delay={index * 0.2} key={article.id} className="flex items-center justify-between w-full gap-4 lg:gap-8">
                       <div className="flex items-center gap-4">
                         <Img src={getImageUrl(article.foto)} alt={article.judul} className="size-40 rounded-xl" cover />
                         <div className="space-y-4">

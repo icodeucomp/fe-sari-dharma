@@ -3,11 +3,11 @@ import Link from "next/link";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export const Overview = () => {
-  const images: string[] = ["/images/temp-3.png", "/images/temp-1.png", "/images/temp-2.png"];
+  const images: string[] = ["/images/sari-dharma-photo-4.webp", "/images/sari-dharma-photo-1.webp", "/images/sari-dharma-photo-2.webp"];
 
   return (
     <Container className="flex flex-col-reverse gap-4 sm:gap-8 py-10 sm:py-16 md:py-20 lg:flex-row">
-      <Motion tag="div" initialX={-50} animateX={0} duration={0.4} className="flex-1 space-y-4">
+      <Motion tag="div" initialY={-50} animateY={0} duration={0.4} className="flex-1 space-y-4">
         <div className="space-y-2">
           <h2 className="text-base sm:text-lg md:text-2xl font-medium lg:text-3xl text-dark">Temukan Perawatan Kesehatan Terbaik di</h2>
           <h2 className="text-2xl sm:text-3xl font-bold md:text-5xl text-primary text-justify sm:text-start">Klinik Utama Rawat Inap Sari Dharma</h2>
@@ -27,7 +27,7 @@ export const Overview = () => {
           </Button>
         </Link>
       </Motion>
-      <Motion tag="div" initialX={50} animateX={0} duration={0.8} delay={0.4} className="relative grid flex-1 grid-cols-2 grid-rows-2 gap-2 sm:gap-4 min-h-200 sm:min-h-300 lg:min-h-400">
+      <Motion tag="div" initialY={50} animateY={0} duration={0.8} delay={0.4} className="relative grid flex-1 grid-cols-2 grid-rows-2 gap-2 sm:gap-4 min-h-200 sm:min-h-300 lg:min-h-400">
         {images.map((item, index) => (
           <Img key={index} src={item} alt="image profile Klinik Utama Rawat Inap Sari Dharma" className={`w-full rounded-lg overflow-hidden lg:h-full ${index === 0 && "row-span-2"}`} cover />
         ))}

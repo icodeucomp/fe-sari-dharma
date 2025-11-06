@@ -13,15 +13,15 @@ export const Slider = ({ title, description, loading, children, totalPage, class
     <Container className={parentClassName ?? ""}>
       <div className="flex items-center justify-between">
         <div className="space-y-2">
-          <Motion tag="h4" initialX={-50} animateX={0} duration={0.3} className="heading">
+          <Motion tag="h4" initialY={-50} animateY={0} duration={0.3} className="heading">
             {title}
           </Motion>
-          <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="subheading">
+          <Motion tag="p" initialY={-50} animateY={0} duration={0.6} delay={0.3} className="subheading">
             {description}
           </Motion>
         </div>
 
-        <Motion tag="div" initialX={50} animateX={0} duration={0.8} delay={0.4} className="flex gap-4">
+        <Motion tag="div" initialY={50} animateY={0} duration={0.8} delay={0.4} className="flex gap-4">
           {linkButton && (
             <Button className="btn-outline" onClick={() => router.push(linkButton)}>
               Lihat Semua

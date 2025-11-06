@@ -75,10 +75,10 @@ export const HealthArticle = () => {
   return (
     <Container className="space-y-8">
       <div className="pb-8 space-y-4 border-b border-gray/50">
-        <Motion tag="h2" initialX={-50} animateX={0} duration={0.3} className="heading">
+        <Motion tag="h2" initialY={-50} animateY={0} duration={0.3} className="heading">
           Artikel Kesehatan
         </Motion>
-        <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="leading-tight subheading">
+        <Motion tag="p" initialY={-50} animateY={0} duration={0.6} delay={0.3} className="leading-tight subheading">
           Temukan berbagai tips kesehatan dan informasi medis disini.
         </Motion>
       </div>

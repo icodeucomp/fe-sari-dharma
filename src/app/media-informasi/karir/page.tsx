@@ -15,10 +15,10 @@ export default function CarriersPages() {
       </Container>
 
       <Container className="space-y-4">
-        <Motion tag="h2" initialX={-50} animateX={0} duration={0.3} className="heading">
+        <Motion tag="h2" initialY={-50} animateY={0} duration={0.3} className="heading">
           Karir
         </Motion>
-        <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="pb-8 leading-tight border-b subheading border-gray/50">
+        <Motion tag="p" initialY={-50} animateY={0} duration={0.6} delay={0.3} className="pb-8 leading-tight border-b subheading border-gray/50">
           Temukan peluang kerja terbaru di Klinik Utama Rawat Inap Sari Dharma dan jadilah bagian dari tim yang peduli pada pelayanan dan inovasi di bidang kesehatan.
         </Motion>
       </Container>

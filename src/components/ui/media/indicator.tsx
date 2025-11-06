@@ -51,7 +51,7 @@ export const Indicators = () => {
           )} */}
       </div>
 
-      <Motion tag="div" initialX={50} animateX={0} duration={0.8} delay={0.4} className="relative flex justify-center pt-10">
+      <Motion tag="div" initialY={50} animateY={0} duration={0.8} delay={0.4} className="relative flex justify-center pt-10">
         <Pagination page={page} totalPage={totalPage} setPage={setPage} isNumber />
       </Motion>
     </>

@@ -23,10 +23,10 @@ export const Hero = () => {
       <Background src={images[currentSlide]} alt="hero background" imgClassName="object-cover object-center" className="flex items-center justify-center min-h-400 sm:min-h-500">
         <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-primary/40 to-secondary/40"></div>
         <div className="relative w-full max-w-screen-xl px-4 mx-auto text-center sm:px-8">
-          <Motion tag="h1" initialX={-50} animateX={0} duration={0.3} className="max-w-xl mx-auto text-3xl font-semibold leading-snug md:text-4xl lg:text-5xl">
+          <Motion tag="h1" initialY={-50} animateY={0} duration={0.3} className="max-w-xl mx-auto text-3xl font-semibold leading-snug md:text-4xl lg:text-5xl">
             Feel Better About Finding HealthCare
           </Motion>
-          <Motion tag="p" initialX={-50} animateX={0} duration={0.5} delay={0.3} className="mt-4 text-base sm:text-lg md:text-xl">
+          <Motion tag="p" initialY={-50} animateY={0} duration={0.5} delay={0.3} className="mt-4 text-base sm:text-lg md:text-xl">
             Klinik Utama Rawat Inap Sari Dharma
           </Motion>
           <div className="flex justify-center gap-1 mt-12">

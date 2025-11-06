@@ -3,16 +3,16 @@ import { Img, Motion } from "@/components";
 export const Message = () => {
   return (
     <div className="space-y-4 md:space-y-8">
-      <Motion tag="h2" initialX={-50} animateX={0} duration={0.3} className="heading">
+      <Motion tag="h2" initialY={-50} animateY={0} duration={0.3} className="heading">
         Sertifikasi & Penghargaan
       </Motion>
       <div className="space-y-4 leading-normal sm:leading-relaxed text-justify text-sm md:text-base">
-        <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3}>
+        <Motion tag="p" initialY={-50} animateY={0} duration={0.6} delay={0.3}>
           Klinik Utama Rawat Inap Sari Dharma merupakan klinik utama swasta yang berlokasi di Jalan Pulau Seram No. 1, Denpasar Barat, Bali. Dengan komitmen tinggi terhadap keselamatan pasien dan mutu
           pelayanan kesehatan, didukung oleh fasilitas medis yang lengkap dan modern serta tenaga kesehatan profesional dan berpengalaman di bidangnya. Klinik Sari Dharma menjadi salah satu rujukan
           layanan kesehatan rawat inap dan rawat jalan di wilayah Denpasar dan sekitarnya.
         </Motion>
-        <Motion tag="p" initialX={-50} animateX={0} duration={0.9} delay={0.3}>
+        <Motion tag="p" initialY={-50} animateY={0} duration={0.9} delay={0.3}>
           Beroperasi sejak tahun 2017, Klinik Utama Rawat Inap Sari Dharma terus berkembang untuk memenuhi kebutuhan masyarakat. Klinik ini dikenal dengan layanan unggulan di bidang jantung dan
           pembuluh darah, layanan treadmill dan holter jantung, audiometri, endoskopi tht, usg, radiologi, serta operasi katarak dengan metode phacoemulsifikasi. Dengan pelayanan yang cepat, nyaman,
           dan terlayani, Klinik Sari Dharma siap memberikan pengalaman kesehatan terbaik bagi pasien dan keluarga.
@@ -20,8 +20,8 @@ export const Message = () => {
       </div>
       <Motion
         tag="div"
-        initialX={-50}
-        animateX={0}
+        initialY={-50}
+        animateY={0}
         duration={0.9}
         delay={0.6}
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-xs sm:text-sm xl:text-base text-center border border-gray/50"

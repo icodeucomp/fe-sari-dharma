@@ -16,10 +16,10 @@ export default function FormsManagementsPage() {
       </Container>
 
       <Container className="space-y-4">
-        <Motion tag="h2" initialX={-50} animateX={0} duration={0.3} className="heading">
+        <Motion tag="h2" initialY={-50} animateY={0} duration={0.3} className="heading">
           Form Management
         </Motion>
-        <Motion tag="p" initialX={-50} animateX={0} duration={0.6} delay={0.3} className="pb-8 leading-tight border-b subheading border-gray/50">
+        <Motion tag="p" initialY={-50} animateY={0} duration={0.6} delay={0.3} className="pb-8 leading-tight border-b subheading border-gray/50">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
         </Motion>
       </Container>
