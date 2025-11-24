@@ -155,19 +155,19 @@ export const Schedule = () => {
   };
 
   const handleClick = (doctorName: string, specialization: string) => {
-    const message = `Halo Admin,
-Saya ingin melakukan janji temu dengan dokter melalui website.
-Berikut detailnya:
-
-  *Dokter:* ${doctorName} - ${specialization}
-  *Hari:* (isi…)
-  *Jam:* (isi…)
-
-Mohon bantuannya untuk konfirmasi ketersediaan jadwal tersebut.
-Terima kasih`;
+    const message = ` 
+                      Halo Admin,
+                      Saya atas nama (...) ingin melakukan janji temu dengan dokter melalui website.
+                      Berikut detailnya:
+                        Dokter: ${doctorName} - ${specialization}
+                        Hari: (isi…)
+                        Jam: (isi…)
+                      Mohon bantuannya untuk konfirmasi ketersediaan jadwal tersebut.
+                      Terima kasih
+                    `;
 
     const encodedMessage = encodeURIComponent(message);
-    const phoneNumber = "6281318041828";
+    const phoneNumber = "628113881248";
     const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(url, "_blank");
   };
