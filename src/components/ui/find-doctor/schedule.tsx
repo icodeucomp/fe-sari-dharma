@@ -214,7 +214,7 @@ export const Schedule = () => {
             return (
               <div key={jadwal.id}>
                 <div className="flex w-full gap-4 sm:gap-8 py-4 border-b border-gray/50">
-                  {jadwal.dokter.foto ? (
+                  {jadwal.foto ? (
                     <Img src={getImageUrl(jadwal.foto)} alt="dokter" className="min-h-60 sm:min-h-72 min-w-44 sm:min-w-52 rounded-lg" cover />
                   ) : (
                     <div className="min-h-60 sm:min-h-72 min-w-44 sm:min-w-52 rounded-lg" style={{ backgroundColor: "lightgray" }}></div>
