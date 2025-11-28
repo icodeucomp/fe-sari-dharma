@@ -37,16 +37,16 @@ export const Contacts = () => {
         <Img src="/images/office-building.webp" alt="klinik sari dharma office" className="w-full min-h-300" cover />
         <menu className="space-y-2 mt-4">
           <li className="flex items-center gap-3 text-sm sm:text-base">
-            <Img src="/icons/workspace.svg" alt="icon location" className="min-w-10 aspect-square" /> Jl. Pulau Seram No.1 Dauh Puri Klod, Denpasar Barat, Bali 80113
+            <Img src="/icons/workspace.svg" alt="icon location" className="min-w-10 aspect-square" /> Jl. Pulau Seram No.1, Dauh Puri Klod, Kec. Denpasar Barat, Kota Denpasar, Bali 80113
           </li>
           <li className="flex items-center gap-3 text-sm sm:text-base">
-            <Img src="/icons/call.svg" alt="icon call" className="min-w-10 aspect-square" /> 0254 - 7932385
+            <Img src="/icons/call.svg" alt="icon call" className="min-w-10 aspect-square" /> (0361) 226866
           </li>
           <li className="flex items-center gap-3 text-sm sm:text-base">
             <Img src="/icons/message.svg" alt="icon email" className="min-w-10 aspect-square" /> saridharma@gmail.com
           </li>
         </menu>
-        <a href="https://wa.me/6281234105663" rel="noreferrer" target="_blank" className="block mt-6">
+        <a href="https://wa.me/628113881248" rel="noreferrer" target="_blank" className="block mt-6">
           <Button className="flex items-center justify-center w-full gap-2 btn-green">
             <FaWhatsapp className="size-4 sm:size-5 md:size-6" /> Hubungi WhatsApp Kami
           </Button>
