@@ -35,7 +35,7 @@ export const Ambulance = () => {
               <Img src="/icons/ambulance-plus.svg" alt="icon ambulance" className="size-10 md:size-12" cover />
               <div className="space-y-1">
                 <h5 className="text-primary text-base md:text-lg font-semibold">Emergency Call</h5>
-                <h4 className="text-dark text-lg md:text-xl font-bold">0821 1110 2355</h4>
+                <h4 className="text-dark text-lg md:text-xl font-bold">08113881248</h4>
                 <small className="text-gray">*Whatsapp</small>
               </div>
             </div>
