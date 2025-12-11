@@ -61,7 +61,7 @@ export const HistoricalTimeline: React.FC = () => {
       title: "2017 - Awal Berdirinya Klinik ",
       description:
         "Klinik Utama Rawat Inap Sari Dharma berdiri pada 2017 untuk meningkatkan kesehatan masyarakat Denpasar dan Bali. Klinik ini menyediakan layanan rawat jalan, rawat inap, laboratorium, dan radiologi, dengan dukungan tenaga medis kompeten serta peralatan modern. Saat ini, klinik memiliki 3 kelas rawat inap dengan 5 tempat tidur, didukung 25 dokter spesialis, perawat, analis, dan radiografer. Sejak awal, klinik berkomitmen memberikan layanan kesehatan cepat, nyaman, dan profesional bagi masyarakat.",
-      image: "/images/temp-1.png",
+      image: "/images/historical-1.webp",
       imageAlt: "Modern architectural building representing the present era",
       isLeft: false,
     },
@@ -69,7 +69,7 @@ export const HistoricalTimeline: React.FC = () => {
       title: "2019 - Menjadi Mitra BPJS Kesehatan",
       description:
         "Sebagai wujud partisipasi dalam program Jaminan Kesehatan Nasional, pada tahun 2019 Klinik Utama Sari Dharma resmi menjalin kerjasama dengan BPJS Kesehatan. Hal ini membuka akses pelayanan kesehatan yang lebih luas dan terjangkau bagi peserta JKN-KIS di wilayah Denpasar.",
-      image: "/images/temp-1.png",
+      image: "/images/historical-2.webp",
       imageAlt: "Post-war hospital and medical facility development",
       isLeft: true,
     },
@@ -77,7 +77,7 @@ export const HistoricalTimeline: React.FC = () => {
       title: "2023 - Meraih Akreditasi Paripurna ",
       description:
         "Klinik Utama Rawat Inap Sari Dharma berkomitmen terhadap Mutu Pelayanan Kesehatan dan Keselamatan Pasien dibuktikan dengan diraihnya sertifikat Akreditasi Paripurna dari Lembaga Akreditasi Fasyankes Seluruh Indonesia (LASKESI) pada tahun 2023. Capaian ini menjadi bukti nyata bahwa Klinik Sari Dharma senantiasa mengedepankan standar pelayanan terbaik dalam setiap aspek pelayanannya yang sudah sesuai dengan standar yang berlaku. ",
-      image: "/images/temp-1.png",
+      image: "/images/historical-1.webp",
       imageAlt: "Early modern period medical and institutional facilities",
       isLeft: false,
     },

@@ -7,7 +7,7 @@ import { Breadcrumbs, Container, Submenu } from "@/components";
 export default function AmbulancesPage() {
   return (
     <main>
-      <Hero src="/images/historical-1.webp" title="Siap, Cepat & Sigap. Layanan Ambulans Gawat Darurat 24/7" titlePage="Ambulans & Emergency" />
+      <Hero src="/images/contact-us.webp" title="Siap, Cepat & Sigap. Layanan Ambulans Gawat Darurat 24/7" titlePage="Ambulans & Emergency" />
       <Container>
         <Breadcrumbs
           items={[

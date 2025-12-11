@@ -7,7 +7,7 @@ import { Breadcrumbs, Container, Submenu } from "@/components";
 export default function ServicesFacilitiesPage() {
   return (
     <main>
-      <Hero src="/images/historical-1.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
+      <Hero src="/images/contact-us.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
       <Container>
         <Breadcrumbs
           items={[
