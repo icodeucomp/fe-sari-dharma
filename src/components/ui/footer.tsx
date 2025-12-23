@@ -4,13 +4,11 @@ import * as React from "react";
 
 import Link from "next/link";
 
-import { Button, Container, Img } from "@/components";
+import { Container, Img } from "@/components";
 
 import { footerList, getFooterLists } from "@/static";
 
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa6";
-
-import { IoLogoWhatsapp } from "react-icons/io5";
 
 export const Footer = () => {
   const [footerItems, setFooterItems] = React.useState(footerList);
@@ -30,10 +28,6 @@ export const Footer = () => {
           <Img src="/images/logo.png" alt="logo clinic sari dharma" className="size-14" cover />
           <h2 className="text-xl font-semibold text-primary">Komunitas Sahabat Sari Dharma</h2>
           <p className="text-sm">Bergabung dengan Komunitas Sahabat Sari Dharma dan dapatkan edukasi seputar kesehatan.</p>
-          <Button className="flex items-center gap-2 font-medium bg-primary text-light">
-            <IoLogoWhatsapp className="fill-light" size={20} />
-            Join Our Whatsapp Community
-          </Button>
           <menu className="flex items-center gap-2">
             <li className="flex items-center justify-center rounded-full size-9 bg-primary">
               <a href="https://www.instagram.com/saridharma_clinic/?hl=en" target="_blank" rel="noopener noreferrer">

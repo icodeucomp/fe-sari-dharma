@@ -7,7 +7,7 @@ import { Background, Img, Motion } from "@/components";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
 export const Hero = () => {
-  const images: string[] = ["/images/sari-dharma-photo-1.webp", "/images/sari-dharma-photo-2.webp", "/images/sari-dharma-photo-3.webp"];
+  const images: string[] = ["/images/home-1.webp", "/images/home-2.webp", "/images/home-3.webp"];
   const [currentSlide, setCurrentSlide] = React.useState(0);
 
   const nextSlide = () => {

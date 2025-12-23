@@ -5,7 +5,7 @@ import { Button, Container, Img, Motion } from "@/components";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export const Overview = () => {
-  const images: string[] = ["/images/sari-dharma-photo-4.webp", "/images/sari-dharma-photo-1.webp", "/images/sari-dharma-photo-2.webp"];
+  const images: string[] = ["/images/overview-home-1.webp", "/images/overview-home-2.webp", "/images/overview-home-3.webp"];
 
   return (
     <Container className="flex flex-col-reverse gap-4 sm:gap-8 py-10 sm:py-16 md:py-20 lg:flex-row">

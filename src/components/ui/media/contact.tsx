@@ -34,7 +34,7 @@ export const Contacts = () => {
   return (
     <Container className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 py-12">
       <Motion tag="div" initialY={-40} animateY={0} duration={0.3}>
-        <Img src="/images/office-building.webp" alt="klinik sari dharma office" className="w-full min-h-300" cover />
+        <Img src="/images/contact-us-info.webp" alt="klinik sari dharma office" className="w-full min-h-300" cover />
         <menu className="space-y-2 mt-4">
           <li className="flex items-center gap-3 text-sm sm:text-base">
             <Img src="/icons/workspace.svg" alt="icon location" className="min-w-10 aspect-square" /> Jl. Pulau Seram No.1, Dauh Puri Klod, Kec. Denpasar Barat, Kota Denpasar, Bali 80113
@@ -43,7 +43,7 @@ export const Contacts = () => {
             <Img src="/icons/call.svg" alt="icon call" className="min-w-10 aspect-square" /> (0361) 226866
           </li>
           <li className="flex items-center gap-3 text-sm sm:text-base">
-            <Img src="/icons/message.svg" alt="icon email" className="min-w-10 aspect-square" /> saridharma@gmail.com
+            <Img src="/icons/message.svg" alt="icon email" className="min-w-10 aspect-square" /> info.saridharma@gmail.com
           </li>
         </menu>
         <a href="https://wa.me/628113881248" rel="noreferrer" target="_blank" className="block mt-6">
