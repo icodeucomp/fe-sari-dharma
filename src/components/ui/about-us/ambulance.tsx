@@ -8,8 +8,8 @@ export const Ambulance = () => {
       </Motion>
       <div className="space-y-4">
         <div className="flex flex-col lg:flex-row">
-          <Img src="/images/ambulance-car.webp" alt="ambulance car picture" className="w-full min-h-60" cover />
-          <Img src="/images/ambulance-cars.webp" alt="ambulance car picture" className="w-full min-h-60" cover />
+          <Img src="/images/ambulance.webp" alt="ambulance car picture" className="w-full min-h-60" cover />
+          <Img src="/images/ambulance.webp" alt="ambulance car picture" className="w-full min-h-60" cover />
         </div>
         <div className="flex flex-col lg:flex-row gap-4">
           <Motion tag="div" initialY={-50} animateY={0} duration={0.6} delay={0.3} className="text-justify pr-4 space-y-1 sm:space-y-2 w-full text-sm md:text-base">

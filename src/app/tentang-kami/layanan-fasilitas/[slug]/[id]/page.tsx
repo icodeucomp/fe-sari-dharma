@@ -9,7 +9,7 @@ import { formatTitleCase } from "@/utils";
 export default function ServiceFacilityPage({ params }: { params: { id: string; slug: string } }) {
   return (
     <main>
-      <Hero src="/images/contact-us.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
+      <Hero src="/images/klinik-introduction-2.webp" title="Klinik Utama Rawat Inap Sari Dharma" titlePage="Layanan & Fasilitas" />
       <Container>
         <Breadcrumbs
           items={[
