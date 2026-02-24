@@ -69,7 +69,7 @@ export const HistoricalTimeline: React.FC = () => {
       title: "2019 - Menjadi Mitra BPJS Kesehatan",
       description:
         "Sebagai wujud partisipasi dalam program Jaminan Kesehatan Nasional, pada tahun 2019 Klinik Utama Sari Dharma resmi menjalin kerjasama dengan BPJS Kesehatan. Hal ini membuka akses pelayanan kesehatan yang lebih luas dan terjangkau bagi peserta JKN-KIS di wilayah Denpasar.",
-      image: "/images/historical.webp",
+      image: "/images/home-3.webp",
       imageAlt: "Post-war hospital and medical facility development",
       isLeft: true,
     },
