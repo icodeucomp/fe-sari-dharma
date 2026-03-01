@@ -7,26 +7,18 @@ const nextConfig = {
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "source.unsplash.com",
-      },
-      {
-        protocol: "https",
-        hostname: "back-office.saridharma.id",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "www.back-office.saridharma.id",
-        port: "",
-        pathname: "/**",
-      },
-      {
         protocol: "http",
-        hostname: "localhost",
-        port: "8000",
+        hostname: "185.196.21.56",
+        port: "8080",
         pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "saridharma.com",
+      },
+      {
+        protocol: "https",
+        hostname: "api.saridharma.com",
       },
       {
         protocol: "http",
