@@ -61,7 +61,7 @@ export const HistoricalTimeline: React.FC = () => {
       title: "2017 - Awal Berdirinya Klinik ",
       description:
         "Klinik Utama Rawat Inap Sari Dharma berdiri pada 2017 untuk meningkatkan kesehatan masyarakat Denpasar dan Bali. Klinik ini menyediakan layanan rawat jalan, rawat inap, laboratorium, dan radiologi, dengan dukungan tenaga medis kompeten serta peralatan modern. Saat ini, klinik memiliki 3 kelas rawat inap dengan 5 tempat tidur, didukung 25 dokter spesialis, perawat, analis, dan radiografer. Sejak awal, klinik berkomitmen memberikan layanan kesehatan cepat, nyaman, dan profesional bagi masyarakat.",
-      image: "/images/historical.webp",
+      image: "/images/historis.jpeg",
       imageAlt: "Modern architectural building representing the present era",
       isLeft: false,
     },
