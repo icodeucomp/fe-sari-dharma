@@ -12,7 +12,6 @@ export const Message = () => {
       >
         Sertifikasi & Penghargaan
       </Motion>
-
       <div className="space-y-4 leading-normal sm:leading-relaxed text-justify text-sm md:text-base">
         <Motion
           tag="p"
@@ -48,7 +47,6 @@ export const Message = () => {
           terbaik bagi pasien dan keluarga.
         </Motion>
       </div>
-
       <Motion
         tag="div"
         initialY={-50}
@@ -68,13 +66,11 @@ export const Message = () => {
               Alamat
             </h5>
           </div>
-
           <p>
             Jl. Pulau Seram No.1, Dauh Puri Klod, Kec. Denpasar Bar., Kota
             Denpasar, Bali 80113
           </p>
         </div>
-
         <div className="min-w-0 p-4 space-y-2 border border-gray/50">
           <div className="space-y-1">
             <Img
@@ -86,14 +82,12 @@ export const Message = () => {
               Hubungi Kami
             </h5>
           </div>
-
           <div className="space-y-1">
             <p>Call Center</p>
             <a href="tel:0361226866" className="hover:underline">
               (0361) 226866
             </a>
           </div>
-
           <div className="space-y-1">
             <p>Emergency Call</p>
             <a href="tel:0361226866" className="hover:underline">
@@ -101,7 +95,6 @@ export const Message = () => {
             </a>
           </div>
         </div>
-
         <div className="min-w-0 p-4 space-y-2 border border-gray/50">
           <div className="space-y-1">
             <Img
@@ -113,10 +106,8 @@ export const Message = () => {
               Jam Operasional
             </h5>
           </div>
-
           <p>Buka setiap hari, 24 jam</p>
         </div>
-
         <div className="min-w-0 p-4 space-y-2 border border-gray/50">
           <div className="space-y-1">
             <Img
@@ -128,7 +119,7 @@ export const Message = () => {
               Email
             </h5>
           </div>
-          <p className="block [overflow-wrap:anywhere] hover:underline">
+          <p className="block whitespace-nowrap text-[11px] sm:text-xs xl:text-sm hover:underline">
             saridharmaclinic@gmail.com
           </p>
         </div>
