@@ -59,7 +59,7 @@ export const Message = () => {
             <Img src="/icons/email.svg" alt="icon hospital" className="mx-auto size-12" />
             <h5 className="text-base lg:text-xl font-bold text-primary">Email</h5>
           </div>
-          <p>saridharma@gmail.com</p>
+          <p>saridharmaclinic@gmail.com</p>
         </div>
       </Motion>
     </div>
