@@ -2,18 +2,18 @@
 import { Button, Container, Motion } from "@/components";
 import { Recommendation } from "./recommendation";
 
-interface LayananDetail {
+interface ServiceDetail {
   id: string | number;
-  nama_layanan: string;
-  deskripsi: string;
-  foto: string; // Keep this as foto since component uses this
+  name: string;
+  description: string;
+  photo: string;
   slug: string;
   created_at: string;
   updated_at: string;
 }
 
 interface MainFeatureServiceProps {
-  layanan: LayananDetail;
+  service: ServiceDetail;
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -26,10 +26,10 @@ const getImageUrl = (path: string) => {
   return debug;
 };
 
-export const MainFeatureService = ({ layanan }: MainFeatureServiceProps) => {
-  const handleClick = (nama_layanan: string) => {
+export const MainFeatureService = ({ service }: MainFeatureServiceProps) => {
+  const handleClick = (name: string) => {
     const message = `Halo Admin,
-Saya ingin mengetahui lebih lanjut mengenai *${nama_layanan}* Mohon bantuannya untuk konfirmasi ketersediaan jadwal tersebut.
+Saya ingin mengetahui lebih lanjut mengenai *${name}* Mohon bantuannya untuk konfirmasi ketersediaan jadwal tersebut.
 
 Terima kasih.
 `;
@@ -43,18 +43,17 @@ Terima kasih.
     <Container className="relative flex flex-col md:flex-row min-h-screen gap-16 pb-16">
       <div className="w-full space-y-4 sm:space-y-8">
         <Motion tag="h2" initialY={50} animateY={0} duration={0.5} className="text-4xl font-semibold text-primary">
-          {layanan.nama_layanan}
+          {service.name}
         </Motion>
 
-        {/* Image above description - using standard HTML img tag instead of Img component */}
         <div className="w-full">
-          <img src={getImageUrl(layanan.foto)} alt={layanan.nama_layanan} className="w-full rounded-lg object-cover max-h-[400px]" />
+          <img src={getImageUrl(service.photo)} alt={service.name} className="w-full rounded-lg object-cover max-h-[400px]" />
         </div>
 
-        <div dangerouslySetInnerHTML={{ __html: layanan.deskripsi }} className="text-sm sm:text-base" />
+        <div dangerouslySetInnerHTML={{ __html: service.description }} className="text-sm sm:text-base" />
         <div className="w-full space-y-4">
-          <h3 className="text-xl font-semibold text-primary">Informasi Seputar {layanan.nama_layanan}</h3>
-          <Button onClick={() => handleClick(layanan.nama_layanan)} className="w-full btn-green">
+          <h3 className="text-xl font-semibold text-primary">Informasi Seputar {service.name}</h3>
+          <Button onClick={() => handleClick(service.name)} className="w-full btn-green">
             Chat Via Whatsapp
           </Button>
         </div>

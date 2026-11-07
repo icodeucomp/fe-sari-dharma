@@ -1,70 +1,38 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import Link from "next/link";
-import { useMediaQuery } from "@/hooks";
+import { useResponsiveLimit } from "@/hooks";
 import { Button, Img, Motion, Slider } from "@/components";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { getLayananUnggulan } from "@/services/layanan-unggulan.service";
+import { getFeaturedService } from "@/services/featured-service.service";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// Fungsi helper untuk memformat URL gambar
 const getImageUrl = (path: string) => {
-  if (!path) return "/images/placeholder.jpg"; // gambar default jika path kosong
-  if (path.startsWith("http")) return path; // jika sudah URL lengkap
-  return `${BASE_URL}/storage/${path}`; // tambahkan /storage/ untuk akses file
+  if (!path) return "/images/placeholder.jpg";
+  if (path.startsWith("http")) return path;
+  return `${BASE_URL}/storage/${path}`;
 };
 
-// Fungsi untuk menormalisasi HTML dan membatasi karakter
 const normalizeAndTruncateDescription = (html: string, maxLength: number = 200) => {
-  // Hapus semua tag HTML
   const plainText = html.replace(/<[^>]+>/g, "");
 
-  // Batasi karakter dan tambahkan ... jika melebihi batas
   if (plainText.length <= maxLength) return plainText;
   return plainText.substring(0, maxLength).trim() + "...";
 };
 
 export const Service = () => {
   const [page, setPage] = React.useState<number>(1);
-  const [limit, setLimit] = React.useState<number>(3);
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [data, setData] = React.useState<any>([]);
-  const [totalPage, setTotalPage] = React.useState<number>(0);
-
-  // Fungsi untuk mengambil data layanan unggulan
-  const fetchLayananUnggulan = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await getLayananUnggulan(page, limit);
-      setData(response.data.data);
-      setTotalPage(response.data.last_page);
-    } catch (error) {
-      console.error("Error fetching layanan unggulan:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [page, limit]);
-
-  React.useEffect(() => {
-    fetchLayananUnggulan();
-  }, [fetchLayananUnggulan]);
-
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
-  const isMobile = useMediaQuery("(min-width: 0px) and (max-width: 639px)");
-
-  React.useEffect(() => {
-    if (isDesktop) {
-      setLimit(3);
-    } else if (isTablet) {
-      setLimit(2);
-    } else if (isMobile) {
-      setLimit(1);
-    }
-  }, [isDesktop, isTablet, isMobile]);
+  const limit = useResponsiveLimit();
+  const { data: response, isLoading: loading } = useQuery({
+    queryKey: ["getFeaturedService", page, limit],
+    queryFn: () => getFeaturedService(page, limit),
+    placeholderData: keepPreviousData,
+  });
+  const data = response?.data.data ?? [];
+  const totalPage = response?.data.last_page ?? 0;
 
   return (
     <div className="bg-light-brown">
@@ -80,11 +48,11 @@ export const Service = () => {
       >
         {data.map((item: any, index: number) => (
           <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={item.id} className="rounded-lg shadow-lg min-h-400 text-dark bg-light">
-            <Img src={getImageUrl(item.foto)} alt={item.nama_layanan} className="w-full rounded-lg h-60" cover />
+            <Img src={getImageUrl(item.photo)} alt={item.name} className="w-full rounded-lg h-60" cover />
             <div className="px-4 my-4 space-y-4">
-              <h4 className="text-xl font-semibold sm:text-2xl line-clamp-1">{item.nama_layanan}</h4>
-              <p className="text-sm line-clamp-2">{normalizeAndTruncateDescription(item.deskripsi)}</p>
-              <Link href={`/layanan-unggulan/${item.slug}/${item.id}`} className="block">
+              <h4 className="text-xl font-semibold sm:text-2xl line-clamp-1">{item.name}</h4>
+              <p className="text-sm line-clamp-2">{normalizeAndTruncateDescription(item.description)}</p>
+              <Link href={`/featured-services/${item.slug}/${item.id}`} className="block">
                 <Button className="flex items-center gap-2 btn-primary group">
                   Selengkapnya
                   <FaArrowRightLong className="-rotate-45" />

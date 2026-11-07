@@ -1,4 +1,3 @@
-// app/api/send-email/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
@@ -6,26 +5,23 @@ export async function POST(req: NextRequest) {
   try {
     const { firstName, lastName, email, phoneNumber, message } = await req.json();
 
-    // Validate input
     if (!firstName || !lastName || !email || !phoneNumber || !message) {
       return NextResponse.json({ error: "Semua field harus diisi" }, { status: 400 });
     }
 
-    // Create transporter with your email service
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST, // e.g., 'smtp.gmail.com'
+      host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT || "587"),
-      secure: process.env.SMTP_SECURE === "true", // true for 465, false for other ports
+      secure: process.env.SMTP_SECURE === "true",
       auth: {
-        user: process.env.SMTP_USER, // your email
-        pass: process.env.SMTP_PASSWORD, // your email password or app password
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASSWORD,
       },
     });
 
-    // Email to clinic (you receive this)
     const mailOptionsToClinic = {
       from: process.env.SMTP_USER,
-      to: process.env.SMTP_USER, // clinic email
+      to: process.env.SMTP_USER,
       subject: `Pesan Baru dari ${firstName} ${lastName}`,
       html: `
         <!DOCTYPE html>
@@ -46,12 +42,12 @@ export async function POST(req: NextRequest) {
                         <p style="color: #FFE4D6; margin: 10px 0 0 0; font-size: 14px;">Klinik Sari Dharma</p>
                       </td>
                     </tr>
-                    
+
                     <!-- Content -->
                     <tr>
                       <td style="padding: 30px;">
                         <h2 style="color: #C75000; margin: 0 0 20px 0; font-size: 20px; font-weight: 600;">Informasi Pengirim</h2>
-                        
+
                         <table width="100%" cellpadding="10" cellspacing="0">
                           <tr style="border-bottom: 1px solid #e5e7eb;">
                             <td style="padding: 12px 0; width: 35%;">
@@ -78,15 +74,15 @@ export async function POST(req: NextRequest) {
                             </td>
                           </tr>
                         </table>
-                        
+
                         <div style="margin-top: 30px; padding: 20px; background-color: #FFF5F0; border-left: 4px solid #C75000; border-radius: 4px;">
                           <h3 style="color: #C75000; margin: 0 0 10px 0; font-size: 16px; font-weight: 600;">Pesan:</h3>
                           <p style="color: #1f2937; margin: 0; line-height: 1.6; white-space: pre-wrap;">${message}</p>
                         </div>
-                        
+
                       </td>
                     </tr>
-                    
+
                     <!-- Footer -->
                     <tr>
                       <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
@@ -105,7 +101,6 @@ export async function POST(req: NextRequest) {
       `,
     };
 
-    // Email to user (confirmation)
     const mailOptionsToUser = {
       from: process.env.SMTP_USER,
       to: email,
@@ -130,22 +125,22 @@ export async function POST(req: NextRequest) {
                         <p style="color: #FFE4D6; margin: 10px 0 0 0; font-size: 16px;">Pesan Anda telah kami terima</p>
                       </td>
                     </tr>
-                    
+
                     <!-- Content -->
                     <tr>
                       <td style="padding: 40px 30px;">
                         <h2 style="color: #1f2937; margin: 0 0 15px 0; font-size: 22px; font-weight: 600;">Halo, ${firstName}!</h2>
-                        
+
                         <p style="color: #4b5563; margin: 0 0 20px 0; line-height: 1.6; font-size: 16px;">
-                          Terima kasih telah menghubungi <strong style="color: #C75000;">Klinik Sari Dharma</strong>. 
+                          Terima kasih telah menghubungi <strong style="color: #C75000;">Klinik Sari Dharma</strong>.
                           Kami telah menerima pesan Anda dan akan segera menghubungi Anda dalam waktu <strong>1x24 jam</strong>.
                         </p>
-                        
+
                         <div style="background: linear-gradient(135deg, #FFF5F0 0%, #FFE8DC 100%); padding: 20px; border-radius: 8px; border-left: 4px solid #C75000; margin: 25px 0;">
                           <h3 style="color: #C75000; margin: 0 0 10px 0; font-size: 16px; font-weight: 600;">📝 Ringkasan Pesan Anda:</h3>
                           <p style="color: #8B4000; margin: 0; line-height: 1.6; white-space: pre-wrap;">${message}</p>
                         </div>
-                        
+
                         <div style="background-color: #f9fafb; padding: 25px; border-radius: 8px; margin: 25px 0; border: 1px solid #e5e7eb;">
                           <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 18px; font-weight: 600;">📍 Informasi Kontak Kami</h3>
                           <table width="100%" cellpadding="5" cellspacing="0">
@@ -188,7 +183,7 @@ export async function POST(req: NextRequest) {
                             </tr>
                           </table>
                         </div>
-                        
+
                         <div style="text-align: center; margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #FFF5F0 0%, #FFE8DC 100%); border-radius: 8px;">
                           <p style="color: #8B4000; margin: 0; font-size: 14px; line-height: 1.6;">
                             <strong>Tim kami siap membantu Anda!</strong><br>
@@ -197,7 +192,7 @@ export async function POST(req: NextRequest) {
                         </div>
                       </td>
                     </tr>
-                    
+
                     <!-- Footer -->
                     <tr>
                       <td style="background-color: #1f2937; padding: 25px; text-align: center;">
@@ -218,7 +213,6 @@ export async function POST(req: NextRequest) {
       `,
     };
 
-    // Send both emails
     await transporter.sendMail(mailOptionsToClinic);
     await transporter.sendMail(mailOptionsToUser);
 

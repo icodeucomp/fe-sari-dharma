@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { Img, Motion, Pagination } from "@/components";
 import Link from "next/link";
-import { getLayananFasilitas } from "@/services/layanan-fasilitas.service";
+import { getFacilityService } from "@/services/facility-service.service";
 
-// Helper function untuk format URL gambar
 const getImageUrl = (path: string) => {
   if (!path) return "/images/placeholder.jpg";
   if (path.startsWith("http")) return path;
@@ -16,36 +15,17 @@ const getImageUrl = (path: string) => {
 export const ServiceFacility = () => {
   const [page, setPage] = React.useState<number>(1);
   const [limit] = React.useState<number>(10);
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [data, setData] = React.useState<any[]>([]);
-  const [totalPage, setTotalPage] = React.useState<number>(1);
-  const [activeIndex, setActiveIndex] = React.useState<number[]>([]);
-
-  // Fungsi untuk fetch data layanan fasilitas
-  const fetchLayananFasilitas = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await getLayananFasilitas(page, limit);
-      setData(response.data.data);
-      setTotalPage(response.data.last_page);
-      setActiveIndex(new Array(response.data.data.length).fill(0));
-    } catch (error) {
-      console.error("Error fetching layanan fasilitas:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [page, limit]);
-
-  React.useEffect(() => {
-    fetchLayananFasilitas();
-  }, [fetchLayananFasilitas]);
+  const { data: response, isLoading: loading } = useQuery({
+    queryKey: ["getFacilityService", page, limit],
+    queryFn: () => getFacilityService(page, limit),
+    placeholderData: keepPreviousData,
+  });
+  const data: any[] = response?.data.data ?? [];
+  const totalPage = response?.data.last_page ?? 1;
+  const [activeIndex, setActiveIndex] = React.useState<Record<number, number>>({});
 
   const handleImageChange = (sectionIndex: number, imageIndex: number) => {
-    setActiveIndex((prevIndexes) => {
-      const newIndexes = [...prevIndexes];
-      newIndexes[sectionIndex] = imageIndex;
-      return newIndexes;
-    });
+    setActiveIndex((prev) => ({ ...prev, [sectionIndex]: imageIndex }));
   };
 
   if (loading) {
@@ -70,9 +50,9 @@ export const ServiceFacility = () => {
             className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-6 border-b-2 border-gray/20"
           >
             <div className="space-y-6">
-              <Img src={activeIndex[sectionIndex] === 0 ? getImageUrl(item.foto_header) : getImageUrl(item.foto_lainnya)} alt={item.nama_fasilitas} className="w-full min-h-56" cover />
+              <Img src={activeIndex[sectionIndex] === 0 ? getImageUrl(item.header_photo) : getImageUrl(item.other_photo)} alt={item.name} className="w-full min-h-56" cover />
               <div className="flex justify-center gap-1 mt-12">
-                {[item.foto_header, item.foto_lainnya].map((_, imageIndex) => (
+                {[item.header_photo, item.other_photo].map((_, imageIndex) => (
                   <button
                     key={imageIndex}
                     onClick={() => handleImageChange(sectionIndex, imageIndex)}
@@ -84,10 +64,10 @@ export const ServiceFacility = () => {
               </div>
             </div>
             <div className="space-y-2">
-              <Link href={`/tentang-kami/layanan-fasilitas/${item.slug}/${item.id}`}>
-                <h4 className="text-2xl sm:text-3xl font-semibold text-primary">{item.nama_fasilitas}</h4>
+              <Link href={`/about-us/facility-services/${item.slug}/${item.id}`}>
+                <h4 className="text-2xl sm:text-3xl font-semibold text-primary">{item.name}</h4>
               </Link>
-              <p className="leading-relaxed text-justify text-sm sm:text-base">{item.deskripsi_overview.length > 300 ? `${item.deskripsi_overview.slice(0, 300)}...` : item.deskripsi_overview}</p>
+              <p className="leading-relaxed text-justify text-sm sm:text-base">{item.overview_description.length > 300 ? `${item.overview_description.slice(0, 300)}...` : item.overview_description}</p>
             </div>
           </Motion>
         ))}

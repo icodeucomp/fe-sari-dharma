@@ -1,16 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 html {
   scroll-behavior: smooth !important;
 }
 
-.card-shadow {
+@utility card-shadow {
   box-shadow: 0px 6px 15px #181c143b;
 }
 
-.border-custom {
+@utility border-custom {
   box-shadow: 0px 2px #c75000;
 }
 
@@ -57,67 +66,66 @@ html {
 }
 
 /* scrollbar hide style */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-hide {
+@utility scrollbar-hide {
+  &::-webkit-scrollbar {
+    display: none;
+  }
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
 /* scrollbar style */
-.scrollbar::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+@utility scrollbar {
+  &::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f3f4f6;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #6b7280;
+    border-radius: 100vh;
+    border: 3px solid #f3f4f6;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #fb8b24;
+  }
 }
-.scrollbar::-webkit-scrollbar-track {
-  border-radius: 100vh;
-  background: #f3f4f6;
-}
-.scrollbar::-webkit-scrollbar-thumb {
-  background: #6b7280;
-  border-radius: 100vh;
-  border: 3px solid #f3f4f6;
-}
-.scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #fb8b24;
-}
-
-@layer components {
-  .btn-primary {
+@utility btn-primary {
     @apply bg-primary text-light;
-  }
-  .btn-green {
+}
+@utility btn-green {
     @apply bg-green-600 text-light;
-  }
-  .btn-light {
+}
+@utility btn-light {
     @apply bg-light text-primary;
-  }
-  .btn-outline {
+}
+@utility btn-outline {
     @apply border-2 bg-light text-primary border-primary hover:bg-primary hover:text-light;
-  }
-  .heading {
+}
+@utility heading {
     @apply text-2xl font-semibold sm:text-3xl lg:text-4xl text-primary;
-  }
-  .subheading {
+}
+@utility subheading {
     @apply text-sm sm:text-base md:text-lg text-dark;
-  }
-  .form-contact-input {
+}
+@utility form-contact-input {
     @apply w-full text-sm bg-gray/10 border border-gray/50 outline-primary focus:border-primary p-2.5 rounded-md duration-300;
-  }
-  .popover {
+}
+@utility popover {
     @apply absolute py-2 -translate-x-1/2 border border-gray rounded-lg shadow-lg left-1/2 w-full bg-light text-dark z-100;
-  }
-  .navbar-submenu {
+}
+@utility navbar-submenu {
     @apply absolute left-0 w-full shadow-lg bg-light h-auto scrollbar overflow-y-auto top-32 z-100000 border-t border-gray/50 opacity-0 transition-all duration-300 ease-in-out pointer-events-none;
-  }
-  .dropdown {
+}
+@utility dropdown {
     @apply relative flex items-center gap-2 p-2 text-sm text-gray font-semibold rounded-md sm:px-4 border;
-  }
-  .pagination-number {
-    @apply size-10 sm:size-12 flex items-center justify-center text-center transition-all border rounded-lg shadow-sm text-dark;
-  }
-  .pagination-button {
+}
+@utility pagination-number {
+    @apply size-10 sm:size-12 flex items-center justify-center text-center transition-all border rounded-lg shadow-xs text-dark;
+}
+@utility pagination-button {
     @apply size-10 sm:size-12 flex items-center justify-center border rounded-lg bg-light duration-300;
-  }
 }

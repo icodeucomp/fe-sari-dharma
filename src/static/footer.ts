@@ -1,13 +1,13 @@
-import { getLayananUnggulan } from "@/services/layanan-unggulan.service";
+import { getFeaturedService } from "@/services/featured-service.service";
 import { footerListType } from "@/types";
 
 export const footerList: footerListType[] = [
   {
     title: "Tentang Kami",
     navigation: [
-      { subtitle: "Perkenalan Klinik", link: "/tentang-kami/ikhtisar" },
-      { subtitle: "Layanan & Fasilitas", link: "/tentang-kami/layanan-fasilitas" },
-      { subtitle: "Ambulance Emergency", link: "/tentang-kami/ambulans" },
+      { subtitle: "Perkenalan Klinik", link: "/about-us/overview" },
+      { subtitle: "Layanan & Fasilitas", link: "/about-us/facility-services" },
+      { subtitle: "Ambulance Emergency", link: "/about-us/ambulance" },
     ],
   },
   {
@@ -16,41 +16,40 @@ export const footerList: footerListType[] = [
   },
   {
     title: "Temukan Dokter",
-    navigation: [{ subtitle: "Jadwal Dokter", link: "/temukan-dokter/jadwal" }],
+    navigation: [{ subtitle: "Jadwal Dokter", link: "/find-doctor/schedule" }],
   },
   {
     title: "Media & Informasi",
     navigation: [
-      { subtitle: "Hubungi Kami", link: "/media-informasi/hubungi-kami" },
-      { subtitle: "Paket & Promo Kesehatan", link: "/media-informasi/paket-promo" },
-      { subtitle: "Artikel Kesehatan", link: "/media-informasi/artikel-kesehatan" },
-      { subtitle: "Event & Community", link: "/media-informasi/event-community" },
-      { subtitle: "Karir", link: "/media-informasi/karir" },
+      { subtitle: "Hubungi Kami", link: "/media-information/contact-us" },
+      { subtitle: "Paket & Promo Kesehatan", link: "/media-information/promo-packages" },
+      { subtitle: "Artikel Kesehatan", link: "/media-information/health-articles" },
+      { subtitle: "Event & Community", link: "/media-information/community-events" },
+      { subtitle: "Karir", link: "/media-information/careers" },
     ],
   },
 ];
 
 export const getFooterLists = async (): Promise<footerListType[]> => {
   try {
-    const layananUnggulanResponse = await getLayananUnggulan(1, 20);
-    const layananUnggulanContent = layananUnggulanResponse.data.data.map((item: any) => ({
-      subtitle: item.nama_layanan,
-      link: `/layanan-unggulan/${item.slug}/${item.id}`,
+    const featuredServiceResponse = await getFeaturedService(1, 20);
+    const featuredServiceContent = featuredServiceResponse.data.data.map((item: any) => ({
+      subtitle: item.name,
+      link: `/featured-services/${item.slug}/${item.id}`,
     }));
 
     const dynamicFooterLists = footerList.map((navItem) => {
       if (navItem.title === "Layanan Unggulan") {
         return {
           ...navItem,
-          navigation: layananUnggulanContent,
+          navigation: featuredServiceContent,
         };
       }
       return navItem;
     });
 
     return dynamicFooterLists;
-  } catch (error) {
-    console.error("Error fetching Layanan Unggulan data:", error);
+  } catch {
 
     return footerList;
   }

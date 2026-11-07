@@ -18,7 +18,7 @@ const Card = ({ title, pathUrl, pathImg }: { pathImg: string; title: string; pat
 
       <h4 className="mt-2 text-base font-semibold sm:text-lg text-dark line-clamp-1">{title}</h4>
 
-      <Button onClick={() => router.push(`/media-informasi/event-community/${pathUrl}`)} className="flex items-center gap-2 mt-4 btn-outline group w-max">
+      <Button onClick={() => router.push(`/media-information/community-events/${pathUrl}`)} className="flex items-center gap-2 mt-4 btn-outline group w-max">
         Lihat Selengkapnya <GoArrowRight className="fill-primary group-hover:fill-light" size={20} />
       </Button>
     </>
@@ -27,28 +27,16 @@ const Card = ({ title, pathUrl, pathImg }: { pathImg: string; title: string; pat
 
 export const Indicators = () => {
   const [page, setPage] = React.useState<number>(0);
-  const [totalPage, setTotalPage] = React.useState<number>(10);
-
-  React.useEffect(() => {
-    if (page) {
-      setTotalPage(page);
-    }
-  }, [page]);
+  const totalPage = page || 10;
 
   return (
     <>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {/* {articles?.data && articles?.data.length < 1 ? (
-            <h3 className="w-full col-span-1 py-16 text-lg font-semibold text-center min-h-400 sm:text-2xl md:text-3xl sm:col-span-2 lg:col-span-3 text-gray/50">The articles is not found</h3>
-          ) : (
-            <> */}
         {[...Array(6)].map((_, index) => (
           <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={index * 0.1} key={index}>
-            <Card title={"Indikator Mutu 2021"} pathUrl={formatKebabCase("indikator-mutu-2021")} pathImg={"/images/temp-4.png"} />
+            <Card title={"Indikator Mutu 2021"} pathUrl={formatKebabCase("quality-indicator-2021")} pathImg={"/images/temp-4.png"} />
           </Motion>
         ))}
-        {/* </>
-          )} */}
       </div>
 
       <Motion tag="div" initialY={50} animateY={0} duration={0.8} delay={0.4} className="relative flex justify-center pt-10">

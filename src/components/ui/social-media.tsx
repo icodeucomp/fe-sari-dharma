@@ -1,41 +1,20 @@
 "use client";
 
 import * as React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Container } from "@/components";
-import { KontenSocialMedia, getKontenSocialMedia } from "@/services/konten-social-media.service";
+import { SocialMediaContent, getSocialMediaContent } from "@/services/social-media-content.service";
 import Icon from "@mdi/react";
 import { mdiLoading } from "@mdi/js";
 
 export const SocialMedia = () => {
   const [activeTab, setActiveTab] = React.useState<"youtube" | "instagram">("youtube");
-  const [kontenSocialMedia, setKontenSocialMedia] = React.useState<KontenSocialMedia[]>([]);
-  const [loading, setLoading] = React.useState(true);
+  const { data: socialMediaContent = [], isLoading: loading } = useQuery({
+    queryKey: ["social-media-contents", activeTab],
+    queryFn: () => getSocialMediaContent({ type: activeTab, per_page: 4 }),
+    select: (response) => response.data.data as SocialMediaContent[],
+  });
 
-  /**
-   * Mengambil data konten social media dari API
-   */
-  React.useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await getKontenSocialMedia({
-          type: activeTab,
-          per_page: 4,
-        });
-        setKontenSocialMedia(response.data.data);
-      } catch (error) {
-        console.error("Error fetching social media content:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [activeTab]);
-
-  /**
-   * Load Instagram embed script ketika tab berubah ke Instagram
-   */
   React.useEffect(() => {
     if (activeTab === "instagram" && !loading) {
       const script = document.createElement("script");
@@ -84,13 +63,12 @@ export const SocialMedia = () => {
                 <h2 className="text-2xl font-bold text-orange-700 mb-2">YouTube: Sari Dharma Klinik Utama</h2>
                 <p className="mb-4">Saksikan video dan konten edukasi kesehatan dari Klinik Utama Rawat Inap Sari Dharma.</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-4 place-items-center">
-                  {kontenSocialMedia.map((konten, index) => {
-                    // Mengubah URL YouTube watch menjadi embed
-                    const embedUrl = konten.links.replace("watch?v=", "embed/").split("&")[0];
+                  {socialMediaContent.map((content, index) => {
+                    const embedUrl = content.links.replace("watch?v=", "embed/").split("&")[0];
 
                     return (
                       <iframe
-                        key={konten.id}
+                        key={content.id}
                         className={`w-full aspect-video rounded-md ${index === 0 ? "lg:col-span-2 lg:row-span-2" : ""}`}
                         src={embedUrl}
                         title={`Video ${index + 1}`}
@@ -107,11 +85,11 @@ export const SocialMedia = () => {
                 <h2 className="text-2xl font-bold text-pink-700 mb-2">Instagram: @saridharma</h2>
                 <p className="mb-4">Lihat postingan terbaru dari akun resmi Klinik Utama Sari Dharma.</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                  {kontenSocialMedia.map((konten) => (
+                  {socialMediaContent.map((content) => (
                     <blockquote
-                      key={konten.id}
+                      key={content.id}
                       className="instagram-media"
-                      data-instgrm-permalink={konten.links}
+                      data-instgrm-permalink={content.links}
                       data-instgrm-version="14"
                       style={{ background: "#fff", borderRadius: "8px" }}
                     ></blockquote>

@@ -1,31 +1,16 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Img, Motion } from "@/components";
 import { LuTag } from "react-icons/lu";
 import { convertDate } from "@/utils";
-import { EventCommunity, getEventCommunity } from "@/services/event-community.service";
+import { CommunityEvent, getCommunityEvent } from "@/services/community-event.service";
 
-/**
- * Komponen untuk menampilkan rekomendasi event
- */
 const RecommendationEvent = () => {
-  const [events, setEvents] = useState<EventCommunity[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await getEventCommunity(1, 3);
-        setEvents(response.data.data);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEvents();
-  }, []);
+  const { data: events = [], isLoading: loading } = useQuery({
+    queryKey: ["community-events", "recommendation"],
+    queryFn: () => getCommunityEvent(1, 3),
+    select: (response) => response.data.data as CommunityEvent[],
+  });
 
   return (
     <div className="space-y-4 divide-y-2 divide-primary">
@@ -47,8 +32,8 @@ const RecommendationEvent = () => {
               className="pb-4 space-y-2 border-b border-gray/30"
             >
               <Img
-                src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${event.foto}`}
-                alt={event.judul}
+                src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${event.photo}`}
+                alt={event.title}
                 className="w-full min-h-32"
                 cover
               />
@@ -58,8 +43,8 @@ const RecommendationEvent = () => {
               </span>
               <div className="space-y-1 text-dark">
                 <span className="text-sm font-light">{convertDate(event.created_at)}</span>
-                <Link href={`/media-informasi/event-community/${event.slug}/${event.id}`}>
-                  <h3 className="font-semibold line-clamp-2">{event.judul}</h3>
+                <Link href={`/media-information/community-events/${event.slug}/${event.id}`}>
+                  <h3 className="font-semibold line-clamp-2">{event.title}</h3>
                 </Link>
               </div>
             </Motion>

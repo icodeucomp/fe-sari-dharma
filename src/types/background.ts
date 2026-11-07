@@ -1,5 +1,5 @@
 export interface BackgroundProps {
-  children: JSX.Element | JSX.Element[];
+  children: React.JSX.Element | React.JSX.Element[];
   src: string;
   alt: string;
   parentClassName?: string;

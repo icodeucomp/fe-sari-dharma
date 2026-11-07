@@ -1,18 +1,18 @@
 "use client";
 
 import { Img } from "@/components/image";
-import { getDetailLayananFasilitas } from "@/services/layanan-fasilitas.service";
+import { useQuery } from "@tanstack/react-query";
+import { getDetailFacilityService } from "@/services/facility-service.service";
 import { useParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { IoChevronBack, IoChevronForward, IoClose } from "react-icons/io5";
 
-// Types
 interface FacilityData {
-  nama_fasilitas: string;
-  deskripsi_overview: string;
-  foto_header: string;
-  foto_lainnya: string;
-  layanan_fasilitas: string;
+  name: string;
+  overview_description: string;
+  header_photo: string;
+  other_photo: string;
+  services: string;
 }
 
 interface ImageCarouselProps {
@@ -29,16 +29,13 @@ interface LightboxModalProps {
 interface MotionProps {
   children: React.ReactNode;
   className?: string;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: keyof React.JSX.IntrinsicElements;
   [key: string]: any;
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
-
-// Mock components - replace with your actual imports
-// import { Motion, Button, Img } from "@/components";
 
 const Motion: React.FC<MotionProps> = ({ children, className, tag: Tag = "div", ...props }) => (
   <Tag className={className} {...props}>
@@ -124,35 +121,19 @@ const LightboxModal: React.FC<LightboxModalProps> = ({ images, initialIndex, onC
 };
 
 export const DetailServiceFacility: React.FC = () => {
-  const params = useParams();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [data, setData] = useState<FacilityData | null>(null);
+  const params = useParams<{ slug: string; id: string }>();
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
   const [lightboxIndex, setLightboxIndex] = useState<number>(0);
 
-  // Mock data - replace with actual API call
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      try {
-        // Simulating API call
-        // Replace this with your actual API call:
-        const slug = params.slug as string;
-        const id = params.id as string;
-        const response = await getDetailLayananFasilitas(slug, id);
-        setData({
-          ...response.data,
-          foto_header: `${process.env.NEXT_PUBLIC_API_URL}/storage/${response.data.foto_header}`,
-          foto_lainnya: `${process.env.NEXT_PUBLIC_API_URL}/storage/${response.data.foto_lainnya}`,
-        });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [params]);
+  const { data, isLoading } = useQuery({
+    queryKey: ["facility-service-detail", params.slug, params.id],
+    queryFn: () => getDetailFacilityService(params.slug, params.id),
+    select: (response): FacilityData => ({
+      ...response.data,
+      header_photo: `${process.env.NEXT_PUBLIC_API_URL}/storage/${response.data.header_photo}`,
+      other_photo: `${process.env.NEXT_PUBLIC_API_URL}/storage/${response.data.other_photo}`,
+    }),
+  });
 
   if (isLoading) {
     return (
@@ -162,7 +143,7 @@ export const DetailServiceFacility: React.FC = () => {
     );
   }
 
-  const allPhotos: string[] = data?.foto_lainnya ? [data.foto_header, ...data.foto_lainnya.split(",").filter(Boolean)] : [data?.foto_header || ""];
+  const allPhotos: string[] = data?.other_photo ? [data.header_photo, ...data.other_photo.split(",").filter(Boolean)] : [data?.header_photo || ""];
 
   const handleImageClick = (index: number): void => {
     setLightboxIndex(index);
@@ -172,29 +153,25 @@ export const DetailServiceFacility: React.FC = () => {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto space-y-8 text-dark">
-        {/* Header Section */}
         <Motion className="space-y-4">
-          <h1 className="heading">{data?.nama_fasilitas}</h1>
-          <p className="text-lg leading-relaxed">{data?.deskripsi_overview}</p>
+          <h1 className="heading">{data?.name}</h1>
+          <p className="text-lg leading-relaxed">{data?.overview_description}</p>
         </Motion>
 
-        {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Left Column - Main Image & Activities */}
           <Motion className="space-y-6">
             <div className="relative rounded-lg overflow-hidden shadow-xl group cursor-pointer" onClick={() => handleImageClick(0)}>
-              <Img src={allPhotos[0]} alt={data?.nama_fasilitas || "Facility"} className="w-full h-80" cover={true} />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <Img src={allPhotos[0]} alt={data?.name || "Facility"} className="w-full h-80" cover={true} />
+              <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
               <span className="absolute bottom-4 left-4 bg-primary text-white px-6 py-2 rounded text-sm font-semibold shadow-lg">Foto Utama</span>
             </div>
 
             <div className="bg-white">
               <h2 className="text-2xl font-bold mb-4">Aktivitas & Kegiatan</h2>
-              <div className="max-w-none" dangerouslySetInnerHTML={{ __html: data?.layanan_fasilitas || "" }} />
+              <div className="max-w-none" dangerouslySetInnerHTML={{ __html: data?.services || "" }} />
             </div>
           </Motion>
 
-          {/* Right Column - Gallery Carousel */}
           <Motion className="space-y-6">
             <div className="bg-white">
               <div className="flex items-center justify-between mb-4">
@@ -225,7 +202,6 @@ export const DetailServiceFacility: React.FC = () => {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
       {lightboxOpen && <LightboxModal images={allPhotos} initialIndex={lightboxIndex} onClose={() => setLightboxOpen(false)} />}
     </div>
   );

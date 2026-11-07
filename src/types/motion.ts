@@ -3,7 +3,7 @@ import { MotionProps } from "framer-motion";
 export interface MotionComponentProps extends MotionProps {
   children: React.ReactNode;
   className?: string;
-  tag: keyof JSX.IntrinsicElements;
+  tag: keyof React.JSX.IntrinsicElements;
   initialY?: number;
   animateY?: number;
   initialX?: number;

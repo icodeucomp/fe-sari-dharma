@@ -73,7 +73,6 @@ export const Contacts = () => {
       [name]: value,
     }));
 
-    // Clear specific field error when user types
     if (errors[name]) {
       setErrors((prev) => {
         const newErrors = { ...prev };
@@ -82,7 +81,6 @@ export const Contacts = () => {
       });
     }
 
-    // Clear submit status when user starts typing
     if (submitStatus) {
       setSubmitStatus(null);
     }
@@ -117,7 +115,6 @@ export const Contacts = () => {
         setInput(initValues);
         setErrors({});
 
-        // Auto hide success message after 5 seconds
         setTimeout(() => {
           setSubmitStatus(null);
         }, 5000);
@@ -143,7 +140,6 @@ export const Contacts = () => {
 
   return (
     <Container className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 py-12">
-      {/* Left Column - Contact Info */}
       <Motion tag="div" initialY={-40} animateY={0} duration={0.3}>
         <Img src="/images/home-3.webp" alt="klinik sari dharma office" className="w-full min-h-300" cover />
         <menu className="space-y-2 mt-4">
@@ -164,34 +160,29 @@ export const Contacts = () => {
         </a>
       </Motion>
 
-      {/* Right Column - Contact Form */}
       <Motion tag="div" initialY={40} animateY={0} duration={0.6} delay={0.3} className="relative">
         <div className="bg-white rounded-xl p-6 md:p-8 border border-gray/20">
-          {/* Header */}
           <div className="mb-6">
             <h4 className="text-2xl md:text-3xl font-bold text-dark mb-2">Butuh Bantuan Kami?</h4>
             <p className="text-dark">Isi form di bawah ini dan kami akan merespon dalam 1x24 jam</p>
           </div>
 
-          {/* Status Alert */}
           {submitStatus && (
             <div className={`mb-6 p-4 rounded-lg flex items-start gap-3 animate-fadeIn ${submitStatus.type === "success" ? "bg-green-50 border border-green-200" : "bg-red-50 border border-red-200"}`}>
               {submitStatus.type === "success" ? (
-                <FaCheckCircle className="text-green-500 text-xl flex-shrink-0 mt-0.5" />
+                <FaCheckCircle className="text-green-500 text-xl shrink-0 mt-0.5" />
               ) : (
-                <FaExclamationCircle className="text-red-500 text-xl flex-shrink-0 mt-0.5" />
+                <FaExclamationCircle className="text-red-500 text-xl shrink-0 mt-0.5" />
               )}
               <p className={`flex-1 text-sm ${submitStatus.type === "success" ? "text-green-800" : "text-red-800"}`}>{submitStatus.message}</p>
-              <button onClick={closeAlert} className={`flex-shrink-0 ${submitStatus.type === "success" ? "text-green-600 hover:text-green-800" : "text-red-600 hover:text-red-800"}`}>
+              <button onClick={closeAlert} className={`shrink-0 ${submitStatus.type === "success" ? "text-green-600 hover:text-green-800" : "text-red-600 hover:text-red-800"}`}>
                 <IoMdClose className="text-xl" />
               </button>
             </div>
           )}
 
-          {/* Form */}
           <form className="space-y-5" onSubmit={submitForm} autoComplete="off">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* First Name */}
               <div className="w-full">
                 <label htmlFor="firstName" className="block text-sm font-medium text-dark mb-2">
                   Nama Depan <span className="text-red-500">*</span>
@@ -209,7 +200,6 @@ export const Contacts = () => {
                 {errors.firstName && <p className="mt-1 text-xs text-red-500">{errors.firstName}</p>}
               </div>
 
-              {/* Last Name */}
               <div className="w-full">
                 <label htmlFor="lastName" className="block text-sm font-medium text-dark mb-2">
                   Nama Belakang <span className="text-red-500">*</span>
@@ -228,7 +218,6 @@ export const Contacts = () => {
               </div>
             </div>
 
-            {/* Email */}
             <div className="w-full">
               <label htmlFor="email" className="block text-sm font-medium text-dark mb-2">
                 Email <span className="text-red-500">*</span>
@@ -246,7 +235,6 @@ export const Contacts = () => {
               {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
             </div>
 
-            {/* Phone Number */}
             <div className="w-full">
               <label htmlFor="phoneNumber" className="block text-sm font-medium text-dark mb-2">
                 Nomor Telepon <span className="text-red-500">*</span>
@@ -264,7 +252,6 @@ export const Contacts = () => {
               {errors.phoneNumber && <p className="mt-1 text-xs text-red-500">{errors.phoneNumber}</p>}
             </div>
 
-            {/* Message */}
             <div className="w-full">
               <label htmlFor="message" className="block text-sm font-medium text-dark mb-2">
                 Pesan <span className="text-red-500">*</span>
@@ -283,7 +270,6 @@ export const Contacts = () => {
               <p className="mt-1 text-xs text-gray">Minimal 10 karakter</p>
             </div>
 
-            {/* Submit Button */}
             <Button
               type="submit"
               disabled={isSubmitting}

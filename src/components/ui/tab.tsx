@@ -1,44 +1,29 @@
 "use client";
 
 import * as React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Motion } from "@/components";
-import { getMasterKategori } from "@/services/master-kategori.service";
+import { getMasterCategory } from "@/services/category.service";
 
 interface TabProps {
-  onTabChange?: (kategoriId: string) => void;
+  onTabChange?: (categoryId: string) => void;
 }
 
-/**
- * Komponen Tab untuk menampilkan kategori artikel
- */
 export const Tab: React.FC<TabProps> = ({ onTabChange }) => {
-  const [categories, setCategories] = React.useState<Array<{ id: string; name: string }>>([]);
-  const [activeTab, setActiveTab] = React.useState<string>("");
-  const [loading, setLoading] = React.useState(true);
+  const [selectedTab, setSelectedTab] = React.useState<string>("");
 
-  // Fungsi untuk mengambil data kategori
-  const fetchCategories = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await getMasterKategori();
-      if (response.success && response.data.data.length > 0) {
-        setCategories(response.data.data);
-        // Set kategori pertama sebagai default aktif
-        if (!activeTab) {
-          setActiveTab(response.data.data[0].id);
-          onTabChange?.(response.data.data[0].id);
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [activeTab, onTabChange]);
+  const { data: categories = [], isLoading: loading } = useQuery({
+    queryKey: ["categories", "all"],
+    queryFn: () => getMasterCategory(),
+    select: (response) => response.data.data as Array<{ id: string; name: string }>,
+  });
+
+  const activeTab = selectedTab || categories[0]?.id || "";
 
   React.useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
+    if (categories.length > 0) onTabChange?.(categories[0].id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categories]);
 
   if (loading) {
     return (
@@ -54,7 +39,7 @@ export const Tab: React.FC<TabProps> = ({ onTabChange }) => {
         <Motion tag="div" key={category.id} initialY={20} animateY={0} duration={0.3} delay={index * 0.1}>
           <button
             onClick={() => {
-              setActiveTab(category.id);
+              setSelectedTab(category.id);
               onTabChange?.(category.id);
             }}
             className={`px-6 py-2 rounded-full transition-all duration-300 whitespace-nowrap ${activeTab === category.id ? "bg-primary text-white" : "bg-gray-100 hover:bg-gray-200"}`}

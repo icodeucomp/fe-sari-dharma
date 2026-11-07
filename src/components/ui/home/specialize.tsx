@@ -1,35 +1,19 @@
 "use client";
 
 import { Button, Container, Motion } from "@/components";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { IoIosArrowDropright } from "react-icons/io";
-import { getLayananSpesialis, LayananSpesialis } from "@/services/layanan-spesialis.service";
+import { getSpecialistService, SpecialistService } from "@/services/specialist-service.service";
 import Icon from "@mdi/react";
 import { getIconPath } from "@/utils/icon-helper";
 import Link from "next/link";
 
 export const Specialize = () => {
-  const [loading, setLoading] = useState(true);
-  const [layananList, setLayananList] = useState<LayananSpesialis[]>([]);
-
-  /**
-   * Fungsi untuk mengambil data layanan spesialis
-   */
-  const fetchLayanan = async () => {
-    try {
-      setLoading(true);
-      const response = await getLayananSpesialis("", 1, 10);
-      setLayananList(response.data.data);
-    } catch (error) {
-      console.error("Error fetching layanan:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchLayanan();
-  }, []);
+  const { data: serviceList = [], isLoading: loading } = useQuery({
+    queryKey: ["specialist-services", "home"],
+    queryFn: () => getSpecialistService("", 1, 10),
+    select: (response) => response.data.data as SpecialistService[],
+  });
 
   return (
     <Container className="py-10 space-y-8 sm:py-16">
@@ -45,7 +29,7 @@ export const Specialize = () => {
         {loading ? (
           <p className="text-center w-full">Memuat data...</p>
         ) : (
-          layananList.map((item, index) => (
+          serviceList.map((item, index) => (
             <Motion
               tag="div"
               initialY={50}
@@ -58,14 +42,14 @@ export const Specialize = () => {
               <div className="p-4 rounded-full bg-secondary w-max mx-auto md:mx-0">
                 <Icon path={getIconPath(item.icon)} size={1.5} className="text-primary" />
               </div>
-              <h5 className="mt-6 font-bold text-dark text-sm lg:text-base">{item.nama_layanan}</h5>
-              <div className="mt-1 text-xs lg:text-sm text-justify text-gray line-clamp-3" dangerouslySetInnerHTML={{ __html: item.deskripsi }} />
+              <h5 className="mt-6 font-bold text-dark text-sm lg:text-base">{item.name}</h5>
+              <div className="mt-1 text-xs lg:text-sm text-justify text-gray line-clamp-3" dangerouslySetInnerHTML={{ __html: item.description }} />
               <i className="absolute bottom-0 left-0 w-full h-1.5 bg-primary"></i>
             </Motion>
           ))
         )}
       </div>
-      <Link href="/temukan-dokter/jadwal">
+      <Link href="/find-doctor/schedule">
         <Button className="flex items-center gap-2 mx-auto btn-outline">
           Temukan Jadwal Dokter <IoIosArrowDropright size={20} />
         </Button>

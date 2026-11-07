@@ -62,7 +62,7 @@ export const Footer = () => {
         </div>
       </Container>
       <div className="py-6 bg-primary text-light">
-        <div className="flex items-center w-full flex-col lg:flex-row gap-4 lg:gap-0 px-4 lg:px-0 max-w-screen-lg mx-auto lg:divide-x-2">
+        <div className="flex items-center w-full flex-col lg:flex-row gap-4 lg:gap-0 px-4 lg:px-0 max-w-(--breakpoint-lg) mx-auto lg:divide-x-2">
           <h4 className="lg:pr-8 text-base sm:text-lg font-bold xl:whitespace-nowrap">Klinik Utama Rawat Inap Sari Dharma</h4>
           <h5 className="lg:pl-8 text-xs sm:text-sm text-center">
             <strong>© 2025 Klinik Utama Rawat Inap Sari Dharma.</strong> Jl. Pulau Seram No.1 Dauh Puri Klod, Denpasar Barat, Bali 80113

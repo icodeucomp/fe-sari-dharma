@@ -1,35 +1,34 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Background, Container, Motion } from "@/components";
 import { LuTag, LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { convertDate } from "@/utils";
-import { getArtikelKesehatan } from "@/services/artikel-kesehatan.service";
+import { getHealthArticle } from "@/services/health-article.service";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// Helper function untuk format URL gambar
 const getImageUrl = (path: string) => {
   if (!path) return "/images/placeholder.jpg";
   if (path.startsWith("http")) return path;
   return `${BASE_URL}/storage/${path}`;
 };
 
-const Card = ({ artikel }: { artikel: any }) => {
+const Card = ({ article }: { article: any }) => {
   return (
-    <Background src={getImageUrl(artikel.foto)} alt={artikel.judul} className="w-full min-h-60 flex items-end" imgClassName="object-cover" parentClassName="rounded-md">
-      <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
+    <Background src={getImageUrl(article.photo)} alt={article.title} className="w-full min-h-60 flex items-end" imgClassName="object-cover" parentClassName="rounded-md">
+      <div className="absolute inset-0 bg-linear-to-b from-light/10 to-dark/40 w-full h-full" />
       <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
         <LuTag size={20} />
-        {artikel.kategori?.name}
+        {article.category?.name}
       </span>
 
       <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
-        <span className="text-xs font-light">{convertDate(artikel.created_at)}</span>
-        <Link href={`/media-informasi/artikel-kesehatan/${artikel.slug}/${artikel.id}`}>
-          <h3 className="font-semibold line-clamp-2">{artikel.judul}</h3>
+        <span className="text-xs font-light">{convertDate(article.created_at)}</span>
+        <Link href={`/media-information/health-articles/${article.slug}/${article.id}`}>
+          <h3 className="font-semibold line-clamp-2">{article.title}</h3>
         </Link>
       </div>
     </Background>
@@ -37,29 +36,13 @@ const Card = ({ artikel }: { artikel: any }) => {
 };
 
 export const HealthArticle = () => {
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [articles, setArticles] = React.useState<any[]>([]);
+  const { data: articles = [], isLoading: loading } = useQuery({
+    queryKey: ["health-articles", "slider"],
+    queryFn: () => getHealthArticle({ per_page: 5, page: 1 }),
+    select: (response) => response.data.data as any[],
+  });
   const [currentIndex, setCurrentIndex] = React.useState<number>(0);
 
-  // Fungsi untuk mengambil data artikel
-  const fetchArtikel = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await getArtikelKesehatan({ per_page: 5, page: 1 });
-      const articlesData = response.data.data;
-      setArticles(articlesData);
-    } catch (error) {
-      console.error("Error fetching artikel:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  React.useEffect(() => {
-    fetchArtikel();
-  }, [fetchArtikel]);
-
-  // Handler untuk navigasi slide
   const handlePrevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? articles.length - 1 : prev - 1));
   };
@@ -90,30 +73,28 @@ export const HealthArticle = () => {
           </div>
         ) : (
           <>
-            {/* Mobile/Tablet View - Single Card Carousel */}
             <div className="block lg:hidden relative">
               <Background
-                src={getImageUrl(currentArticle.foto)}
-                alt={currentArticle.judul}
+                src={getImageUrl(currentArticle.photo)}
+                alt={currentArticle.title}
                 className="w-full min-h-60 flex items-end h-[400px]"
                 imgClassName="object-cover"
                 parentClassName="rounded-md"
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
+                <div className="absolute inset-0 bg-linear-to-b from-light/10 to-dark/40 w-full h-full" />
                 <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
                   <LuTag size={20} />
-                  {currentArticle.kategori?.name || "Edukasi Kesehatan"}
+                  {currentArticle.category?.name || "Edukasi Kesehatan"}
                 </span>
 
                 <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
                   <span className="font-light text-sm">{convertDate(currentArticle.created_at)}</span>
-                  <Link href={`/media-informasi/artikel-kesehatan/${currentArticle.slug}/${currentArticle.id}`}>
-                    <h3 className="font-semibold text-xl line-clamp-2">{currentArticle.judul}</h3>
+                  <Link href={`/media-information/health-articles/${currentArticle.slug}/${currentArticle.id}`}>
+                    <h3 className="font-semibold text-xl line-clamp-2">{currentArticle.title}</h3>
                   </Link>
                 </div>
               </Background>
 
-              {/* Navigation Arrows */}
               <button
                 onClick={handlePrevSlide}
                 className="z-5 absolute left-4 top-1/2 -translate-y-1/2 bg-primary hover:bg-primary/90 text-white p-3 rounded-lg shadow-lg transition-all hover:scale-105 active:scale-95"
@@ -129,7 +110,6 @@ export const HealthArticle = () => {
                 <LuChevronRight size={24} />
               </button>
 
-              {/* Slide Indicators */}
               <div className="flex justify-center gap-2 mt-4">
                 {articles.map((_, index) => (
                   <button
@@ -142,30 +122,29 @@ export const HealthArticle = () => {
               </div>
             </div>
 
-            {/* Desktop View - Grid Layout */}
             <div className="hidden lg:grid grid-cols-4 grid-rows-2 gap-4">
               <Background
-                src={getImageUrl(mainArticle.foto)}
-                alt={mainArticle.judul}
+                src={getImageUrl(mainArticle.photo)}
+                alt={mainArticle.title}
                 className="w-full min-h-60 flex items-end h-full"
                 imgClassName="object-cover"
                 parentClassName="rounded-md col-span-2 row-span-2"
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-light/10 to-dark/40 w-full h-full" />
+                <div className="absolute inset-0 bg-linear-to-b from-light/10 to-dark/40 w-full h-full" />
                 <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
                   <LuTag size={20} />
-                  {mainArticle.kategori?.name || "Edukasi Kesehatan"}
+                  {mainArticle.category?.name || "Edukasi Kesehatan"}
                 </span>
 
                 <div className="flex flex-col px-4 pb-6 gap-1 z-1 text-light">
                   <span className="font-light">{convertDate(mainArticle.created_at)}</span>
-                  <Link href={`/media-informasi/artikel-kesehatan/${mainArticle.slug}/${mainArticle.id}`}>
-                    <h3 className="font-semibold text-2xl line-clamp-2">{mainArticle.judul}</h3>
+                  <Link href={`/media-information/health-articles/${mainArticle.slug}/${mainArticle.id}`}>
+                    <h3 className="font-semibold text-2xl line-clamp-2">{mainArticle.title}</h3>
                   </Link>
                 </div>
               </Background>
-              {sideArticles.map((artikel) => (
-                <Card key={artikel.id} artikel={artikel} />
+              {sideArticles.map((article) => (
+                <Card key={article.id} article={article} />
               ))}
             </div>
           </>

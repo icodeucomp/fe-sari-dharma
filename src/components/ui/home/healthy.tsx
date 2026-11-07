@@ -3,28 +3,14 @@
 import * as React from "react";
 import Link from "next/link";
 
-// import { useMediaQuery } from "@/hooks";
 
 import { Button, Img, Motion, Slider } from "@/components";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export const Healthy = () => {
   const [page, setPage] = React.useState<number>(10);
-  // const [limit, setLimit] = React.useState<number>(3);
 
-  // const isDesktop = useMediaQuery("(min-width: 1024px)");
-  // const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
-  // const isMobile = useMediaQuery("(min-width: 0px) and (max-width: 639px)");
 
-  // React.useEffect(() => {
-  //   if (isDesktop) {
-  //     setLimit(3);
-  //   } else if (isTablet) {
-  //     setLimit(2);
-  //   } else if (isMobile) {
-  //     setLimit(1);
-  //   }
-  // }, [isDesktop, isTablet, isMobile]);
 
   return (
     <div className="bg-light-brown">
@@ -39,7 +25,6 @@ export const Healthy = () => {
         linkButton="/"
         loading={false}
       >
-        {/* <Tab /> */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 3 }, (_, index) => (
             <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={index} className="rounded-lg shadow-lg min-h-400 text-dark bg-light">

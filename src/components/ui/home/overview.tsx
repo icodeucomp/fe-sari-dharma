@@ -22,7 +22,7 @@ export const Overview = () => {
           Kami menyediakan berbagai layanan rawat inap, konsultasi dokter umum dan spesialis, serta layanan laboratorium dan farmasi. Percayakan kesehatan Anda kepada kami, karena kepuasan dan
           kesembuhan pasien adalah prioritas utama kami.
         </p>
-        <Link href="/tentang-kami/ikhtisar" className="block">
+        <Link href="/about-us/overview" className="block">
           <Button className="flex items-center gap-2 w-max btn-outline group">
             Tentang Kami
             <FaArrowRightLong className="-rotate-45" />

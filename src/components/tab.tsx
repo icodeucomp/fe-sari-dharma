@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "./button";
-import { getMasterKategori } from "@/services/master-kategori.service";
+import { getMasterCategory } from "@/services/category.service";
 
-// Import the interface from the service file to maintain consistency
-interface MasterKategori {
+interface MasterCategory {
   id: string;
   name: string;
   page: string;
@@ -22,31 +22,18 @@ interface TabProps {
 export const Tab: React.FC<TabProps> = ({ onTabClick, selectedCategoryId }) => {
   const sliderRef = React.useRef<HTMLDivElement>(null);
   const [isScrollable, setIsScrollable] = React.useState<boolean>(false);
-  const [categories, setCategories] = React.useState<MasterKategori[]>([]);
-  const [loading, setLoading] = React.useState<boolean>(true);
+
+  const { data: categories = [], isLoading: loading } = useQuery({
+    queryKey: ["categories", "HealthArticle"],
+    queryFn: () => getMasterCategory({ flag: "HealthArticle", per_page: 100 }),
+    select: (response) => response.data.data as MasterCategory[],
+  });
 
   React.useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await getMasterKategori({
-          flag: "ArtikelKesehatan",
-          per_page: 100,
-        });
-        setCategories(response.data.data);
-        setLoading(false);
-
-        // If no category is selected yet and we have categories, select the first one
-        if (!selectedCategoryId && response.data.data.length > 0 && onTabClick) {
-          onTabClick(response.data.data[0].id);
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchCategories();
-  }, [onTabClick, selectedCategoryId]);
+    if (!selectedCategoryId && categories.length > 0 && onTabClick) {
+      onTabClick(categories[0].id);
+    }
+  }, [categories, onTabClick, selectedCategoryId]);
 
   React.useEffect(() => {
     if (sliderRef.current) {
@@ -79,17 +66,15 @@ export const Tab: React.FC<TabProps> = ({ onTabClick, selectedCategoryId }) => {
     <div className="w-full overflow-hidden">
       <div ref={sliderRef} onMouseDown={handleMouseDown} className={`flex space-x-4 overflow-x-auto scrollbar-hide ${isScrollable ? "cursor-grab active:cursor-grabbing" : "cursor-default"}`}>
         {loading ? (
-          <Button className="flex-shrink-0 w-40 btn-outline">Loading...</Button>
+          <Button className="shrink-0 w-40 btn-outline">Loading...</Button>
         ) : categories.length > 0 ? (
-          // Map through actual categories
           categories.map((category) => (
-            <Button key={category.id} className={`flex-shrink-0 w-auto ${selectedCategoryId === category.id ? "btn-primary" : "btn-outline"}`} onClick={() => onTabClick && onTabClick(category.id)}>
+            <Button key={category.id} className={`shrink-0 w-auto ${selectedCategoryId === category.id ? "btn-primary" : "btn-outline"}`} onClick={() => onTabClick && onTabClick(category.id)}>
               {category.name}
             </Button>
           ))
         ) : (
-          // Fallback if no categories found
-          <Button className="flex-shrink-0 btn-outline">No categories found</Button>
+          <Button className="shrink-0 btn-outline">No categories found</Button>
         )}
       </div>
     </div>

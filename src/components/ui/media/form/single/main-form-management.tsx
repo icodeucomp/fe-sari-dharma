@@ -11,22 +11,16 @@ export const MainFormManagement = () => {
 
   const handleCopyLink = async () => {
     try {
-      // Get current page URL
       const currentUrl = window.location.href;
 
-      // Copy to clipboard
       await navigator.clipboard.writeText(currentUrl);
 
-      // Show success feedback
       setCopied(true);
 
-      // Reset after 2 seconds
       setTimeout(() => {
         setCopied(false);
       }, 2000);
-    } catch (error) {
-      console.error("Failed to copy link:", error);
-      // Fallback for older browsers
+    } catch {
       fallbackCopyTextToClipboard(window.location.href);
     }
   };
@@ -44,8 +38,7 @@ export const MainFormManagement = () => {
       document.execCommand("copy");
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Fallback: Could not copy text", err);
+    } catch {
     }
 
     document.body.removeChild(textArea);
@@ -79,12 +72,12 @@ export const MainFormManagement = () => {
           menu="Akses Menu"
           title="Tentang Kami"
           items={[
-            { title: "Artikel Kesehatan", link: "/media-informasi/artikel-kesehatan" },
-            { title: "Event & Community", link: "/media-informasi/event-community" },
-            { title: "Paket Kesehatan", link: "/media-informasi/paket-promo" },
-            { title: "Indikator Mutu", link: "/media-informasi/indikator-mutu" },
-            { title: "Karir", link: "/media-informasi/karir" },
-            { title: "Form Management", link: "/media-informasi/form-management" },
+            { title: "Artikel Kesehatan", link: "/media-information/health-articles" },
+            { title: "Event & Community", link: "/media-information/community-events" },
+            { title: "Paket Kesehatan", link: "/media-information/promo-packages" },
+            { title: "Indikator Mutu", link: "/media-information/quality-indicators" },
+            { title: "Karir", link: "/media-information/careers" },
+            { title: "Form Management", link: "/media-information/form-management" },
           ]}
         />
       </div>

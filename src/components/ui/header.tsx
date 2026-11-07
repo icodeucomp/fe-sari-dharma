@@ -57,15 +57,7 @@ export const Header = () => {
           </Link>
 
           <Navbar toggleNavbar={toggleNavbar} navbar={navbar} />
-          {/* <Button type="button" className="hidden btn-primary lg:block">
-            <IoSearch size={24} className="fill-white" />
-            <span className="sr-only">Search</span>
-          </Button> */}
           <div className="flex items-center gap-4 lg:hidden">
-            {/* <Button type="button" className="btn-primary">
-              <IoSearch size={24} className="fill-white" />
-              <span className="sr-only">Search</span>
-            </Button> */}
             <button onClick={toggleNavbar} className={`relative flex flex-col justify-center overflow-hidden items-center p-2 ${navbar ? "space-y-1" : "space-y-1.5"}`}>
               <span className={`block h-1 w-8 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "translate-y-2 rotate-45" : ""}`}></span>
               <span className={`block h-1 w-6 rounded-full bg-primary duration-200 ${navbar && "translate-x-16"}`}></span>

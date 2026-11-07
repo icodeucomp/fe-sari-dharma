@@ -10,5 +10,4 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(({ className
   );
 });
 
-// Set a display name for the component
 Container.displayName = "Container";

@@ -7,7 +7,8 @@ import { useState, useRef, useEffect } from "react";
 
 export const Dropdown = ({ parentClassName, className, data, handleFiltered, defaultValue, displayValue }: DropdownProps & { displayValue?: string }) => {
   const [ref, popover, togglePopover] = useToggleState(false);
-  const [display, setDisplay] = useState<string>(defaultValue);
+  const [selectedLabel, setSelectedLabel] = useState<string>(defaultValue);
+  const display = displayValue ?? selectedLabel;
   const [searchTerm, setSearchTerm] = useState<string>("");
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -17,16 +18,9 @@ export const Dropdown = ({ parentClassName, className, data, handleFiltered, def
     }
   }, [popover]);
 
-  // Update display when displayValue prop changes
-  useEffect(() => {
-    if (displayValue !== undefined) {
-      setDisplay(displayValue);
-    }
-  }, [displayValue]);
-
   const handleClickChoose = (value: string, label: string) => {
     handleFiltered(value);
-    setDisplay(label);
+    setSelectedLabel(label);
     togglePopover();
     setSearchTerm("");
   };

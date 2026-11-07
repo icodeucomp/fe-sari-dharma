@@ -21,8 +21,8 @@ export const Hero = () => {
   return (
     <>
       <Background src={images[currentSlide]} alt="hero background" imgClassName="object-cover object-center" className="flex items-center justify-center min-h-400 sm:min-h-500">
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-primary/40 to-secondary/40"></div>
-        <div className="relative w-full max-w-screen-xl px-4 mx-auto text-center sm:px-8">
+        <div className="absolute inset-0 w-full h-full bg-linear-to-b from-primary/40 to-secondary/40"></div>
+        <div className="relative w-full max-w-(--breakpoint-xl) px-4 mx-auto text-center sm:px-8">
           <Motion tag="h1" initialY={-50} animateY={0} duration={0.3} className="max-w-xl mx-auto text-3xl font-semibold leading-snug md:text-4xl lg:text-5xl">
             Feel Better About Finding HealthCare
           </Motion>
@@ -49,7 +49,7 @@ export const Hero = () => {
         </div>
       </Background>
       <div className="w-full bg-secondary text-light hidden lg:block">
-        <div className="flex justify-center w-full max-w-screen-lg mx-auto">
+        <div className="flex justify-center w-full max-w-(--breakpoint-lg) mx-auto">
           <div className="flex items-center justify-between w-full gap-4 p-4 bg-primary">
             <p className="text-lg font-semibold">Temukan Dokter</p>
             <Img src="/icons/doctor.svg" alt="icon doctor" className="size-8" cover />

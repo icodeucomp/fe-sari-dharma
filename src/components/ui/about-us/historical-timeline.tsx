@@ -37,7 +37,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ title, description, image, 
       <div className="md:hidden">
         <div className="flex">
           <div className="relative flex flex-col items-center mr-4 sm:mr-6">
-            <div className="z-10 flex-shrink-0 w-3 h-3 border-2 rounded-full shadow-md sm:w-4 sm:h-4 bg-primary sm:border-4 border-light"></div>
+            <div className="z-10 shrink-0 w-3 h-3 border-2 rounded-full shadow-md sm:w-4 sm:h-4 bg-primary sm:border-4 border-light"></div>
             <div className="w-0.5 bg-primary flex-1 mt-2"></div>
           </div>
 

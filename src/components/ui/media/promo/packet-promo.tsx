@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Button, Img, Motion, Pagination } from "@/components";
 import { GoArrowRight } from "react-icons/go";
-import { getPaketKesehatan } from "@/services/paket-kesehatan.service";
+import { getHealthPackage } from "@/services/health-package.service";
 import moment from "moment";
 
-// Helper function untuk URL gambar
 const getImageUrl = (path: string) => {
   const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
   if (!path) return "/images/temp-4.png";
@@ -30,7 +29,7 @@ const Card = ({ id, title, description, pathUrl, pathImg, expiredDate }: { id: s
 
         <p className="text-gray leading-snug sm:leading-normal line-clamp-5 text-sm text-justify">{description}</p>
 
-        <Button onClick={() => router.push(`/media-informasi/paket-promo/${pathUrl}/${id}`)} className="flex items-center justify-center gap-2 btn-primary w-full">
+        <Button onClick={() => router.push(`/media-information/promo-packages/${pathUrl}/${id}`)} className="flex items-center justify-center gap-2 btn-primary w-full">
           Lihat Paket <GoArrowRight className="fill-light -rotate-45" size={20} />
         </Button>
       </div>
@@ -40,31 +39,13 @@ const Card = ({ id, title, description, pathUrl, pathImg, expiredDate }: { id: s
 
 export const PacketsPromos = () => {
   const [page, setPage] = React.useState<number>(1);
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [data, setData] = React.useState<any>([]);
-  const [totalPage, setTotalPage] = React.useState<number>(0);
-
-  // Fungsi untuk mengambil data paket kesehatan
-  const fetchPaketKesehatan = React.useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await getPaketKesehatan({
-        page,
-        per_page: 6,
-        promo: true,
-      });
-      setData(response.data.data);
-      setTotalPage(response.data.last_page);
-    } catch (error) {
-      console.error("Error fetching paket kesehatan:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [page]);
-
-  React.useEffect(() => {
-    fetchPaketKesehatan();
-  }, [fetchPaketKesehatan]);
+  const { data: response, isLoading: loading } = useQuery({
+    queryKey: ["getHealthPackage", page],
+    queryFn: () => getHealthPackage({ page, per_page: 6, promo: true, }),
+    placeholderData: keepPreviousData,
+  });
+  const data = response?.data.data ?? [];
+  const totalPage = response?.data.last_page ?? 0;
 
   if (loading) {
     return <div className="text-center py-10">Loading...</div>;
@@ -79,7 +60,7 @@ export const PacketsPromos = () => {
           <>
             {data.map((item: any, index: number) => (
               <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={index * 0.1} key={item.id} className="border border-gray/50 rounded-md overflow-hidden">
-                <Card id={item.id} title={item.nama_paket} description={item.deskripsi} pathUrl={item.slug} pathImg={item.foto} expiredDate={item.berlaku_sampai} />
+                <Card id={item.id} title={item.name} description={item.description} pathUrl={item.slug} pathImg={item.photo} expiredDate={item.valid_until} />
               </Motion>
             ))}
           </>

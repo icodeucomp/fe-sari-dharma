@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getLayananUnggulan } from "@/services/layanan-unggulan.service";
+import { useQuery } from "@tanstack/react-query";
+import { getFeaturedService } from "@/services/featured-service.service";
 
 import Link from "next/link";
 
@@ -15,11 +15,11 @@ import { mdiLoading } from "@mdi/js";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-interface Layanan {
+interface Service {
   id: string | number;
-  nama_layanan: string;
-  deskripsi: string;
-  foto: string;
+  name: string;
+  description: string;
+  photo: string;
   slug: string;
   created_at: string;
   updated_at: string;
@@ -33,7 +33,7 @@ const getImageUrl = (path: string) => {
   return debug;
 };
 
-const RecommendationEvent = ({ layanan, loading, error }: { layanan: Layanan[] | null; error: string | null; loading: boolean }) => {
+const RecommendationEvent = ({ service, loading, error }: { service: Service[] | null; error: string | null; loading: boolean }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -42,7 +42,7 @@ const RecommendationEvent = ({ layanan, loading, error }: { layanan: Layanan[] |
     );
   }
 
-  if (error || !layanan) {
+  if (error || !service) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <p className="text-red-500">{error || "Data tidak ditemukan"}</p>
@@ -55,17 +55,17 @@ const RecommendationEvent = ({ layanan, loading, error }: { layanan: Layanan[] |
         Layanan Unggulan Lainnya
       </Motion>
       <div className="pt-4 space-y-4">
-        {layanan?.map((item, index) => (
+        {service?.map((item, index) => (
           <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={index * 0.1} key={index} className="pb-4 space-y-2 border-b border-gray/30">
-            <Img src={getImageUrl(item.foto) || "/images/temp-5.png"} alt="temp" className="w-full min-h-60" cover />
+            <Img src={getImageUrl(item.photo) || "/images/temp-5.png"} alt="temp" className="w-full min-h-60" cover />
             <span className="flex items-center gap-2 px-4 py-2 text-xs rounded-md w-max bg-secondary text-light">
               <LuTag size={16} />
               Layanan Kesehatan
             </span>
             <div className="space-y-1 text-dark">
               <span className="text-sm font-light">{convertDate(item.created_at)}</span>
-              <Link href={`/layanan-unggulan/${item.slug}/${item.id}`}>
-                <h3 className="font-semibold line-clamp-2">{item.nama_layanan}</h3>
+              <Link href={`/featured-services/${item.slug}/${item.id}`}>
+                <h3 className="font-semibold line-clamp-2">{item.name}</h3>
               </Link>
             </div>
           </Motion>
@@ -76,31 +76,19 @@ const RecommendationEvent = ({ layanan, loading, error }: { layanan: Layanan[] |
 };
 
 export const Recommendation = () => {
-  const [layanan, setLayanan] = useState<Layanan[] | null>(null);
-
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchLayananDetail = async () => {
-      try {
-        setLoading(true);
-        const response = await getLayananUnggulan(1, 999999);
-        setLayanan(response.data.data);
-        setError(null);
-      } catch (err) {
-        console.error("Error fetching layanan detail:", err);
-        setError("Failed to load layanan. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLayananDetail();
-  }, []);
+  const {
+    data: service,
+    isLoading: loading,
+    isError,
+  } = useQuery({
+    queryKey: ["featured-services", "all"],
+    queryFn: () => getFeaturedService(1, 999999),
+    select: (response) => response.data.data as Service[],
+  });
+  const error = isError ? "Failed to load layanan. Please try again later." : null;
   return (
     <div className="pb-8 pr-2 space-y-4">
-      <RecommendationEvent layanan={layanan} error={error} loading={loading} />
+      <RecommendationEvent service={service ?? null} error={error} loading={loading} />
     </div>
   );
 };

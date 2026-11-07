@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import Link from "next/link";
 import { Button, Container, Img, Motion, Slider, Tab } from "@/components";
 
@@ -10,12 +10,11 @@ import { convertDate } from "@/utils";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { IoCalendarOutline } from "react-icons/io5";
 import { LuTag } from "react-icons/lu";
-import { getArtikelKesehatan } from "@/services/artikel-kesehatan.service";
-import { useMediaQuery } from "@/hooks";
+import { getHealthArticle } from "@/services/health-article.service";
+import { useResponsiveLimit } from "@/hooks";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// Helper function untuk format URL gambar
 const getImageUrl = (path: string) => {
   if (!path) return "/images/placeholder.jpg";
   if (path.startsWith("http")) return path;
@@ -23,97 +22,28 @@ const getImageUrl = (path: string) => {
 };
 
 export const Article = () => {
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [mainArticle, setMainArticle] = React.useState<any>(null);
-  const [sideArticles, setSideArticles] = React.useState<any[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = React.useState<string>("");
-
   const [page, setPage] = React.useState<number>(1);
-  const [limit, setLimit] = React.useState<number>(3);
-  const [data, setData] = React.useState<any>([]);
-  const [totalPage, setTotalPage] = React.useState<number>(0);
-  const [loadingSlider, setLoadingSlider] = React.useState<boolean>(false);
+  const limit = useResponsiveLimit();
 
-  // Fungsi untuk mengambil data artikel
-  const fetchArtikel = React.useCallback(async (categoryId?: string) => {
-    try {
-      setLoading(true);
-      const params: any = { per_page: 4, page: 1 };
+  const { data: featuredArticles = [], isLoading: loading } = useQuery({
+    queryKey: ["health-articles", "featured", selectedCategoryId],
+    queryFn: () => getHealthArticle({ per_page: 4, page: 1, category_id: selectedCategoryId }),
+    select: (response) => response.data.data as any[],
+    enabled: Boolean(selectedCategoryId),
+  });
+  const mainArticle = featuredArticles[0] ?? null;
+  const sideArticles = featuredArticles.slice(1, 4);
 
-      // Add category_id to params if provided
-      if (categoryId) {
-        params.kategori_id = categoryId;
-      }
+  const { data: sliderResponse, isLoading: loadingSlider } = useQuery({
+    queryKey: ["health-articles", "slider", page, limit],
+    queryFn: () => getHealthArticle({ per_page: limit, page }),
+    placeholderData: keepPreviousData,
+  });
+  const data: any[] = sliderResponse?.data.data ?? [];
+  const totalPage = sliderResponse?.data.last_page ?? 0;
 
-      const response = await getArtikelKesehatan(params);
-      const articles = response.data.data;
-
-      if (articles.length > 0) {
-        setMainArticle(articles[0]);
-        setSideArticles(articles.slice(1, 4));
-      } else {
-        setMainArticle(null);
-
-        setSideArticles([]);
-      }
-    } catch (error) {
-      console.error("Error fetching artikel:", error);
-      setMainArticle(null);
-      setSideArticles([]);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  // Handle tab click
-  const handleTabClick = React.useCallback(
-    (categoryId: string) => {
-      setSelectedCategoryId(categoryId);
-      fetchArtikel(categoryId);
-    },
-    [fetchArtikel]
-  );
-
-  // Initial fetch when component mounts
-  React.useEffect(() => {
-    if (selectedCategoryId) {
-      fetchArtikel(selectedCategoryId);
-    }
-  }, [fetchArtikel, selectedCategoryId]);
-
-  const fetchLayananArticleAll = React.useCallback(async () => {
-    try {
-      setLoadingSlider(true);
-      const params: any = { per_page: limit, page: page };
-
-      const response = await getArtikelKesehatan(params);
-
-      setData(response.data.data);
-      setTotalPage(response.data.last_page);
-    } catch (error) {
-      console.error("Error fetching layanan unggulan:", error);
-    } finally {
-      setLoadingSlider(false);
-    }
-  }, [page, limit]);
-
-  React.useEffect(() => {
-    fetchLayananArticleAll();
-  }, [fetchLayananArticleAll]);
-
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
-  const isMobile = useMediaQuery("(min-width: 0px) and (max-width: 639px)");
-
-  React.useEffect(() => {
-    if (isDesktop) {
-      setLimit(3);
-    } else if (isTablet) {
-      setLimit(2);
-    } else if (isMobile) {
-      setLimit(1);
-    }
-  }, [isDesktop, isTablet, isMobile]);
+  const handleTabClick = React.useCallback((categoryId: string) => setSelectedCategoryId(categoryId), []);
 
   return (
     <>
@@ -127,7 +57,7 @@ export const Article = () => {
               Temukan berbagai tips kesehatan dan informasi medis disini.
             </Motion>
           </div>
-          <Link href={"/media-informasi/artikel-kesehatan"} className="block">
+          <Link href={"/media-information/health-articles"} className="block">
             <Button className="btn-outline">Lihat Semua</Button>
           </Link>
         </div>
@@ -143,24 +73,24 @@ export const Article = () => {
             <div className="w-full max-w-xl xl:max-w-lg">
               {mainArticle ? (
                 <Motion tag="div" initialY={30} animateY={0} duration={1} delay={0.5} className="space-y-4 min-h-400 text-dark bg-light">
-                  <Img src={getImageUrl(mainArticle.foto)} alt={mainArticle.judul} className="w-full rounded-lg h-60" cover />
+                  <Img src={getImageUrl(mainArticle.photo)} alt={mainArticle.title} className="w-full rounded-lg h-60" cover />
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 px-8 py-2 rounded-md bg-secondary text-light">
                       <LuTag />
-                      <p className="text-sm">{mainArticle.kategori.name}</p>
+                      <p className="text-sm">{mainArticle.category.name}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <IoCalendarOutline />
                       <p className="text-sm text-gray">{convertDate(mainArticle.created_at)}</p>
                     </div>
                   </div>
-                  <h4 className="text-base font-bold sm:text-xl line-clamp-1">{mainArticle.judul}</h4>
+                  <h4 className="text-base font-bold sm:text-xl line-clamp-1">{mainArticle.title}</h4>
                   <p className="text-sm text-justify line-clamp-5">
-                    {mainArticle.konten.replace(/<[^>]+>/g, "").length > 300 ? `${mainArticle.konten.replace(/<[^>]+>/g, "").slice(0, 300)}...` : mainArticle.konten.replace(/<[^>]+>/g, "")}
+                    {mainArticle.content.replace(/<[^>]+>/g, "").length > 300 ? `${mainArticle.content.replace(/<[^>]+>/g, "").slice(0, 300)}...` : mainArticle.content.replace(/<[^>]+>/g, "")}
                   </p>
 
-                  <Link href={`/media-informasi/artikel-kesehatan/${mainArticle.slug}/${mainArticle.id}`} className="flex max-w-[100px] items-center gap-2 btn-outline rounded-lg px-4 py-2 mt-0">
+                  <Link href={`/media-information/health-articles/${mainArticle.slug}/${mainArticle.id}`} className="flex max-w-[100px] items-center gap-2 btn-outline rounded-lg px-4 py-2 mt-0">
                     Lihat
                     <FaArrowRightLong />
                   </Link>
@@ -176,13 +106,13 @@ export const Article = () => {
                 ? sideArticles.map((article, index) => (
                     <Motion tag="div" initialY={30} animateY={0} duration={index * 0.4} delay={index * 0.2} key={article.id} className="flex items-center justify-between w-full gap-4 lg:gap-8">
                       <div className="flex items-center gap-4">
-                        <Img src={getImageUrl(article.foto)} alt={article.judul} className="size-40 rounded-xl" cover />
+                        <Img src={getImageUrl(article.photo)} alt={article.title} className="size-40 rounded-xl" cover />
                         <div className="space-y-4">
                           <div className="flex items-center gap-2 px-8 py-2 rounded-md w-max bg-secondary text-light">
                             <LuTag />
-                            <p className="text-sm">{article.kategori.name}</p>
+                            <p className="text-sm">{article.category.name}</p>
                           </div>
-                          <h4 className="max-w-sm text-base font-bold xl:text-lg lg:h-14">{article.judul}</h4>
+                          <h4 className="max-w-sm text-base font-bold xl:text-lg lg:h-14">{article.title}</h4>
                           <div className="flex items-center gap-2">
                             <IoCalendarOutline />
                             <p className="text-xs lg:text-sm text-gray">{convertDate(article.created_at)}</p>
@@ -191,7 +121,7 @@ export const Article = () => {
                       </div>
 
                       <Link
-                        href={`/media-informasi/artikel-kesehatan/${article.slug}/${article.id}`}
+                        href={`/media-information/health-articles/${article.slug}/${article.id}`}
                         className="flex items-center gap-2 btn-outline rounded-lg text-sm lg:text-base px-4 py-1.5 lg:py-2"
                       >
                         Lihat
@@ -221,13 +151,13 @@ export const Article = () => {
       >
         {data.map((item: any, index: number) => (
           <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={item.id} className="rounded-lg shadow-lg min-h-400 text-dark bg-light">
-            <Img src={getImageUrl(item.foto)} alt={item.judul} className="w-full rounded-lg h-60" cover />
+            <Img src={getImageUrl(item.photo)} alt={item.title} className="w-full rounded-lg h-60" cover />
             <div className="px-4 my-4 space-y-4">
-              <h4 className="text-xl font-semibold sm:text-2xl line-clamp-1">{item.judul}</h4>
+              <h4 className="text-xl font-semibold sm:text-2xl line-clamp-1">{item.title}</h4>
               <p className="text-sm text-justify line-clamp-5">
-                {item.konten.replace(/<[^>]+>/g, "").length > 300 ? `${item.konten.replace(/<[^>]+>/g, "").slice(0, 300)}...` : item.konten.replace(/<[^>]+>/g, "")}
+                {item.content.replace(/<[^>]+>/g, "").length > 300 ? `${item.content.replace(/<[^>]+>/g, "").slice(0, 300)}...` : item.content.replace(/<[^>]+>/g, "")}
               </p>
-              <Link href={`/media-informasi/artikel-kesehatan/${item.slug}/${item.id}`} className="block">
+              <Link href={`/media-information/health-articles/${item.slug}/${item.id}`} className="block">
                 <Button className="flex items-center gap-2 btn-primary group">
                   Selengkapnya
                   <FaArrowRightLong className="-rotate-45" />

@@ -36,16 +36,8 @@ const motionVariants: Variants = {
 };
 
 const DesktopLink = ({ navbarItems }: { navbarItems: navbarListType[] }) => {
-  // const [navbarItems, setNavbarItems] = React.useState(navbarLists);
 
-  // React.useEffect(() => {
-  //   const loadNavbarData = async () => {
-  //     const dynamicNavbarItems = await getNavbarLists();
-  //     setNavbarItems(dynamicNavbarItems);
-  //   };
 
-  //   loadNavbarData();
-  // }, []);
   return (
     <>
       {navbarItems.map((navbar, i) => (

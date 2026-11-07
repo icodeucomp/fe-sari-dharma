@@ -19,8 +19,8 @@ const Doctor = () => {
             <div className="flex flex-col gap-4 text-dark">
               <h5 className="font-semibold">dr. Bambang Sutoyo, Sp.A</h5>
               <div className="w-full space-y-2 max-w-40">
-                <Button className="btn-outline !py-1 w-full">View Schedule</Button>
-                <Button className="btn-primary !py-1 w-full">Appointment</Button>
+                <Button className="btn-outline py-1! w-full">View Schedule</Button>
+                <Button className="btn-primary py-1! w-full">Appointment</Button>
               </div>
             </div>
           </Motion>
@@ -46,7 +46,7 @@ const Article = () => {
             </span>
             <div className="space-y-1 text-dark">
               <span className="text-sm font-light">{convertDate("2025-02-19")}</span>
-              <Link href={`/media-informasi/artikel-kesehatan/${formatKebabCase("Peran CT Scan dan MRI dalam Mendeteksi Stroke")}`}>
+              <Link href={`/media-information/health-articles/${formatKebabCase("Peran CT Scan dan MRI dalam Mendeteksi Stroke")}`}>
                 <h3 className="font-semibold line-clamp-2">Pentingnya Tidur Berkualitas untuk Kesehatan Tubuh</h3>
               </Link>
             </div>
