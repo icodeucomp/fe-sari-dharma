@@ -4,6 +4,7 @@ services:
   web:
     build: .
     image: srdh-web
+    container_name: srdh-web
     restart: unless-stopped
     env_file: .env.production
     environment:
