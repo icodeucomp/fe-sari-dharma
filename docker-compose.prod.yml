@@ -3,6 +3,7 @@ name: saridharma-website
 services:
   web:
     build: .
+    image: srdh-web
     restart: unless-stopped
     env_file: .env.production
     environment:
