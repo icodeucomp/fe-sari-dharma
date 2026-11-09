@@ -13,7 +13,7 @@ export const Header = () => {
   return (
     <header ref={ref} className="border-b shadow-sm border-gray/20">
       <div className="hidden bg-primary text-light lg:block">
-        <Container className="flex items-center justify-end h-12 gap-6 divide-x-2">
+        <Container className="flex items-center justify-end h-12 gap-6">
           <menu className="flex items-center gap-4">
             <li className="text-xs">
               <a href="https://maps.app.goo.gl/U1rDLphibDfC3Dia6" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
