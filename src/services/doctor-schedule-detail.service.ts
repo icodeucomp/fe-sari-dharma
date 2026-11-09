@@ -34,7 +34,6 @@ interface DoctorScheduleDetailResponse {
     doctor_background: string;
     schedule: ScheduleHarian[];
     education_career: EducationCareer[];
-    photo: string;
     doctor: DoctorDetail;
     specialist: SpecialistDetail;
     created_at: string;

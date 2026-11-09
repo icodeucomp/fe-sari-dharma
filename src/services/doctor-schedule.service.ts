@@ -15,7 +15,8 @@ interface DoctorSchedule {
     start_year: number;
     end_year: number | null;
   }>;
-  photo: string;
+  doctor: { id: string; name: string; photo: string | null };
+  specialist: { id: string; name: string };
   created_at: string;
   updated_at: string;
 }

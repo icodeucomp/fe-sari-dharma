@@ -14,7 +14,7 @@ export default function DoctorsSchedulesPage() {
           ]}
         />
       </Container>
-      <Container className="relative flex flex-col-reverse md:flex-row min-h-screen gap-8 xl:gap-16 pb-16 pt-4 sm:pt-8">
+      <Container className="relative flex flex-col md:flex-row min-h-screen gap-8 xl:gap-16 pb-16 pt-4 sm:pt-8">
         <div className="w-full min-w-0">
           <Schedule />
         </div>

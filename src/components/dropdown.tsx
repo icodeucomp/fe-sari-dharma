@@ -29,7 +29,9 @@ export const Dropdown = ({ parentClassName, className, data, handleFiltered, def
 
   return (
     <div ref={ref} className={`dropdown max-h-[48px] ${parentClassName ?? ""} ${popover ? "border-primary" : "border-gray/50"}`}>
-      {display.length > 30 ? `${display.slice(0, 30)}...` : display}
+      <span onClick={togglePopover} className="flex-1 truncate cursor-pointer select-none">
+        {display}
+      </span>
       <button onClick={togglePopover} className="absolute right-0 h-full px-4 bg-primary rounded-e">
         <PiCaretDownBold size={20} className={`duration-300 fill-light ${popover && "rotate-180"}`} />
       </button>
