@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { Img, Motion, Pagination } from "@/components";
+import { EmptyState, Img, LoadingState, Motion, Pagination } from "@/components";
 import Link from "next/link";
 import { getFacilityService } from "@/services/facility-service.service";
 
@@ -29,7 +29,7 @@ export const ServiceFacility = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-10">Memuat data...</div>;
+    return <LoadingState />;
   }
 
   return (
@@ -39,6 +39,7 @@ export const ServiceFacility = () => {
         <p className="subheading">Layanan fasilitas terbaik untuk kesehatan Anda</p>
       </Motion>
       <div className="space-y-8">
+        {data.length === 0 && <EmptyState title="Belum ada layanan & fasilitas" description="Daftar layanan dan fasilitas klinik akan segera tersedia." />}
         {data.map((item, sectionIndex) => (
           <Motion
             key={item.id}

@@ -9,4 +9,6 @@ export interface SliderProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   page: number;
   linkButton?: string;
+  emptyTitle?: string;
+  emptyDescription?: string;
 }

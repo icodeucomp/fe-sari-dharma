@@ -58,10 +58,17 @@ export const Header = () => {
 
           <Navbar toggleNavbar={toggleNavbar} navbar={navbar} />
           <div className="flex items-center gap-4 lg:hidden">
-            <button onClick={toggleNavbar} className={`relative flex flex-col justify-center overflow-hidden items-center p-2 ${navbar ? "space-y-1" : "space-y-1.5"}`}>
-              <span className={`block h-1 w-8 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "translate-y-2 rotate-45" : ""}`}></span>
+            <button
+              onClick={toggleNavbar}
+              className={`relative flex flex-col justify-center overflow-hidden items-center p-2 ${navbar ? "space-y-1" : "space-y-1.5"}`}
+            >
+              <span
+                className={`block h-1 w-8 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "translate-y-2 rotate-45" : ""}`}
+              ></span>
               <span className={`block h-1 w-6 rounded-full bg-primary duration-200 ${navbar && "translate-x-16"}`}></span>
-              <span className={`block h-1 w-8 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "-translate-y-2 -rotate-45" : ""}`}></span>
+              <span
+                className={`block h-1 w-8 rounded-full bg-primary transition-transform ease-in-out ${navbar ? "-translate-y-2 -rotate-45" : ""}`}
+              ></span>
             </button>
           </div>
         </div>

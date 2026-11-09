@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import Link from "next/link";
-import { Button, Container, Img, Motion, Slider, Tab } from "@/components";
+import { Button, Container, EmptyState, Img, LoadingState, Motion, Slider, Tab } from "@/components";
 
 import { convertDate } from "@/utils";
 
@@ -65,9 +65,9 @@ export const Article = () => {
         <Tab onTabClick={handleTabClick} selectedCategoryId={selectedCategoryId} />
 
         {loading ? (
-          <div className="flex justify-center py-8">
-            <p>Loading articles...</p>
-          </div>
+          <LoadingState compact />
+        ) : !mainArticle ? (
+          <EmptyState compact title="Belum ada artikel" description="Artikel kesehatan akan segera dipublikasikan. Silakan kembali lagi nanti." />
         ) : (
           <div className="flex justify-between gap-12">
             <div className="w-full max-w-xl xl:max-w-lg">
@@ -87,24 +87,33 @@ export const Article = () => {
                   </div>
                   <h4 className="text-base font-bold sm:text-xl line-clamp-1">{mainArticle.title}</h4>
                   <p className="text-sm text-justify line-clamp-5">
-                    {mainArticle.content.replace(/<[^>]+>/g, "").length > 300 ? `${mainArticle.content.replace(/<[^>]+>/g, "").slice(0, 300)}...` : mainArticle.content.replace(/<[^>]+>/g, "")}
+                    {mainArticle.content.replace(/<[^>]+>/g, "").length > 300
+                      ? `${mainArticle.content.replace(/<[^>]+>/g, "").slice(0, 300)}...`
+                      : mainArticle.content.replace(/<[^>]+>/g, "")}
                   </p>
 
-                  <Link href={`/media-information/health-articles/${mainArticle.slug}/${mainArticle.id}`} className="flex max-w-[100px] items-center gap-2 btn-outline rounded-lg px-4 py-2 mt-0">
+                  <Link
+                    href={`/media-information/health-articles/${mainArticle.slug}/${mainArticle.id}`}
+                    className="flex max-w-25 items-center gap-2 btn-outline rounded-lg px-4 py-2 mt-0"
+                  >
                     Lihat
                     <FaArrowRightLong />
                   </Link>
                 </Motion>
-              ) : (
-                <div className="flex items-center justify-center h-60">
-                  <p>No articles found in this category</p>
-                </div>
-              )}
+              ) : null}
             </div>
             <div className="py-4 space-y-8">
               {sideArticles.length > 0
                 ? sideArticles.map((article, index) => (
-                    <Motion tag="div" initialY={30} animateY={0} duration={index * 0.4} delay={index * 0.2} key={article.id} className="flex items-center justify-between w-full gap-4 lg:gap-8">
+                    <Motion
+                      tag="div"
+                      initialY={30}
+                      animateY={0}
+                      duration={index * 0.4}
+                      delay={index * 0.2}
+                      key={article.id}
+                      className="flex items-center justify-between w-full gap-4 lg:gap-8"
+                    >
                       <div className="flex items-center gap-4">
                         <Img src={getImageUrl(article.photo)} alt={article.title} className="size-40 rounded-xl" cover />
                         <div className="space-y-4">
@@ -129,11 +138,7 @@ export const Article = () => {
                       </Link>
                     </Motion>
                   ))
-                : !mainArticle && (
-                    <div className="flex items-center justify-center h-60">
-                      <p>No additional articles in this category</p>
-                    </div>
-                  )}
+                : null}
             </div>
           </div>
         )}
@@ -148,14 +153,26 @@ export const Article = () => {
         parentClassName="block py-14 space-y-8 lg:hidden"
         className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
         loading={loadingSlider}
+        emptyTitle="Belum ada artikel"
+        emptyDescription="Artikel kesehatan akan segera dipublikasikan. Silakan kembali lagi nanti."
       >
         {data.map((item: any, index: number) => (
-          <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={item.id} className="rounded-lg shadow-lg min-h-400 text-dark bg-light">
+          <Motion
+            tag="div"
+            initialY={30}
+            animateY={0}
+            duration={1}
+            delay={index * 0.1}
+            key={item.id}
+            className="rounded-lg shadow-lg min-h-400 text-dark bg-light"
+          >
             <Img src={getImageUrl(item.photo)} alt={item.title} className="w-full rounded-lg h-60" cover />
             <div className="px-4 my-4 space-y-4">
               <h4 className="text-xl font-semibold sm:text-2xl line-clamp-1">{item.title}</h4>
               <p className="text-sm text-justify line-clamp-5">
-                {item.content.replace(/<[^>]+>/g, "").length > 300 ? `${item.content.replace(/<[^>]+>/g, "").slice(0, 300)}...` : item.content.replace(/<[^>]+>/g, "")}
+                {item.content.replace(/<[^>]+>/g, "").length > 300
+                  ? `${item.content.replace(/<[^>]+>/g, "").slice(0, 300)}...`
+                  : item.content.replace(/<[^>]+>/g, "")}
               </p>
               <Link href={`/media-information/health-articles/${item.slug}/${item.id}`} className="block">
                 <Button className="flex items-center gap-2 btn-primary group">

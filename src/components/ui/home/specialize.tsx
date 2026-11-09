@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Container, Motion } from "@/components";
+import { Button, Container, EmptyState, LoadingState, Motion } from "@/components";
 import { useQuery } from "@tanstack/react-query";
 import { IoIosArrowDropright } from "react-icons/io";
 import { getSpecialistService, SpecialistService } from "@/services/specialist-service.service";
@@ -25,9 +25,11 @@ export const Specialize = () => {
           Solusi tepat dengan dokter berpengalaman di bidangnya.
         </Motion>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 justify-between gap-4 sm:gap-8 pb-[50px]">
+      <div className="grid grid-cols-2 md:grid-cols-3 justify-between gap-4 sm:gap-8 pb-12.5">
         {loading ? (
-          <p className="text-center w-full">Memuat data...</p>
+          <LoadingState compact />
+        ) : serviceList.length === 0 ? (
+          <EmptyState compact title="Belum ada layanan spesialis" description="Daftar layanan spesialis akan segera tersedia." />
         ) : (
           serviceList.map((item, index) => (
             <Motion

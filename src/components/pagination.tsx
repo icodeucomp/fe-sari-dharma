@@ -40,9 +40,16 @@ export const Pagination = ({ setPage, page, totalPage, isNumber = false }: Pagin
     return pages;
   };
 
+  if (totalPage <= 1) return null;
+
   return (
     <div className="flex items-center justify-center gap-1 sm:gap-2">
-      <button className={`pagination-button group ${page === 1 ? "border-gray" : `border-secondary hover:bg-primary`}`} type="button" onClick={handlePreviousPage} disabled={page === 1}>
+      <button
+        className={`pagination-button group ${page === 1 ? "border-gray" : `border-secondary hover:bg-primary`}`}
+        type="button"
+        onClick={handlePreviousPage}
+        disabled={page === 1}
+      >
         <PiCaretLeftThin size={24} className={`duration-300 ${page === 1 ? "fill-gray" : `fill-secondary group-hover:fill-light`}`} />
       </button>
 
@@ -61,10 +68,15 @@ export const Pagination = ({ setPage, page, totalPage, isNumber = false }: Pagin
             <span key={index} className="p-0 text-3xl sm:p-1">
               {numberPage}
             </span>
-          )
+          ),
         )}
 
-      <button className={`pagination-button group ${page === totalPage ? "border-gray" : `border-secondary hover:bg-primary`}`} type="button" onClick={handleNextPage} disabled={page === totalPage}>
+      <button
+        className={`pagination-button group ${page === totalPage ? "border-gray" : `border-secondary hover:bg-primary`}`}
+        type="button"
+        onClick={handleNextPage}
+        disabled={page === totalPage}
+      >
         <PiCaretRightThin size={24} className={`duration-300 ${page === totalPage ? "fill-gray" : `fill-secondary group-hover:fill-light`}`} />
       </button>
     </div>

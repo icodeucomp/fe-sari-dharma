@@ -51,6 +51,7 @@ export const Footer = () => {
             <div key={index} className="space-y-4">
               <h4 className="font-semibold text-primary">{item.title}</h4>
               <menu className="space-y-2">
+                {item.navigation.length === 0 && <li className="text-sm italic text-gray">Belum ada data</li>}
                 {item.navigation.map((nav, index) => (
                   <li key={index} className="flex items-center gap-2 text-sm">
                     <Link href={nav.link}>{nav.subtitle}</Link>

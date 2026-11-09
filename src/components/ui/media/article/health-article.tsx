@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { Background, Container, Motion } from "@/components";
+import { Background, Container, EmptyState, LoadingState, Motion } from "@/components";
 import { LuTag, LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { convertDate } from "@/utils";
 import { getHealthArticle } from "@/services/health-article.service";
@@ -18,7 +18,13 @@ const getImageUrl = (path: string) => {
 
 const Card = ({ article }: { article: any }) => {
   return (
-    <Background src={getImageUrl(article.photo)} alt={article.title} className="w-full min-h-60 flex items-end" imgClassName="object-cover" parentClassName="rounded-md">
+    <Background
+      src={getImageUrl(article.photo)}
+      alt={article.title}
+      className="w-full min-h-60 flex items-end"
+      imgClassName="object-cover"
+      parentClassName="rounded-md"
+    >
       <div className="absolute inset-0 bg-linear-to-b from-light/10 to-dark/40 w-full h-full" />
       <span className="flex items-center gap-2 text-xs absolute top-4 right-4 rounded-md bg-secondary px-3 py-2">
         <LuTag size={20} />
@@ -66,18 +72,18 @@ export const HealthArticle = () => {
         </Motion>
       </div>
 
-      <div className="pb-[100px]">
-        {loading || articles.length === 0 ? (
-          <div className="flex items-center justify-center min-h-60">
-            <p>Loading...</p>
-          </div>
+      <div className="pb-25">
+        {loading ? (
+          <LoadingState />
+        ) : articles.length === 0 ? (
+          <EmptyState title="Belum ada artikel" description="Artikel kesehatan akan segera dipublikasikan. Silakan kembali lagi nanti." />
         ) : (
           <>
             <div className="block lg:hidden relative">
               <Background
                 src={getImageUrl(currentArticle.photo)}
                 alt={currentArticle.title}
-                className="w-full min-h-60 flex items-end h-[400px]"
+                className="w-full min-h-60 flex items-end h-100"
                 imgClassName="object-cover"
                 parentClassName="rounded-md"
               >

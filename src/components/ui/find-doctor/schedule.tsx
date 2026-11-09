@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { Button, Dropdown, Img, Motion, Pagination } from "@/components";
+import { Button, Dropdown, EmptyState, Img, LoadingState, Motion, Pagination } from "@/components";
 import { getDoctorSchedule } from "@/services/doctor-schedule.service";
 import axios from "axios";
 
@@ -152,27 +152,55 @@ export const Schedule = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 py-8 border-b border-gray/50">
         <div className="w-full space-y-2">
           <h4 className="font-semibold text-primary">Spesialis</h4>
-          <Dropdown className="top-14" parentClassName="w-full min-h-12" data={listSpecialist} handleFiltered={handleFilteredSpecialist} defaultValue="semua" displayValue={specialistDisplay} />
+          <Dropdown
+            className="top-14"
+            parentClassName="w-full min-h-12"
+            data={listSpecialist}
+            handleFiltered={handleFilteredSpecialist}
+            defaultValue="semua"
+            displayValue={specialistDisplay}
+          />
         </div>
         <div className="w-full space-y-2">
           <h4 className="font-semibold text-primary">Hari</h4>
-          <Dropdown className="top-14" parentClassName="w-full min-h-12" data={dayOptions} handleFiltered={handleFilteredDay} defaultValue="semua" displayValue={day || "semua"} />
+          <Dropdown
+            className="top-14"
+            parentClassName="w-full min-h-12"
+            data={dayOptions}
+            handleFiltered={handleFilteredDay}
+            defaultValue="semua"
+            displayValue={day || "semua"}
+          />
         </div>
         <div className="w-full space-y-2 flex items-end gap-2">
           <div className="w-full">
             <h4 className="font-semibold text-primary">Dokter</h4>
-            <Dropdown className="top-14" parentClassName="w-full min-h-12" data={listDoctor} handleFiltered={handleFilteredDoctor} defaultValue="semua" displayValue={doctorDisplay} />
+            <Dropdown
+              className="top-14"
+              parentClassName="w-full min-h-12"
+              data={listDoctor}
+              handleFiltered={handleFilteredDoctor}
+              defaultValue="semua"
+              displayValue={doctorDisplay}
+            />
           </div>
-          <button type="button" onClick={handleReset} className="h-12 px-4 py-2 mt-6 text-sm font-semibold text-white bg-primary rounded hover:bg-primary/90 transition">
+          <button
+            type="button"
+            onClick={handleReset}
+            className="h-12 px-4 py-2 mt-6 text-sm font-semibold text-white bg-primary rounded hover:bg-primary/90 transition"
+          >
             Reset
           </button>
         </div>
       </div>
       <div className="w-full mb-8 space-y-8">
         {loading ? (
-          <div className="flex justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-          </div>
+          <LoadingState />
+        ) : doctorSchedule.length === 0 ? (
+          <EmptyState
+            title="Jadwal dokter tidak ditemukan"
+            description="Belum ada jadwal yang cocok. Coba ubah filter spesialis, hari atau dokter."
+          />
         ) : (
           doctorSchedule.map((schedule) => {
             const formattedSchedule = formatScheduleByDay(schedule.schedule);

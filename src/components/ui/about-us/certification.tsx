@@ -36,6 +36,8 @@ export const Certification = () => {
       parentClassName="space-y-8 px-0!"
       className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
       loading={loading}
+      emptyTitle="Belum ada sertifikasi atau penghargaan"
+      emptyDescription="Sertifikasi dan penghargaan klinik akan ditampilkan di sini."
     >
       {data.map((item: any, index: number) => (
         <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={item.id} className="rounded-lg text-dark bg-light">

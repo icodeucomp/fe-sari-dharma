@@ -45,9 +45,19 @@ export const Service = () => {
         parentClassName="py-14 space-y-8"
         className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
         loading={loading}
+        emptyTitle="Belum ada layanan unggulan"
+        emptyDescription="Layanan unggulan klinik akan segera ditampilkan di sini."
       >
         {data.map((item: any, index: number) => (
-          <Motion tag="div" initialY={30} animateY={0} duration={1} delay={index * 0.1} key={item.id} className="rounded-lg shadow-lg min-h-400 text-dark bg-light">
+          <Motion
+            tag="div"
+            initialY={30}
+            animateY={0}
+            duration={1}
+            delay={index * 0.1}
+            key={item.id}
+            className="rounded-lg shadow-lg min-h-400 text-dark bg-light"
+          >
             <Img src={getImageUrl(item.photo)} alt={item.name} className="w-full rounded-lg h-60" cover />
             <div className="px-4 my-4 space-y-4">
               <h4 className="text-xl font-semibold sm:text-2xl line-clamp-1">{item.name}</h4>

@@ -5,7 +5,7 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
 import { useRouter } from "next/navigation";
 
-import { Button, Img, Motion, Pagination } from "@/components";
+import { Button, EmptyState, Img, LoadingState, Motion, Pagination } from "@/components";
 
 import { GoArrowRight } from "react-icons/go";
 import { IoCalendarOutline } from "react-icons/io5";
@@ -32,7 +32,10 @@ const Card = ({ date, title, pathUrl, pathImg, id }: { pathImg: string; date: st
       </div>
       <h4 className="h-12 mt-2 text-base font-semibold sm:h-14 sm:text-lg text-dark line-clamp-2">{title}</h4>
 
-      <Button onClick={() => router.push(`/media-information/community-events/${pathUrl}/${id}`)} className="flex items-center gap-2 mt-4 btn-outline group w-max">
+      <Button
+        onClick={() => router.push(`/media-information/community-events/${pathUrl}/${id}`)}
+        className="flex items-center gap-2 mt-4 btn-outline group w-max"
+      >
         Lihat <GoArrowRight className="fill-primary group-hover:fill-light" size={20} />
       </Button>
     </>
@@ -54,9 +57,9 @@ export const EventsCommunities = () => {
     <>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {loading ? (
-          <h3 className="w-full col-span-1 py-16 text-lg font-semibold text-center min-h-400 sm:text-2xl md:text-3xl sm:col-span-2 lg:col-span-3 text-gray/50">Loading...</h3>
+          <LoadingState />
         ) : data.length < 1 ? (
-          <h3 className="w-full col-span-1 py-16 text-lg font-semibold text-center min-h-400 sm:text-2xl md:text-3xl sm:col-span-2 lg:col-span-3 text-gray/50">Event tidak ditemukan</h3>
+          <EmptyState title="Belum ada event" description="Event dan kegiatan komunitas akan ditampilkan di sini." />
         ) : (
           data.map((item: any, index: number) => (
             <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={index * 0.1} key={item.id}>

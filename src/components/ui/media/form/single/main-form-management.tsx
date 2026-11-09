@@ -38,8 +38,7 @@ export const MainFormManagement = () => {
       document.execCommand("copy");
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch {
-    }
+    } catch {}
 
     document.body.removeChild(textArea);
   };
@@ -51,7 +50,10 @@ export const MainFormManagement = () => {
             Survey Kepuasan
           </Motion>
           <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={0.3} className="flex justify-end">
-            <Button className={`flex items-center gap-1 btn-outline transition-all ${copied ? "bg-green-500 text-white border-green-500" : ""}`} onClick={handleCopyLink}>
+            <Button
+              className={`flex items-center gap-1 btn-outline transition-all ${copied ? "bg-green-500 text-white border-green-500" : ""}`}
+              onClick={handleCopyLink}
+            >
               {copied ? (
                 <>
                   Tersalin <FaCheck />
@@ -67,7 +69,7 @@ export const MainFormManagement = () => {
         <div>This is for form view</div>
       </div>
 
-      <div className="md:sticky self-start h-screen space-y-8 overflow-y-auto scrollbar md:top-4 w-full md:max-w-[340px] min-w-[340px]">
+      <div className="md:sticky self-start h-screen space-y-8 overflow-y-auto scrollbar md:top-4 w-full md:max-w-85 min-w-85">
         <Submenu
           menu="Akses Menu"
           title="Tentang Kami"

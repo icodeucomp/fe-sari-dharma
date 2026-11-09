@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { Button, Img, Motion, Pagination } from "@/components";
+import { Button, EmptyState, Img, LoadingState, Motion, Pagination } from "@/components";
 import { GoArrowRight } from "react-icons/go";
 import { getCareer } from "@/services/career.service";
 
@@ -36,25 +36,33 @@ export const Careers = () => {
   const [page, setPage] = React.useState<number>(1);
   const { data: response, isLoading: loading } = useQuery({
     queryKey: ["getCareer", page],
-    queryFn: () => getCareer({ page, per_page: 6, }),
+    queryFn: () => getCareer({ page, per_page: 6 }),
     placeholderData: keepPreviousData,
   });
   const data = response?.data.data ?? [];
   const totalPage = response?.data.last_page ?? 0;
 
   if (loading) {
-    return <div className="text-center py-10">Loading...</div>;
+    return <LoadingState />;
   }
 
   return (
     <>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {data.length === 0 ? (
-          <h3 className="w-full col-span-1 py-16 text-lg font-semibold text-center min-h-400 sm:text-2xl md:text-3xl sm:col-span-2 lg:col-span-3 text-gray/50">Lowongan tidak ditemukan</h3>
+          <EmptyState title="Belum ada lowongan" description="Saat ini belum ada lowongan yang dibuka. Silakan cek kembali nanti." />
         ) : (
           <>
             {data.map((item: any, index: number) => (
-              <Motion tag="div" initialY={50} animateY={0} duration={0.5} delay={index * 0.1} key={item.id} className="border border-gray/50 rounded-md overflow-hidden">
+              <Motion
+                tag="div"
+                initialY={50}
+                animateY={0}
+                duration={0.5}
+                delay={index * 0.1}
+                key={item.id}
+                className="border border-gray/50 rounded-md overflow-hidden"
+              >
                 <Card division={item.division} position={item.position} pathUrl={item.application_link} pathImg={item.photo} />
               </Motion>
             ))}

@@ -64,17 +64,25 @@ export const Tab: React.FC<TabProps> = ({ onTabClick, selectedCategoryId }) => {
 
   return (
     <div className="w-full overflow-hidden">
-      <div ref={sliderRef} onMouseDown={handleMouseDown} className={`flex space-x-4 overflow-x-auto scrollbar-hide ${isScrollable ? "cursor-grab active:cursor-grabbing" : "cursor-default"}`}>
+      <div
+        ref={sliderRef}
+        onMouseDown={handleMouseDown}
+        className={`flex space-x-4 overflow-x-auto scrollbar-hide ${isScrollable ? "cursor-grab active:cursor-grabbing" : "cursor-default"}`}
+      >
         {loading ? (
-          <Button className="shrink-0 w-40 btn-outline">Loading...</Button>
+          <Button className="shrink-0 w-40 btn-outline">Memuat...</Button>
         ) : categories.length > 0 ? (
           categories.map((category) => (
-            <Button key={category.id} className={`shrink-0 w-auto ${selectedCategoryId === category.id ? "btn-primary" : "btn-outline"}`} onClick={() => onTabClick && onTabClick(category.id)}>
+            <Button
+              key={category.id}
+              className={`shrink-0 w-auto ${selectedCategoryId === category.id ? "btn-primary" : "btn-outline"}`}
+              onClick={() => onTabClick && onTabClick(category.id)}
+            >
               {category.name}
             </Button>
           ))
         ) : (
-          <Button className="shrink-0 btn-outline">No categories found</Button>
+          <p className="py-2 text-sm italic text-gray">Belum ada kategori.</p>
         )}
       </div>
     </div>
